@@ -1,8 +1,9 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder
+class UserSeed extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,8 +12,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(DisciplineSeed::class);
-        $this->call(TeamSeed::class);
-        $this->call(UserSeed::class);
+        factory(User::class, 50)->create();
     }
 }
