@@ -16,10 +16,9 @@ Route::get('home', function() {
 	return view('test');
 });
 
-Route::group(['midlleware => web'], function (){
-	
-	Route::get('/auth/registration', 'Auth/RegistrationController@index');
-	
-	Route::post('/auth/registration', 'Auth/RegistrationController@store');
+Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function (){
+
+    Route::get('registration', 'RegistrationController@index');
+	Route::post('registration', 'RegistrationController@store');
 	
 });
