@@ -6,6 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateSteamProfilesTable extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -27,6 +28,7 @@ class CreateSteamProfilesTable extends Migration
             $table->timestamps();
         });
     }
+    
 
     /**
      * Reverse the migrations.

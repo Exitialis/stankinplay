@@ -2,7 +2,9 @@
 
 namespace App\Repositories\Contracts;
 
+use Illuminate\Http\Request;
+
 interface UserRepositoryContract extends BaseRepositoryContract
 {
-    public function saveUser($login, $email, $pass, $firstName, $lastName, $middleName, $group);
+    public function saveUser(Request $request);
 }
