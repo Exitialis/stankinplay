@@ -46,10 +46,10 @@ class RegistrationController extends Controller
         $user = $this->users->saveUser($request);
 
         if ( ! $user) {
-            return response()->json('Произошла ошибка');
+            return response()->json(flash(trans('Произошла ошибка', 'error')));
         }
 
-        return response()->json('Успешно');
+        return response()->json(flash(trans('Успешно')));
     }
 
 }

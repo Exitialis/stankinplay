@@ -16,5 +16,6 @@ require('laravel-elixir-vue');
 
 elixir(mix => {
     mix.less('app.less')
-       .webpack('app.js');
+       .webpack('app.js')
+        .styles(['toastr/build/toastr.css'], 'public/css/vendor.css', 'node_modules')
 })

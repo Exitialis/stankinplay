@@ -1,7 +1,22 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: exitialis
- * Date: 15.10.16
- * Time: 14:31
- */
+
+if ( ! function_exists('flash')) {
+
+    /**
+     * Сборка всплывающего сообщения.
+     *
+     * @param $message
+     * @param string $level
+     * @return array
+     */
+    function flash($message, $level = 'success')
+    {
+        return ['flash' =>
+            [
+                'message' => $message,
+                'level' => $level
+            ]
+        ];
+    }
+
+}

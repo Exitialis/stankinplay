@@ -10,15 +10,31 @@ window._ = require('lodash');
 window.$ = window.jQuery = require('jquery');
 require('bootstrap-sass');
 
-window.Vue = require('vue');
+window.Vue = require('vue/dist/vue.js');
 require('vue-resource');
+
+window.bootstrap = require('bootstrap-material-design/scripts');
+$.material.init();
 
 window.toastr = require('toastr');
 
-Vue.http.interceptors.push((request, next) => {
-    request.headers['X-CSRF-TOKEN'] = Laravel.csrfToken;
+Vue.http.headers.common['X-CSRF-TOKEN'] = $('meta[name=csrf-token]').attr('content');
 
-    next();
+Vue.http.interceptors.push((request, next) => {
+    next(response => {
+
+        if (response.body.redirect)
+            location.href = response.body.redirect
+
+        if (response.body.flash) {
+            window.toastr[response.body.flash.level || 'success'](response.body.flash.message)
+            console.log('KEK', response.body.flash);
+        }
+
+
+        if (response.status === 429)
+            window.toastr.error('Too Many Attempts.')
+    })
 });
 
 // import Echo from "laravel-echo"

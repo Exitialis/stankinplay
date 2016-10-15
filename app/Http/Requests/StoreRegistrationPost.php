@@ -24,9 +24,9 @@ class StoreRegistrationPost extends FormRequest
     public function rules()
     {
         return [
-            'login' => 'required|max:255',
-            'email' => 'required|email',
-            'pass' => 'required|max:255',
+            'login' => 'required|max:255|unique:users,login',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|max:255',
             'first_name' => 'required|max:255',
             'last_name' => 'required|max:255',
             'middle_name' => 'required|max:255',

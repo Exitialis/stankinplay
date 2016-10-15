@@ -1,42 +1,41 @@
 @extends('vendor.index')
 
-<registration inline-template>
-    <div>
-        {!! title() !!}
-        
-        <form @submit.prevent="store('{{ route('registration.store') }}')" action="">
+@section('content')
+    <registration inline-template>
+        <div class="row">
+            <div class="col-lg-6 col-lg-offset-3 col-sm-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading text-center">
+                        <h2>{{ trans('Регистрация в секцию киберспорта') }}</h2>
+                    </div>
 
-            {!! label(trans('Логин'), true) !!}
-            {!! text('form.login', ['placeholder' => 'login', 'v-focus']) !!}
+                    <div class="panel-body">
+                        <form class="form-horizontal" @submit.prevent="store('{{ route('registration.store') }}')">
 
-            {!! label(trans('E-mail'), true) !!}
-            {!! input('email', 'form.email', ['placeholder' => 'test@mail.ru']) !!}
+                            {!! text('form.login', trans('Логин'), true, ['placeholder' => 'login', 'horizontal' => 1]) !!}
 
-            {!! label(trans('Пароль'), true) !!}
-            {!! text('form.password', ['type' => 'password']) !!}
+                            {!! input('email', 'form.email', trans('E-mail'), true, ['placeholder' => 'test@mail.ru', 'horizontal' => 1]) !!}
 
-            {!! label(trans('Фамилия'), true) !!}
-            {!! text('form.lastName', ['placeholder' => 'Иванов']) !!}
+                            {!! text('form.password', trans('Пароль'), true, ['type' => 'password', 'horizontal' => 1]) !!}
 
-            {!! label(trans('Имя'), true) !!}
-            {!! text('form.firstName', ['placeholder' => 'Иван']) !!}
+                            {!! text('form.last_name', trans('Фамилия'), true, ['placeholder' => 'Иванов', 'horizontal' => 1]) !!}
 
-            {!! label(trans('Отчество'), true) !!}
-            {!! text('form.middleName', ['placeholder' => 'Иванович']) !!}
+                            {!! text('form.first_name', trans('Имя'), true, ['placeholder' => 'Иван', 'horizontal' => 1]) !!}
 
-            {!! label(trans('Группа в университете в формате XXX-11-11'), true) !!}
-            {!! text('form.group', ['placeholder' => 'XXX-11-11']) !!}
+                            {!! text('form.middle_name', trans('Отчество'), true, ['placeholder' => 'Иванович', 'horizontal' => 1]) !!}
 
-            {!! checkbox('form.captain', trans('Я капитан')) !!}
+                            {!! text('form.group', trans('Группа'), true, ['placeholder' => 'XXX-11-11', 'horizontal' => 1]) !!}
 
-            <button type="submit" class="btn btn-primary btn-block" :disabled="loading">
-                <i class="fa fa-spin fa-spinner" v-if="loading"></i> {{ trans('Зарегистрироваться') }}
-            </button>
+                            {!! checkbox('form.captain', trans('Я капитан'), ['horizontal' => 1]) !!}
 
+                            <button type="submit" class="btn btn-primary btn-raised btn-block" :disabled="loading">
+                                <i class="fa fa-spin fa-spinner" v-if="loading"></i> {{ trans('Зарегистрироваться') }}
+                            </button>
 
-            <a href="{{ route('password.create') }}" class="text-muted small">
-                {{ trans('resources-views-main-login.E0B9dO4SY9eEd3N97q007') }}
-            </a>
-        </form>
-    </div>
-</registration>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </registration>
+@endsection

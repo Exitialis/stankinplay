@@ -15,9 +15,9 @@ class ComponentsServiceProvider extends ServiceProvider
     {
         \Form::component('compTitle', 'components.title', ['name', 'options' => []]);
         \Form::component('compLabel', 'components.label', ['name', 'required']);
-        \Form::component('compInput', 'components.input', ['type' => 'text', 'model', 'options' => []]);
+        \Form::component('compInput', 'components.input', ['type' => 'text', 'model', 'label', 'required' => false, 'options' => []]);
         \Form::component('compSelect', 'components.select', ['model', 'prop', 'options' => []]);
-        \Form::component('compCheckbox', 'components.checkbox', ['model', 'label']);
+        \Form::component('compCheckbox', 'components.checkbox', ['model', 'label', 'options' => []]);
     }
 
     /**

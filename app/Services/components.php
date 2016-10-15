@@ -53,15 +53,15 @@ if ( ! function_exists('label')) {
 
 if ( ! function_exists('input')) {
 
-    function input($type, $model, array $options = []) {
-        return \Form::compInput($type, $model, $options);
+    function input($type, $model, $label, $required, array $options = []) {
+        return \Form::compInput($type, $model, $label, $required, $options);
     }
 }
 
 if ( ! function_exists('text')) {
 
-    function text($model, array $options = []) {
-        return input('text', $model, $options);
+    function text($model, $label, $required = false, array $options = []) {
+        return input('text', $model, $label, $required, $options);
     }
 }
 
@@ -88,8 +88,8 @@ if ( ! function_exists('select')) {
 
 if ( ! function_exists('checkbox')) {
 
-    function checkbox($model, $label) {
-        return \Form::compCheckbox($model, $label);
+    function checkbox($model, $label, array $options = []) {
+        return \Form::compCheckbox($model, $label, $options);
     }
 }
 
