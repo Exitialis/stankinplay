@@ -23,7 +23,6 @@ class CreateCsgoProfilesTable extends Migration
             $table->integer('kills_headshot')->unsigned();
             $table->integer('shots_fired')->unsigned();
             $table->integer('shots_hit')->unsigned();
-            $table->integer('shots_hit')->unsigned();
             $table->integer('mvps')->unsigned();
 
             $table->timestamps();

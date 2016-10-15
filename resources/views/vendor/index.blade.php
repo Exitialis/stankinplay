@@ -2,9 +2,10 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>@yield('title')</title>
+    <title> {{ config('app.name') }}@yield('title')</title>
 </head>
 <body>
+
 
 </body>
 </html>

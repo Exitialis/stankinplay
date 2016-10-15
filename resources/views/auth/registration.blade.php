@@ -1,0 +1,2 @@
+@extends('vendor.index')
+

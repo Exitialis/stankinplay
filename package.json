@@ -14,5 +14,8 @@
     "lodash": "^4.14.0",
     "vue": "^2.0.0",
     "vue-resource": "^0.9.3"
+  },
+  "dependencies": {
+    "bootstrap-material-design": "^0.5.10"
   }
 }

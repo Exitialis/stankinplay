@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7d042eddb27eec9e80e81a0d09dadaf7",
-    "content-hash": "c180064594b0ea388098b15fe7ded3a8",
+    "hash": "cceb0048141d0014d3beb78869014b2c",
+    "content-hash": "0a35103b51c801042d0ac6787e0180c8",
     "packages": [
         {
             "name": "barryvdh/laravel-ide-helper",
@@ -677,94 +677,6 @@
                 "parser"
             ],
             "time": "2014-09-09 13:34:57"
-        },
-        {
-            "name": "exitialis/repository",
-            "version": "0.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Exitialis/repository.git",
-                "reference": "19796a2fb43c1149c03bbc4d0b95af5b90e7b3c2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Exitialis/repository/zipball/19796a2fb43c1149c03bbc4d0b95af5b90e7b3c2",
-                "reference": "19796a2fb43c1149c03bbc4d0b95af5b90e7b3c2",
-                "shasum": ""
-            },
-            "require": {
-                "hautelook/phpass": "^1.0",
-                "illuminate/support": "^5.3.0",
-                "laravel/framework": "^5.3.0",
-                "php": ">=5.4.0"
-            },
-            "require-dev": {
-                "laravel/laravel": "dev-develop",
-                "orchestra/testbench": "^3.3",
-                "phpunit/phpunit": "^5.5"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Exitialis\\Repository\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Exitialis",
-                    "email": "lpexitialis@gmail.com"
-                }
-            ],
-            "description": "Repository pattern for laravel",
-            "time": "2016-09-15 23:45:20"
-        },
-        {
-            "name": "hautelook/phpass",
-            "version": "1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/hautelook/phpass.git",
-                "reference": "b1e7b7a1d735b05856a09e36d20d6060e31b590d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/hautelook/phpass/zipball/b1e7b7a1d735b05856a09e36d20d6060e31b590d",
-                "reference": "b1e7b7a1d735b05856a09e36d20d6060e31b590d",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.6.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Hautelook": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Public Domain"
-            ],
-            "authors": [
-                {
-                    "name": "Solar Designer",
-                    "email": "solar@openwall.com",
-                    "homepage": "http://openwall.com/phpass/"
-                }
-            ],
-            "description": "Portable PHP password hashing framework",
-            "homepage": "http://github.com/hautelook/phpass/",
-            "keywords": [
-                "blowfish",
-                "crypt",
-                "password",
-                "security"
-            ],
-            "time": "2012-08-31 00:00:00"
         },
         {
             "name": "jakub-onderka/php-console-color",
