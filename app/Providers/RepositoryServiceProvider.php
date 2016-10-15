@@ -26,6 +26,10 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(UserRepositoryContract::class, UserRepository::class);
+        $config = config('repositories');
+
+        foreach ($config as $abstract => $concrete) {
+            $this->app->bind($abstract, $concrete);
+        }
     }
 }
