@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Role extends Model
 {
+    protected $guarded = [];
 
     public function permission()
     {
-        return $this->belongsToMany(Permission::class);
+        return $this->belongsToMany(Permission::class, 'role_permission');
     }
 
     public function user()

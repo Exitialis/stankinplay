@@ -1,5 +1,6 @@
 <?php
 
+use App\Repositories\Contracts\RoleRepositoryContract;
 use Illuminate\Database\Seeder;
 
 class RoleSeeder extends Seeder
@@ -11,6 +12,8 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
+        $roles = app(RoleRepositoryContract::class);
         
+        $roles->create();
     }
 }

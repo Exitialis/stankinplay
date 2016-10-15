@@ -16,10 +16,7 @@ use App\Models\Team;
 
 $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
 
-    $teams = Team::pluck('id')->toArray();
-
     return [
-        'team_id' => $faker->randomElement($teams),
         'login' => $faker->userName,
         'email' => $faker->email,
         'password' => bcrypt('12345'),
