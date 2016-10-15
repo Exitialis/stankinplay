@@ -2,29 +2,37 @@
 
 <registration inline-template>
     <div>
+        {!! title() !!}
+        
         <form @submit.prevent="store('{{ route('registration.store') }}')" action="">
 
-            $table->string('login');
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->string('first_name');
-            $table->string('last_name');
-            $table->string('middle_name');
-            $table->string('group');
-
             {!! label(trans('Логин'), true) !!}
-            {!! input('login', 'form.email', ['placeholder' => 'example@simex.global', 'v-focus']) !!}
+            {!! text('form.login', ['placeholder' => 'login', 'v-focus']) !!}
 
-            {!! label(trans('resources-views-main-login.uqZEcaogVpatyMXlTd84o'), true) !!}
+            {!! label(trans('E-mail'), true) !!}
+            {!! input('email', 'form.email', ['placeholder' => 'test@mail.ru']) !!}
+
+            {!! label(trans('Пароль'), true) !!}
             {!! text('form.password', ['type' => 'password']) !!}
 
-            {!! checkbox('form.remember', trans('resources-views-main-login.S9MuVs1cLSquqbbKn3bhw')) !!}
+            {!! label(trans('Фамилия'), true) !!}
+            {!! text('form.lastName', ['placeholder' => 'Иванов']) !!}
 
-            <div class="gutter">
-                <button type="submit" class="btn btn-primary btn-block" :disabled="loading">
-                    <i class="fa fa-spin fa-spinner" v-if="loading"></i> {{ trans('resources-views-main-login.jrPdIy4u2QUmPPXU0PVy6') }}
-                </button>
-            </div>
+            {!! label(trans('Имя'), true) !!}
+            {!! text('form.firstName', ['placeholder' => 'Иван']) !!}
+
+            {!! label(trans('Отчество'), true) !!}
+            {!! text('form.middleName', ['placeholder' => 'Иванович']) !!}
+
+            {!! label(trans('Группа в университете в формате XXX-11-11'), true) !!}
+            {!! text('form.group', ['placeholder' => 'XXX-11-11']) !!}
+
+            {!! checkbox('form.captain', trans('Я капитан')) !!}
+
+            <button type="submit" class="btn btn-primary btn-block" :disabled="loading">
+                <i class="fa fa-spin fa-spinner" v-if="loading"></i> {{ trans('Зарегистрироваться') }}
+            </button>
+
 
             <a href="{{ route('password.create') }}" class="text-muted small">
                 {{ trans('resources-views-main-login.E0B9dO4SY9eEd3N97q007') }}
