@@ -51,5 +51,5 @@ class RegistrationController extends Controller
 
         return response()->json('Успешно');
     }
-    
+
 }
