@@ -9,6 +9,8 @@ use App\Http\Controllers\Controller;
 
 class RegistrationController extends Controller
 {
+    
+
     public function index(){
         return view('auth.registration');
     }
