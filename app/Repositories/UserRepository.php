@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\User;
 use App\Repositories\Contracts\UserRepositoryContract;
+use Illuminate\Http\Request;
 
 class UserRepository extends BaseRepository implements UserRepositoryContract
 {
@@ -20,26 +21,19 @@ class UserRepository extends BaseRepository implements UserRepositoryContract
     /**
      * Создать нового пользователя.
      *
-     * @param $login
-     * @param $email
-     * @param $pass
-     * @param $firstName
-     * @param $lastName
-     * @param $middleName
-     * @param $group
-     *
+     * @param Request $request
      * @return User
      */
-    public function saveUser($login, $email, $pass, $firstName, $lastName, $middleName, $group)
+    public function saveUser(Request $request)
     {
         return $this->create([
-            'login' => $login,
-            'email' => $email,
-            'password' => $pass,
-            'first_name' => $firstName,
-            'last_name' => $lastName,
-            'middle_name' => $middleName,
-            'group' => $group
+            'login' => $request->input('login'),
+            'email' => $request->input('email'),
+            'password' => $request->input('pass'),
+            'first_name' => $request->input('firstName'),
+            'last_name' => $request->input('lastName'),
+            'middle_name' => $request->input('middleName'),
+            'group' => $request->input('group')
         ]);
     }
 
