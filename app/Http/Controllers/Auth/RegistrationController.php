@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\auth;
 
+use App\Http\Requests\StoreRegistrationPost;
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 class RegistrationController extends Controller
@@ -13,7 +13,8 @@ class RegistrationController extends Controller
         return view('auth.registration');
     }
 
-    public function store(Request $request){
-
+    public function store(StoreRegistrationPost $request){
+        
     }
+    
 }
