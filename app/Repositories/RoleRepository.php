@@ -2,9 +2,8 @@
 
 namespace App\Repositories;
 
-use App\Repositories\Contracts\RoleRepositoryContract;
 use App\Models\Role;
-use Illuminate\Database\Eloquent\Model;
+use App\Repositories\Contracts\RoleRepositoryContract;
 
 class RoleRepository extends BaseRepository implements RoleRepositoryContract
 {
@@ -20,15 +19,16 @@ class RoleRepository extends BaseRepository implements RoleRepositoryContract
     /**
      * Создание permission для роли.
      *
-     * @param $role
+     * @param $role_id
      * @param $label
      * @param $name
      * @param $route
-     * @return Model
+     *
+     * @return Role
      */
-    public function createPermission($role, $label, $name, $route)
+    public function createPermission($role_id, $label, $name, $route)
     {
-        $role = $this->getRole($role);
+        $role = $this->findOrFail($role_id);
 
         return $role->permission()->create([
             'label' => $label,
@@ -37,9 +37,16 @@ class RoleRepository extends BaseRepository implements RoleRepositoryContract
         ]);
     }
 
-    public function checkPermission($role, $label)
+    /**
+     * Проверить, что у роли есть permission.
+     *
+     * @param $role_id
+     * @param $label
+     * @return bool
+     */
+    public function checkPermission($role_id, $label)
     {
-        $role = $this->getRole($role);
+        $role = $this->findOrFail($role_id);
 
         $role = $role->whereHas('permission', function($query) {
             $query->where(compact('label'));
@@ -52,12 +59,4 @@ class RoleRepository extends BaseRepository implements RoleRepositoryContract
         return true;
     }
 
-    protected function getRole($role)
-    {
-        if ( ! $role instanceof Model) {
-            return $this->find($role);
-        }
-
-        return $role;
-    }
 }

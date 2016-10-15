@@ -20,6 +20,14 @@ interface BaseRepositoryContract
     public function find($id);
 
     /**
+     * Найти модель или выбросить ошибку.
+     *
+     * @param $id
+     * @return mixed
+     */
+    public function findOrFail($id);
+
+    /**
      * Создать новую сущность.
      *
      * @param array $attributes

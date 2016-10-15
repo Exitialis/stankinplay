@@ -34,6 +34,18 @@ abstract class BaseRepository implements BaseRepositoryContract
     }
 
     /**
+     * Найти модель или выбросить ошибку.
+     *
+     * @param $id
+     * @return mixed
+     */
+    public function findOrFail($id)
+    {
+        return $this->model->findOrFail($id);
+    }
+
+
+    /**
      * Создать новую сущность.
      *
      * @param array $attributes
