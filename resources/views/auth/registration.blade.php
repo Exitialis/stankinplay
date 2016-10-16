@@ -28,6 +28,17 @@
 
                             {!! checkbox('form.captain', trans('Я капитан'), ['horizontal' => 1]) !!}
 
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-5 col-sm-offset-2">
+                                        {!! Recaptcha::render() !!}
+                                    </div>
+                                    @if($errors->has('g-recaptcha-response'))
+                                        <div class="help-block">{{ $errors->get('g-recaptcha-response')[0] }}</div>
+                                    @endif
+                                </div>
+                            </div>
+
                             <button type="submit" class="btn btn-primary btn-raised btn-block" :disabled="loading">
                                 <i class="fa fa-spin fa-spinner" v-if="loading"></i> {{ trans('Зарегистрироваться') }}
                             </button>

@@ -4,6 +4,9 @@ Route::get('home', function() {
 	return view('test');
 });
 
+Route::get('test', 'HomeController@test');
+Route::post('test', 'HomeController@testReq');
+
 Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function (){
 
     Route::get('registration', 'RegistrationController@index')->name('registration.get');

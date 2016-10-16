@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5d518a4769e59341acd714eb74c76659",
-    "content-hash": "bfaef1e06415e848aecdf99694379829",
+    "hash": "030283f4543974dc5b4c9bad9e225e45",
+    "content-hash": "8d63849e33583509ec28cf1e73d53060",
     "packages": [
         {
             "name": "barryvdh/laravel-ide-helper",
@@ -677,6 +677,58 @@
                 "parser"
             ],
             "time": "2014-09-09 13:34:57"
+        },
+        {
+            "name": "greggilbert/recaptcha",
+            "version": "2.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/greggilbert/recaptcha.git",
+                "reference": "fb835b2ac089e52e643e97b93b4060330485955d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/greggilbert/recaptcha/zipball/fb835b2ac089e52e643e97b93b4060330485955d",
+                "reference": "fb835b2ac089e52e643e97b93b4060330485955d",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~5.1",
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.1-dev"
+                }
+            },
+            "autoload": {
+                "classmap": [
+                    "src/migrations"
+                ],
+                "psr-4": {
+                    "Greggilbert\\Recaptcha\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Greg Gilbert",
+                    "email": "greg@greg-gilbert.com"
+                }
+            ],
+            "description": "reCAPTCHA Validator for Laravel 5",
+            "homepage": "http://github.com/greggilbert/recaptcha",
+            "keywords": [
+                "captcha",
+                "laravel",
+                "laravel5",
+                "recaptcha"
+            ],
+            "time": "2016-02-17 12:41:57"
         },
         {
             "name": "jakub-onderka/php-console-color",

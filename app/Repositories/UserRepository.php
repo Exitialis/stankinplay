@@ -29,7 +29,7 @@ class UserRepository extends BaseRepository implements UserRepositoryContract
         return $this->model->firstOrCreate(['login' => $request->input('login')], [
             'login' => $request->input('login'),
             'email' => $request->input('email'),
-            'password' => $request->input('password'),
+            'password' => bcrypt($request->input('password')),
             'first_name' => $request->input('first_name'),
             'last_name' => $request->input('last_name'),
             'middle_name' => $request->input('middle_name'),

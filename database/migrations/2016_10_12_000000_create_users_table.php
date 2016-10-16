@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->integer('team_id')->unsigned()->nullable()->default(null);
             $table->foreign('team_id')->references('id')->on('teams')->onDelete('set null');
 
-            $table->string('login');
+            $table->string('login')->unique();
             $table->string('email')->unique();
             $table->string('password');
             $table->string('first_name');

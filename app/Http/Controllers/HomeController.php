@@ -8,8 +8,16 @@ use App\Http\Requests;
 
 class HomeController extends Controller
 {
-	public function index()
+	public function test()
 	{
-		return view('test');
-	}   
+		return view('test1');
+	}
+
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function testReq()
+    {
+        return response()->json(flash('kek'));
+    }
 }

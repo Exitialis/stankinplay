@@ -22,16 +22,14 @@ Vue.http.headers.common['X-CSRF-TOKEN'] = $('meta[name=csrf-token]').attr('conte
 
 Vue.http.interceptors.push((request, next) => {
     next(response => {
+        
+        if (response.data.redirect)
+            location.href = response.data.redirect
 
-        if (response.body.redirect)
-            location.href = response.body.redirect
-
-        if (response.body.flash) {
-            window.toastr[response.body.flash.level || 'success'](response.body.flash.message)
-            console.log('KEK', response.body.flash);
+        if (response.data.flash) {
+            window.toastr[response.data.flash.level || 'success'](response.data.flash.message)
         }
-
-
+        
         if (response.status === 429)
             window.toastr.error('Too Many Attempts.')
     })

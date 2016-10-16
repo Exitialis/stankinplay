@@ -26,8 +26,11 @@ Vue.component('registration', {
                 this.errors = {}
             }).catch(response => {
                 this.loading = false;
-                if (response.status === 422)
+                if (response.status === 422) {
                     this.errors = JSON.parse(response.body);
+                    window.toastr.error('При регистрации произошла ошибка.')
+                }
+
             })
         }
     },
