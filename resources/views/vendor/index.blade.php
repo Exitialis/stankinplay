@@ -8,11 +8,19 @@
     <link rel="stylesheet" href="{{ asset('css/vendor.css') }}">
 </head>
 <body>
+
+    @include('components.header')
+
     <div id="wrapper" class="container">
+
+
         @section('content')
 
         @show
     </div>
+
+    @include('components.footer')
+
     <script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>
