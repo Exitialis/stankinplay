@@ -10,7 +10,7 @@
                     </div>
 
                     <div class="panel-body">
-                        <form class="form-horizontal" @submit.prevent="store('{{ route('registration.store') }}')">
+                        <form v-if="!user" autocomplete="off" class="form-horizontal" @submit.prevent="store('{{ route('registration.store') }}')">
 
                             {!! text('form.login', trans('Логин'), true, ['placeholder' => 'login', 'horizontal' => 1]) !!}
 
@@ -28,7 +28,7 @@
 
                             {!! checkbox('form.captain', trans('Я капитан'), ['horizontal' => 1]) !!}
 
-                            <div class="form-group">
+                           {{-- <div class="form-group">
                                 <div class="row">
                                     <div class="col-sm-5 col-sm-offset-2">
                                         {!! Recaptcha::render() !!}
@@ -37,7 +37,7 @@
                                         <div class="help-block">{{ $errors->get('g-recaptcha-response')[0] }}</div>
                                     @endif
                                 </div>
-                            </div>
+                            </div>--}}
 
                             <button type="submit" class="btn btn-primary btn-raised btn-block" :disabled="loading">
                                 <i class="fa fa-spin fa-spinner" v-if="loading"></i> {{ trans('Зарегистрироваться') }}

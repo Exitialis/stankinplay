@@ -1,26 +1,19 @@
-Vue.component('registration', {
+Vue.component('login', {
 
     data() {
         return {
             errors: {},
             form: {
                 login: null,
-                email: null,
                 password: null,
-                last_name: null,
-                first_name: null,
-                middle_name: null,
-                group: null,
-                captain: false
             },
-            user: null,
             loading: false,
             confirm: false
         }
     },
 
     methods: {
-        store(url) {
+        login(url) {
             this.$http.post(url, this.form).then(response => {
                 this.loading = false;
                 this.confirm = true;
@@ -29,17 +22,10 @@ Vue.component('registration', {
                 this.loading = false;
                 if (response.status === 422) {
                     this.errors = JSON.parse(response.body);
-                    window.toastr.error('При регистрации произошла ошибка.')
+                    window.toastr.error('При авторизации произошла ошибка.')
                 }
-
-            })
+            });
         }
-    },
-
-    ready() {
-        
     }
-
-
 
 });
