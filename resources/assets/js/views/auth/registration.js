@@ -15,7 +15,8 @@ Vue.component('registration', {
             },
             user: null,
             loading: false,
-            confirm: false
+            confirm: false,
+            registration: false
         }
     },
 
@@ -36,10 +37,7 @@ Vue.component('registration', {
         }
     },
 
-    ready() {
-        
+    mounted() {
+        this.registration = JSON.parse(localStorage.getItem('registration'));
     }
-
-
-
 });

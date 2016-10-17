@@ -10,7 +10,7 @@
                     </div>
 
                     <div class="panel-body">
-                        <form v-if="!user" autocomplete="off" class="form-horizontal" @submit.prevent="store('{{ route('registration.store') }}')">
+                        <form v-if="!registration" autocomplete="off" class="form-horizontal" @submit.prevent="store('{{ route('registration.store') }}')">
 
                             {!! text('form.login', trans('Логин'), true, ['placeholder' => 'login', 'horizontal' => 1]) !!}
 
@@ -44,6 +44,10 @@
                             </button>
 
                         </form>
+                        <div v-else>
+                            <h3>Вы успешно зарегестрированы в секции киберспорта.</h3>
+                        </div>
+
                     </div>
                 </div>
             </div>
