@@ -13,7 +13,6 @@ Vue.component('registration', {
                 group: null,
                 captain: false
             },
-            user: null,
             loading: false,
             confirm: false,
             registration: false
@@ -25,9 +24,11 @@ Vue.component('registration', {
             this.$http.post(url, this.form).then(response => {
                 this.loading = false;
                 this.confirm = true;
-                this.errors = {}
+                this.errors = {};
+                localStorage.setItem('registration', true);
             }).catch(response => {
                 this.loading = false;
+                localStorage.setItem('registration', false);
                 if (response.status === 422) {
                     this.errors = JSON.parse(response.body);
                     window.toastr.error('При регистрации произошла ошибка.')

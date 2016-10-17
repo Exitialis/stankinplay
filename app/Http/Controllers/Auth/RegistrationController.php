@@ -49,7 +49,10 @@ class RegistrationController extends Controller
             return response()->json(flash(trans('Произошла ошибка', 'error')));
         }
 
-        return response()->json(flash(trans('Успешно')));
+        $flash = flash(trans('Успешно'));
+        $redirect = route('login.get');
+
+        return response()->json(compact('flash', 'redirect'));
     }
 
 }
