@@ -6,12 +6,14 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
     public function index()
     {
-        return view('auth.login');
+        $auth = Auth::guard()->check();
+        return view('auth.login' ,compact('auth'));
     }
 
     public function login(Request $request)
@@ -28,8 +30,9 @@ class LoginController extends Controller
 
         if ($status) {
             $user = \Auth::user();
-            $flash = flash('Авторизация успешно завершена!');
-            return response()->json(compact('user', 'flash'));
+            $flash = flash(trans('Авторизация успешно завершена!'));
+            $redirect = route('profile.get');
+            return response()->json(compact('user', 'flash', 'redirect'));
         }
 
         return response()->json(flash('При авторизации произошла ошибка', 'error'));

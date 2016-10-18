@@ -7,6 +7,7 @@ use App\Repositories\Contracts\UserRepositoryContract;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class RegistrationController extends Controller
 {
@@ -32,7 +33,9 @@ class RegistrationController extends Controller
      */
     public function index()
     {
-        return view('auth.registration');
+        $auth = Auth::guard()->check();
+
+        return view('auth.registration', compact('auth'));
     }
 
     /**
