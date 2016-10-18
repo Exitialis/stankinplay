@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
-class RedirectIfAuthenticated
+class Authenticated
 {
     /**
      * Handle an incoming request.
@@ -17,8 +17,9 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if (!Auth::guard($guard)->check()) {
-            return redirect('/auth/login');
+        if ( ! \Auth::guard($guard)->check()) {
+            notificate('Необходима авторизация', 'error');
+            return redirect()->route('login.get');
         }
 
         return $next($request);

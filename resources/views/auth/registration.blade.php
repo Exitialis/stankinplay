@@ -4,7 +4,7 @@
     <registration inline-template>
         <div class="row">
             <div class="col-lg-6 col-lg-offset-3 col-sm-12">
-                <div class="panel panel-primary">
+                <div class="panel panel-dark">
                     <div class="panel-heading text-center">
                         <h2>{{ trans('Регистрация в секцию киберспорта') }}</h2>
                     </div>
@@ -38,10 +38,14 @@
                                     @endif
                                 </div>
                             </div>--}}
+                            <div class="row">
+                                <div class="col-sm-6 col-sm-offset-3">
+                                    <button type="submit" class="btn btn-success btn-block" :disabled="loading">
+                                        <i class="fa fa-spin fa-spinner" v-if="loading"></i> {{ trans('Зарегистрироваться') }}
+                                    </button>
+                                </div>
+                            </div>
 
-                            <button type="submit" class="btn btn-primary btn-raised btn-block" :disabled="loading">
-                                <i class="fa fa-spin fa-spinner" v-if="loading"></i> {{ trans('Зарегистрироваться') }}
-                            </button>
 
                         </form>
                         <div v-else>

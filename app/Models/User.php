@@ -47,4 +47,14 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Team::class);
     }
+    
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'user_role');
+    }
+
+    public function hasRole($role_id)
+    {
+        return (bool) $this->roles()->where(compact('role_id'))->count();
+    }
 }

@@ -20,3 +20,12 @@ if ( ! function_exists('flash')) {
     }
 
 }
+
+if ( ! function_exists('notificate')) {
+
+    function notificate($message, $level)
+    {
+        Session::flash('notificate', flash($message, $level));
+    }
+
+}

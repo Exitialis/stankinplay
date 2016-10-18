@@ -1,5 +1,6 @@
 @import "node_modules/bootstrap/less/bootstrap";
 @import "node_modules/bootstrap-material-design/less/bootstrap-material-design";
+@import "variables";
 
 .text-center {
   text-align: center;
@@ -7,4 +8,37 @@
 footer {
   background-color: #374147;
   height: 100px;
+}
+.header {
+  flex: 0 0 auto;
+}
+.footer-wrap {
+  flex: 0 0 auto;
+}
+#wrapper {
+  flex: 1 0 auto;
+}
+.canvas {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.panel-dark {
+
+  .panel-heading {
+    background-color: @dark-blue;
+  }
+  .panel-body {
+    background-color: #f0f0f0;
+  }
+}
+
+.form-group {
+  margin-top: 10px;
+  padding-bottom: 0px;
+}
+
+.toast-top-right {
+  top: 70px;
+  right: 12px;
 }

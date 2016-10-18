@@ -1,4 +1,3 @@
-<div class="canvas">
 <div class="navbar navbar-inverse header">
     <div class="container">
         <div class="navbar-header">

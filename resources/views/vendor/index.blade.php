@@ -4,23 +4,30 @@
     <meta charset="UTF-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title> {{ config('app.name') }}@yield('title')</title>
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/vendor.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 <body>
+    <div class="canvas">
+        @include('components.header')
 
-    @include('components.header')
+        <div id="wrapper" class="container">
+            @section('content')
 
-    <div id="wrapper" class="container">
+            @show
+        </div>
 
-
-        @section('content')
-
-        @show
+        @include('components.footer')
     </div>
 
-    @include('components.footer')
-
     <script src="{{ asset('js/app.js') }}"></script>
+    @if(Session::has('notificate'))
+        @php
+            $flash = Session::get('notificate')['flash'];
+        @endphp
+        <script>
+            window.toastr['{{ $flash['level'] }}']('{{ $flash['message'] }}')
+        </script>
+    @endif
 </body>
 </html>
