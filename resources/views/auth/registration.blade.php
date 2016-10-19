@@ -4,9 +4,9 @@
     <registration inline-template>
         <div class="row">
             <div class="col-lg-6 col-lg-offset-3 col-sm-12">
-                <div class="panel panel-dark">
+                <div class="panel panel-success">
                     <div class="panel-heading text-center">
-                        <h2>{{ trans('Регистрация в секцию киберспорта') }}</h2>
+                        <h4>{{ trans('Регистрация в секцию киберспорта') }}</h4>
                     </div>
 
                     <div class="panel-body">
