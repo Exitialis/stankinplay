@@ -2,31 +2,25 @@
 @import "node_modules/bootstrap-material-design/less/bootstrap-material-design";
 @import "variables";
 
+.main {
+  min-height: 100vh;
+}
+
 .navbar-default {
   background-color: @dark-blue !important;
 }
 .text-center {
   text-align: center;
 }
-footer {
-  background-color: @dark-blue;//#374147;
-  height: 100px;
-}
-.header {
-  flex: 0 0 auto;
-}
 .footer-wrap {
-  flex: 0 0 auto;
+  position: absolute;
+  bottom: 0;
+  width:100%;
+  footer {
+    height: 100px;
+    background-color: @dark-blue;//#374147;
+  }
 }
-#wrapper {
-  flex: 1 0 auto;
-}
-.main {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
 .form-group {
   margin-top: 10px;
   padding-bottom: 0px;
