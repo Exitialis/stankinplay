@@ -52,10 +52,11 @@ class RegistrationController extends Controller
             return response()->json(flash(trans('Произошла ошибка', 'error')));
         }
 
-        $flash = flash(trans('Успешно'));
         $redirect = route('login.get');
 
-        return response()->json(compact('flash', 'redirect'));
+        notificate(trans('Регистрация прошла успешно, теперь вы можете войти в аккаунт'));
+        
+        return response()->json(compact('redirect'));
     }
 
 }
