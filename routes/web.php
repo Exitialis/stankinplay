@@ -17,8 +17,8 @@ Route::group(['prefix' => 'user', 'namespace' => 'Profile', 'middleware' => 'aut
 });
 
 Route::group(['middleware' => 'auth', 'namespace' => 'Team'], function() {
-    Route::get('team', 'TeamController@index')->name('team.get');
     Route::post('team', 'TeamController@store')->name('team.store');
+    Route::put('team', 'TeamController@update')->name('team.update');
 });
 
 Route::get('/', function() {

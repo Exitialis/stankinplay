@@ -11,6 +11,6 @@ class PermissionSeeder extends Seeder
      */
     public function run()
     {
-        //
+        
     }
 }

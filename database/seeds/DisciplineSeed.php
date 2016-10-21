@@ -12,19 +12,22 @@ class DisciplineSeed extends Seeder
      */
     public function run()
     {
-        if ( ! Discipline::where('name', 'CS:GO')->first()) {
+        if ( ! Discipline::where('label', 'CS:GO')->first()) {
             Discipline::create([
+                'label' => 'CS:GO',
                 'name' => 'CS:GO'
             ]);
         }
-        if ( ! Discipline::where('name', 'DOTA 2')->first()) {
+        if ( ! Discipline::where('label', 'DOTA 2')->first()) {
             Discipline::create([
+                'label' => 'DOTA 2',
                 'name' => 'DOTA 2'
             ]);
         }
-        if ( ! Discipline::where('name', 'LOL')->first()) {
+        if ( ! Discipline::where('label', 'LOL')->first()) {
             Discipline::create([
-                'name' => 'LOL'
+                'label' => 'LOL',
+                'name' => 'League of Legends'
             ]);
         }
     }
