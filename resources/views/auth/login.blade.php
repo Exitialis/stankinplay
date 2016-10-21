@@ -17,7 +17,7 @@
                             {!! text('form.password', trans('Пароль'), true, ['type' => 'password', 'horizontal' => 1]) !!}
 
                             <div class="row">
-                                <div class="col-sm-4 col-sm-offset-4">
+                                <div class="col-sm-6 col-sm-offset-3">
                                     <button type="submit" class="btn btn-success btn-block" :disabled="loading">
                                         <i class="fa fa-spin fa-spinner" v-if="loading"></i> {{ trans('Войти') }}
                                     </button>

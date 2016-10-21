@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "bootstrap-material-design": "^0.5.10",
-    "toastr": "^2.1.2"
+    "toastr": "^2.1.2",
+    "vuex": "^2.0.0"
   }
 }
