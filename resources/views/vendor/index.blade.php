@@ -18,9 +18,8 @@
 
             @show
         </div>
-
-        @include('components.footer')
     </div>
+    @include('components.footer')
     <script>
         window.user = {!! Auth::check() ? json_encode(Auth::user()) : 'null' !!}
     </script>
