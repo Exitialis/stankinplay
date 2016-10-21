@@ -8,16 +8,31 @@ Vue.component('navbar', {
 
     data() {
         return {
-
+            menu: null,
+            url: '/menu'
         }
     },
 
-    methods() {
-
+    methods: {
+        getMenu() {
+            this.$http.get(this.url).then(
+                response => {
+                    this.menu = response.data;
+                    console.log(this.menu);
+                }
+            ).catch(
+                response => {
+                    console.log(response);
+                }
+            )
+        },
+        checkUrl(url) {
+            return url == this.currentUrl;
+        }
     },
 
     mounted() {
-        alert('Я родился')
+        //this.getMenu();
     }
 
 });

@@ -22,3 +22,5 @@ Route::get('/', function() {
     return redirect()->route('profile.get');
 });
 
+//Route::get('menu', 'Menu\TopMenuController@get')->name('menu.get');
+

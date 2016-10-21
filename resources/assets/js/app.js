@@ -1,8 +1,14 @@
-
 require('./bootstrap');
 
 require('./views')
 
+import store from './store';
+
 const app = new Vue({
-    el: '#wrapper'
+    store,
+    el: '#wrapper',
+
+    created() {
+        store.commit('setUser', window.user);
+    }
 });
