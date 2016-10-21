@@ -2,8 +2,9 @@
 @import "node_modules/bootstrap-material-design/less/bootstrap-material-design";
 @import "variables";
 
-body {
+.main {
   margin-bottom: @footer-height;
+  min-height: 100vh - @footer-height;
 }
 [v-cloak] {
   display:none;
@@ -11,9 +12,7 @@ body {
 .navbar-default {
   background-color: @dark-blue !important;
 }
-.text-center {
-  text-align: center;
-}
+
 .footer {
   position: absolute;
   bottom: 0;
