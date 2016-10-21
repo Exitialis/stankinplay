@@ -8,7 +8,10 @@ Route::group(['prefix' => 'auth', 'namespace' => 'Auth', 'middleware' => 'guest'
         Route::post('login', 'LoginController@login')->name('login.post');
 });
 
-Route::group(['prefix' => 'user', 'namespace' => 'User', 'middleware' => 'auth'], function (){
+/**
+ * Профиль пользователя
+ */
+Route::group(['prefix' => 'user', 'namespace' => 'Profile', 'middleware' => 'auth'], function (){
     Route::get('profile', 'ProfileController@index')->name('profile.get');
     Route::get('logout', 'ProfileController@logout')->name('profile.logout');
 });

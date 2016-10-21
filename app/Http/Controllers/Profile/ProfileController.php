@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\Profile;
 
 use Illuminate\Http\Request;
 
@@ -31,13 +31,9 @@ class ProfileController extends Controller
 
     public function index()
     {
-        $user= Auth::user();
-        $auth = Auth::guard()->check();
-        return view('user.profile', compact('user','auth'));
+        return view('profile.index');
     }
-
-
-
+    
     public function logout(){
         Auth::logout();
         $auth = Auth::guard()->check();
