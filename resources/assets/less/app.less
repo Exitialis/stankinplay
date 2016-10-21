@@ -2,6 +2,10 @@
 @import "node_modules/bootstrap-material-design/less/bootstrap-material-design";
 @import "variables";
 
+body {
+  margin-bottom: @footer-height;
+}
+
 .navbar-default {
   background-color: @dark-blue !important;
 }
@@ -12,7 +16,7 @@
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: 60px;
+  height: @footer-height;
   background-color: @dark-blue;//#374147;
 }
 .form-group {
