@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Zizaco\Entrust\Traits\EntrustUserTrait;
 
 /**
  * App\User
@@ -39,7 +40,7 @@ use Illuminate\Notifications\Notifiable;
  */
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, EntrustUserTrait;
 
     protected $hidden = [
         'password',
@@ -54,14 +55,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Team::class);
     }
-    
-    public function roles()
-    {
-        return $this->belongsToMany(Role::class, 'user_role');
-    }
 
-    public function hasRole($role_id)
+    public function discipline()
     {
-        return (bool) $this->roles()->where(compact('role_id'))->count();
+        return $this->belongsTo(Discipline::class);
     }
 }

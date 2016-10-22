@@ -11,11 +11,13 @@ Vue.component('registration', {
                 first_name: null,
                 middle_name: null,
                 group: null,
+                discipline: null,
                 captain: false
             },
             loading: false,
             confirm: false,
-            registration: false
+            registration: false,
+            disciplines: null
         }
     },
 
@@ -35,10 +37,22 @@ Vue.component('registration', {
                 }
 
             })
+        },
+        getDisciplines() {
+            this.$http.get('/disciplines').then(
+                response => {
+                    this.disciplines = response.data;
+                }
+            ).catch(
+                response => {
+                    console.log(response);
+                }
+            )
         }
     },
 
     mounted() {
-        this.registration = JSON.parse(localStorage.getItem('registration'));
+        this.getDisciplines();
+        //this.registration = JSON.parse(localStorage.getItem('registration'));
     }
 });

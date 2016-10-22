@@ -24,6 +24,8 @@
 
                             {!! text('form.middle_name', trans('Отчество'), true, ['placeholder' => 'Иванович', 'horizontal' => 1]) !!}
 
+                            {!! select('form.discipline', 'disciplines', trans('Дисциплина'), 'true', ['horizontal' => 1]) !!}
+
                             {!! text('form.group', trans('Группа'), true, ['placeholder' => 'XXX-11-11', 'horizontal' => 1]) !!}
 
                             {!! checkbox('form.captain', trans('Я капитан'), ['horizontal' => 1]) !!}

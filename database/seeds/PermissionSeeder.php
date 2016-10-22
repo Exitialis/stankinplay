@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Permission;
 use Illuminate\Database\Seeder;
 
 class PermissionSeeder extends Seeder
@@ -11,6 +12,22 @@ class PermissionSeeder extends Seeder
      */
     public function run()
     {
-        
+        if ( ! Permission::where('name', 'create-team')->first()) {
+            $perm = new Permission();
+
+            $perm->name = 'create-team';
+            $perm->display_name = "Создание команды";
+            $perm->description = "Возможность создавать команду";
+            $perm->save();
+        }
+
+        if ( ! Permission::where('name', 'edit-team')->first()) {
+            $perm = new Permission();
+
+            $perm->name = 'edit-team';
+            $perm->display_name = 'Редактирование команды';
+            $perm->description = 'Возможность редакитровать команду';
+            $perm->save();
+        }
     }
 }

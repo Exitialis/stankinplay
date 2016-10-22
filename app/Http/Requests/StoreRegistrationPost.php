@@ -31,6 +31,7 @@ class StoreRegistrationPost extends FormRequest
             'last_name' => 'required|max:255',
             'middle_name' => 'required|max:255',
             'group' => 'required|max:255',
+            'discipline' => 'required|exists:disciplines,id'
             //'g-recaptcha-response' => 'required|recaptcha'
         ];
     }

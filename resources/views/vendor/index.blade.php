@@ -21,7 +21,8 @@
     @include('components.footer')
     </div>
     <script>
-        window.user = {!! Auth::check() ? json_encode(Auth::user()) : 'null' !!}
+        window.user = {!! Auth::check() ? json_encode(Auth::user()->load(['discipline', 'roles', 'team'])) : 'null' !!}
+
     </script>
     <script src="{{ asset('js/app.js') }}"></script>
     @if(Session::has('notificate'))

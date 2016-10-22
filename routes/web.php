@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Discipline;
+
 Route::group(['prefix' => 'auth', 'namespace' => 'Auth', 'middleware' => 'guest'], function (){
         Route::get('registration', 'RegistrationController@index')->name('registration.get');
         Route::post('registration', 'RegistrationController@store')->name('registration.store');
@@ -20,6 +22,12 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Team'], function() {
     Route::post('team', 'TeamController@store')->name('team.store');
     Route::put('team', 'TeamController@update')->name('team.update');
 });
+
+Route::get('disciplines', function() {
+    return Discipline::select('id', 'name')->get();
+});
+
+Route::get('permission-check/{permission}', 'Permissions\PermissionController@can');
 
 Route::get('/', function() {
     return redirect()->route('profile.get');

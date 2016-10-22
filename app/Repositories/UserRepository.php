@@ -33,7 +33,8 @@ class UserRepository extends BaseRepository implements UserRepositoryContract
             'first_name' => $request->input('first_name'),
             'last_name' => $request->input('last_name'),
             'middle_name' => $request->input('middle_name'),
-            'group' => $request->input('group')
+            'group' => $request->input('group'),
+            'discipline_id' => $request->input('discipline'),
         ]);
     }
 

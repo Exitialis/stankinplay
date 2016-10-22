@@ -8,7 +8,8 @@ Vue.component('profile', {
 
     data() {
         return {
-            currentTab: 'main'
+            currentTab: 'main',
+            create: null
         }
     },
 
@@ -16,6 +17,10 @@ Vue.component('profile', {
         changeTab(tab) {
             this.currentTab = tab;
         }
+    },
+    
+    mounted() {
+        this.user.can('create-team')
     }
 
 });

@@ -81,8 +81,8 @@ if ( ! function_exists('text')) {
 
 if ( ! function_exists('select')) {
 
-    function select($model, $prop, array $options = []) {
-        return \Form::compSelect($model, $prop, $options);
+    function select($model, $prop, $label, $required = false, array $options = []) {
+        return \Form::compSelect($model, $prop, $label, $required, $options);
     }
 }
 

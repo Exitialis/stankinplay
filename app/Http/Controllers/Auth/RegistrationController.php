@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\auth;
 
-use App\Http\Requests\StoreRegistrationPost;
-use App\Repositories\Contracts\UserRepositoryContract;
-use Illuminate\Http\Request;
-
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreRegistrationPost;
+use App\Managers\AuthManager;
+use App\Repositories\Contracts\UserRepositoryContract;
 use Illuminate\Support\Facades\Auth;
 
 class RegistrationController extends Controller
@@ -20,12 +19,21 @@ class RegistrationController extends Controller
     protected $users;
 
     /**
+     * Менеджер пользователей.
+     *
+     * @var UserManager
+     */
+    protected $manager;
+
+    /**
      * RegistrationController constructor.
      * @param $users
      */
     public function __construct(UserRepositoryContract $users)
     {
         $this->users = $users;
+
+        $this->manager = new AuthManager();
     }
 
     /**
@@ -46,7 +54,7 @@ class RegistrationController extends Controller
      */
     public function store(StoreRegistrationPost $request)
     {
-        $user = $this->users->saveUser($request);
+        $user = $this->manager->register($request);
 
         if ( ! $user) {
             return response()->json(flash(trans('Произошла ошибка', 'error')));
