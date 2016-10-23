@@ -67,9 +67,7 @@
                     </div>
                     <form class="form-horizontal" @submit.prevent="store('{{ route('team.store') }}')">
                         <div class="modal-body">
-                            {!! text('form.name', trans('Название команды')) !!}
-
-
+                            <select-list v-model="form.discipline" url="/disciplines" label="Игрок"></select-list>
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-primary">{{ trans('Создать') }}</button>

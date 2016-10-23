@@ -38,4 +38,15 @@ class UserRepository extends BaseRepository implements UserRepositoryContract
         ]);
     }
 
+    /**
+     * Найти пользователей по дисциплине.
+     *
+     * @param $discipline
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function getByDiscipline($discipline)
+    {
+        return $this->model->where('discipline_id', $discipline)->get();
+    }
+
 }
