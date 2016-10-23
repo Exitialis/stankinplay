@@ -64,4 +64,14 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Discipline::class);
     }
+
+    /**
+     * Имеет приглашения в команду.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function invites()
+    {
+        return $this->hasMany(UserInvite::class, 'invited_id');
+    }
 }

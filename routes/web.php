@@ -27,13 +27,17 @@ Route::group(['middleware' => 'auth'], function() {
         Route::post('team', 'TeamController@store')->name('team.store');
         Route::put('team', 'TeamController@update')->name('team.update');
     });
+    Route::group(['namespace' => 'Invites'], function() {
+        Route::get('invites', 'InviteController@get')->name('invites.get');
+        Route::post('invites', 'InviteController@sendInvitation')->name('invites.sendInvite');
+    });
 });
 
 Route::get('disciplines', function() {
     return Discipline::select('id', 'name')->get();
 });
 
-Route::get('permission-check/{permission}', 'Permissions\PermissionController@can');
+Route::post('permission-check', 'Permissions\PermissionController@can');
 
 Route::get('/', function() {
     return redirect()->route('profile.get');

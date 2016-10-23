@@ -3,14 +3,16 @@ Vue.component('team', {
     computed: {
         user() {
             return this.$store.state.user;
+        },
+        team() {
+            return this.$store.state.team;
         }
     },
 
     data() {
         return {
-            team: null,
-            url: '/team',
-            createTeam: null
+            manageTeam: null,
+            url: '/team'
         }
     },
     
@@ -18,7 +20,7 @@ Vue.component('team', {
         loadTeam() {
             this.$http.get(this.url).then(
                 response => {
-                    this.team = response.data.team;
+                    this.$store.commit('setTeam', response.data.team);
                 }
             ).catch(
                 response => {
@@ -29,11 +31,13 @@ Vue.component('team', {
     },
 
     mounted() {
-        this.loadTeam();
+        if ( ! this.team) {
+            this.loadTeam();
+        }
 
-        this.user.can('create-team').then(
+        this.user.can(['create-team', 'edit-team']).then(
             response => {
-                this.createTeam = response.data.can;
+                this.manageTeam = response.data.can;
             }
         );
     }

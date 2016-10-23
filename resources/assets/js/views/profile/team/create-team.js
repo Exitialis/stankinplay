@@ -15,6 +15,7 @@ Vue.component('create-team', {
             this.$http.post(url, this.form).then(response => {
                 this.errors = {};
                 $('#createTeam').modal('hide');
+                this.$store.commit('setTeam', response.data.team);
             }).catch(response => {
                 if (response.status === 422) {
                     this.errors = JSON.parse(response.body);

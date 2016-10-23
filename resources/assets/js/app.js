@@ -13,17 +13,14 @@ const app = new Vue({
     created() {
         var v = this;
 
-        store.commit('setUser', window.user);
-
         if ( ! window.user || window.user === undefined) {
             store.commit('setUser', null);
         } else {
             window.user.can = function(permission) {
-                return v.$http.get('/permission-check/' + permission);
+                return v.$http.post('/permission-check', {permission: permission});
             };
             store.commit('setUser', window.user);
         }
-
 
     }
 });

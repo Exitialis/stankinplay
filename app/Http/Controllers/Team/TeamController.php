@@ -27,7 +27,7 @@ class TeamController extends Controller
      */
     public function get()
     {
-        $team = \Auth::user()->team()->with('discipline')->first();
+        $team = \Auth::user()->team()->with(['discipline', 'members'])->first();
 
         return response()->json(compact('team'));
     }
@@ -48,6 +48,8 @@ class TeamController extends Controller
         $user->team_id = $team->id;
         $user->save();
 
-        return response()->json(flash('Команда успешно создана!'));
+        $team->load(['discipline', 'members']);
+
+        return response()->json(compact('team', flash('Команда успешно создана!')));
     }
 }
