@@ -18,7 +18,7 @@ Vue.component('team', {
         loadTeam() {
             this.$http.get(this.url).then(
                 response => {
-                    this.team = response.data;
+                    this.team = response.data.team;
                 }
             ).catch(
                 response => {

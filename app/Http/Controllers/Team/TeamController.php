@@ -27,7 +27,9 @@ class TeamController extends Controller
      */
     public function get()
     {
-        return response()->json(\Auth::user()->team()->with('discipline')->first());
+        $team = \Auth::user()->team()->with('discipline')->first();
+
+        return response()->json(compact('team'));
     }
 
     public function store(StoreRequest $request)
