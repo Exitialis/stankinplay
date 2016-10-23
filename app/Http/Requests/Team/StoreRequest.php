@@ -13,8 +13,26 @@ class StoreRequest extends FormRequest
      */
     public function authorize()
     {
-        if (\Auth::user()->)
-        
+        $user = \Auth::user();
+
+        if ( ! $user) {
+            return false;
+        }
+
+        if ($user->can('create-team')) {
+            if ($user->hasRole('captain')) {
+
+                //Если уже создавал команду, то нельзя больше
+                if ( ! $user->team) {
+                    return true;
+                }
+
+                return false;
+            }
+
+            return true;
+        }
+
         return false;
     }
 
@@ -26,7 +44,8 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|max:255|unique:teams',
+            'discipline' => 'required|exists:disciplines,id'
         ];
     }
 }

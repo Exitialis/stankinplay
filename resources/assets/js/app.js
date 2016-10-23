@@ -2,6 +2,8 @@ require('./bootstrap');
 
 require('./views')
 
+require('./components')
+
 import store from './store';
 
 const app = new Vue({
@@ -17,7 +19,7 @@ const app = new Vue({
             store.commit('setUser', null);
         } else {
             window.user.can = function(permission) {
-                return v.$http.get('permission-check/' + permission);
+                return v.$http.get('/permission-check/' + permission);
             };
             store.commit('setUser', window.user);
         }

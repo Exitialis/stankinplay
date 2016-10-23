@@ -38,7 +38,7 @@ class AuthManager
             return false;
         }
 
-        if ($request->has('captain')) {
+        if ($request->input('captain')) {
             if ( ! $captain = Role::where('name', 'captain')->firstOrFail()) {
                 $user->delete();
                 return false;

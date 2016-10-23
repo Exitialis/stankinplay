@@ -20,9 +20,14 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Team whereName($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Team whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Team whereUpdatedAt($value)
+ * @property integer $captain_id
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Team whereCaptainId($value)
  */
 class Team extends Model
 {
+
+    protected $guarded = [];
+
     public function user()
     {
         return $this->hasMany(User::class);
@@ -31,5 +36,15 @@ class Team extends Model
     public function discipline()
     {
         return $this->belongsTo(Discipline::class);
+    }
+
+    /**
+     * Создатель команды, он же - капитан.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function captain()
+    {
+        return $this->belongsTo(User::class, 'captain_id');
     }
 }

@@ -26,7 +26,7 @@ class LoginController extends Controller
         $status = \Auth::attempt([
             'login' => $request->input('login'),
             'password' => $request->input('password')
-        ]);
+        ], true);
 
         if ($status) {
             $user = \Auth::user();

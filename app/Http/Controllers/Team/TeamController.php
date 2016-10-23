@@ -2,15 +2,50 @@
 
 namespace App\Http\Controllers\Team;
 
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
+use App\Http\Requests\Team\StoreRequest;
 use App\Http\Controllers\Controller;
+use App\Repositories\Contracts\TeamRepositoryContract;
+use App\Repositories\TeamRepository;
 
 class TeamController extends Controller
 {
-    public function store(Request $request)
+    /**
+     * @var TeamRepository
+     */
+    protected $teams;
+
+    /**
+     * TeamController constructor.
+     */
+    public function __construct(TeamRepositoryContract $teams)
     {
-               
+        $this->teams = $teams;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function get()
+    {
+        return response()->json(\Auth::user()->team()->with('discipline')->first());
+    }
+
+    public function store(StoreRequest $request)
+    {
+        $team = $this->teams->create([
+            'name' => $request->input('name'),
+            'discipline_id' => $request->input('discipline'),
+            'captain_id' => \Auth::user()->id
+        ]);
+
+        if ( ! $team) {
+            return response()->json(flash('При создании команды произошла ошибка', 'error'));
+        }
+
+        $user = \Auth::user();
+        $user->team_id = $team->id;
+        $user->save();
+
+        return response()->json(flash('Команда успешно создана!'));
     }
 }
