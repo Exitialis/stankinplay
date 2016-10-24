@@ -46,7 +46,7 @@ class UserRepository extends BaseRepository implements UserRepositoryContract
      */
     public function getByDiscipline($discipline)
     {
-        return $this->model->where('discipline_id', $discipline)->get();
+        return $this->model->where('discipline_id', $discipline)->select('id', 'login as name')->get();
     }
 
 }

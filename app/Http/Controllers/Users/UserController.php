@@ -36,7 +36,7 @@ class UserController extends Controller
         if ($request->has('discipline')) {
             $users = $this->users->getByDiscipline($request->input('discipline'));
             
-            return response()->json(compact('users'));
+            return response()->json($users);
         }
 
         return response('');

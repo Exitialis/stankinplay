@@ -1,8 +1,8 @@
 <div class="row">
-    <team :user="user" inline-template>
-        <div v-if="team" class="col-sm-12">
+    <team inline-template>
+        <div class="col-sm-12">
             <h4 class="text-primary">Ваша команда</h4>
-            <div  class="row">
+            <div v-if="team" class="row">
                 <div class="col-md-3 col-sm-4 col-xs-6">
                     <div class="form-group">
                         <label>Название</label>
@@ -16,7 +16,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div v-if="team" class="row">
                 <div class="col-md-8">
                     <h4 class="text-success">Участники:</h4>
                 </div>
@@ -27,8 +27,8 @@
                 </div>
             </div>
 
-            <div v-if="team.members" class="row">
-                <div class="col-sm-12">
+            <div v-if="team" class="row">
+                <div v-if="team.members" class="col-sm-12">
                     <table class="table table-hover">
                         <thead>
                         <tr>
@@ -58,19 +58,19 @@
     </team>
 
     <invite-user inline-template>
-        <div class="modal fade" id="createTeam" tabindex="-1" role="dialog">
+        <div v-if="team" class="modal fade" id="inviteUser" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">{{ trans('Новая команда') }}</h4>
+                        <h4 class="modal-title">{{ trans('Пригласить участника') }}</h4>
                     </div>
-                    <form class="form-horizontal" @submit.prevent="store('{{ route('team.store') }}')">
+                    <form v-if="team" class="form-horizontal" @submit.prevent="send('{{ route('invites.sendInvite') }}')">
                         <div class="modal-body">
-                            <select-list v-model="form.discipline" url="/disciplines" label="Игрок"></select-list>
+                            <select-list v-model="form.user_id" :url="'/users?discipline=' + user.discipline_id" label="Игрок"></select-list>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary">{{ trans('Создать') }}</button>
+                            <button type="submit" class="btn btn-primary">{{ trans('Пригласить') }}</button>
                         </div>
                     </form>
                 </div>
