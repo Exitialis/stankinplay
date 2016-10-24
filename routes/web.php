@@ -13,6 +13,10 @@ Route::group(['prefix' => 'auth', 'namespace' => 'Auth', 'middleware' => 'guest'
         Route::post('login', 'LoginController@login')->name('login.post');
 });
 
+/*Route::get('test', function() {
+    return view('test1');
+});*/
+
 /**
  * Профиль пользователя.
  */

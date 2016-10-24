@@ -5,32 +5,18 @@ Vue.component('select-list', {
           <div :class="{\'col-sm-10\': horizontal == 1}">\
               <select class="form-control" @change="select">\
                 <option value="null"></option>\
-                <option v-for="item in items"  :value="item.id">\
-                    {{ item.name }}\
+                <option v-for="option in options"  :value="option.id">\
+                    {{ option.name }}\
                 </option>\
               </select>\
           </div>\
         </div>\
     ',
-    props: ['url', 'value', 'label', 'horizontal'],
-    data() {
-        return {
-            items: null
-        }
-    },
+    props: ['url', 'value', 'options', 'label', 'horizontal'],
+
     methods: {
-        loadItems() {
-            this.$http.get(this.url).then(
-                response => {
-                    this.items = response.data;
-                }
-            )
-        },
         select(event) {
             this.$emit('input', event.target.value)
         }
-    },
-    mounted() {
-        this.loadItems();
     }
 })

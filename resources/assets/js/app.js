@@ -21,6 +21,5 @@ const app = new Vue({
             };
             store.commit('setUser', window.user);
         }
-
     }
 });

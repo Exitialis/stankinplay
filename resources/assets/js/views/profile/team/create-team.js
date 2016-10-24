@@ -4,9 +4,9 @@ Vue.component('create-team', {
         return {
             errors: {},
             form: {
-                name: null,
-                discipline: null
-            }
+                name: null
+            },
+            options: null
         }
     },
 
@@ -23,6 +23,21 @@ Vue.component('create-team', {
                 }
             })
         },
+        getOptions() {
+            this.$http.get('/disciplines').then(
+                response => {
+                    this.options = response.data;
+                }
+            ).catch(
+                response => {
+                    console.log(response);
+                }
+            )
+        }
+    },
+
+    mounted() {
+        this.getOptions();
     }
 
 });

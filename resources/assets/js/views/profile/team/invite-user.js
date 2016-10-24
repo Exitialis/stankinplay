@@ -14,7 +14,8 @@ Vue.component('invite-user', {
             form: {
                 user_id: null,
                 team_id: null,
-            }
+            },
+            options: null
         }
     },
 
@@ -32,11 +33,24 @@ Vue.component('invite-user', {
                     }
                 }
             )
+        },
+        getOptions() {
+            this.$http.get('/users', {
+                discipline: this.user.discipline_id,
+            }).then(
+                response => {
+                    this.options = response.data;
+                }
+            ).catch(
+                response => {
+                    console.log(response);
+                }
+            )
         }
     },
 
     mounted() {
-                
+        this.getOptions()
     }
 });
 

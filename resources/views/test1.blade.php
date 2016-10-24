@@ -3,14 +3,7 @@
 
 @section('content')
     <test inline-template>
-        <div class="well">
-            <div class="row">
-                <div class="col-xs-6 col-xs-offset-3">
-                    <a href="#" @click="request()" class="btn btn-raised btn-success btn-block">Тест</a>
-                </div>
-            </div>
-
-        </div>
-
+        <v-select :value.sync="form.user_id" :on-search="getOptions" :debounce="250" :options="options" label="Игрок"></v-select>
     </test>
+
 @endsection
