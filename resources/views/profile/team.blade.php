@@ -67,7 +67,7 @@
                     </div>
                     <form v-if="team" class="form-horizontal" @submit.prevent="send('{{ route('invites.sendInvite') }}')">
                         <div class="modal-body">
-                            <select-list v-model="form.user_id" :url="'/users?discipline=' + user.discipline_id" label="Игрок"></select-list>
+                            <select2 v-model="form.user_id" :url="'/users?discipline=' + user.discipline_id" label="Игрок"></select2>
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-primary">{{ trans('Пригласить') }}</button>

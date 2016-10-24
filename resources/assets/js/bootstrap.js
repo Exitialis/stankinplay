@@ -13,6 +13,8 @@ require('bootstrap-sass');
 window.Vue = require('vue/dist/vue.js');
 require('vue-resource');
 
+require('select2');
+
 window.bootstrap = require('bootstrap-material-design/scripts');
 $.material.init();
 
