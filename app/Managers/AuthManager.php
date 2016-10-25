@@ -53,7 +53,11 @@ class AuthManager
             }
 
             $user->attachRole($captain);
+
+            return $user;
         }
+
+        $user->attachRole($playerRole);
 
         return $user;
     }

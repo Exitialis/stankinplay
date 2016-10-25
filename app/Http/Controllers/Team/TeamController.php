@@ -25,6 +25,8 @@ class TeamController extends Controller
     }
 
     /**
+     * Получить команду пользователя с дициплиной и участниками.
+     *
      * @return mixed
      */
     public function get()
@@ -33,7 +35,7 @@ class TeamController extends Controller
 
         return response()->json(compact('team'));
     }
-
+    
     public function store(StoreRequest $request)
     {
         if ( ! Discipline::find($request->input('discipline'))->team) {
