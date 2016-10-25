@@ -37,7 +37,7 @@ class TeamController extends Controller
     public function store(StoreRequest $request)
     {
         if ( ! Discipline::find($request->input('discipline'))->team) {
-            return response()->json(['errors' => ['discipline' => 'Для вашей дисциплины невозможно создание команд']], 422);
+            return response()->json(flash('Для вашей дисциплины невозможно создание команды', 'error'));
         }
 
         $team = $this->teams->create([

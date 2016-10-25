@@ -112,7 +112,7 @@
         </div>
     </team>
     {{--   Приглашение пользователя  --}}
-    <invite-user v-if="team" inline-template>
+    <invite-user inline-template>
         <div class="modal fade" id="inviteUser" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
