@@ -38,7 +38,15 @@ class AuthManager
             return false;
         }
 
+        $playerRole = Role::where('name', 'player')->firstOrFail();
+
         if ($request->input('captain')) {
+            //Если в дисциплине нет команд
+            if ( ! $user->discipline->team) {
+                $user->attachRole($playerRole);
+                return $user;
+            }
+
             if ( ! $captain = Role::where('name', 'captain')->firstOrFail()) {
                 $user->delete();
                 return false;

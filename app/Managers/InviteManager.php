@@ -20,7 +20,9 @@ class InviteManager
             return false;
         }
 
-        return $user->invites;
+        return $user->invites()->whereHas('status', function($query) {
+            $query->where('status', 'sended');
+        })->with(['inviter', 'team'])->get();
     }
 
     /**
@@ -51,6 +53,10 @@ class InviteManager
             return false;
         }
 
+        if ( UserInvite::where('team_id', $team_id)->where('invited_id', $user_id)->first() ) {
+            return false;
+        }
+
         $user = User::findOrFail($user_id);
         $team = Team::findOrFail($team_id);
         $status = InviteUserStatus::where('status', 'sended')->first();
@@ -64,6 +70,61 @@ class InviteManager
         $invite->save();
 
         return $invite;
+    }
+
+    /**
+     * Принять приглашение в команду.
+     *
+     * @param $invite
+     * @return User|bool|null
+     */
+    public function acceptInvite($invite)
+    {
+        if ( ! $user = \Auth::user()) {
+            return false;
+        }
+
+        if ( ! $invite instanceof UserInvite) {
+            $invite = UserInvite::find($invite);
+        }
+
+        $accept = InviteUserStatus::where('status', 'accepted')->first();
+
+        //Меняем статус заявки на принятую
+        $invite->status_id = $accept->id;
+        $invite->save();
+
+        //Добавляем пользователя в команду
+        $team = $invite->team;
+        $user->team_id = $team->id;
+        $user->save();
+
+        return true;
+    }
+
+    /**
+     * Отклонить приглашение.
+     *
+     * @param $invite
+     * @return bool
+     */
+    public function declineInvite($invite)
+    {
+        if ( ! $user = \Auth::user()) {
+            return false;
+        }
+
+        if ( ! $invite instanceof UserInvite) {
+            $invite = UserInvite::find($invite);
+        }
+
+        $decline = InviteUserStatus::where('status', 'decline')->first();
+
+        //Меняем статус заявки на отклоненную
+        $invite->status_id = $decline->id;
+        $invite->save();
+
+        return true;
     }
 
 }

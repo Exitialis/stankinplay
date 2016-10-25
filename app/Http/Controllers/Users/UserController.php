@@ -40,7 +40,7 @@ class UserController extends Controller
                 $team = $captain->ownTeam;
 
                 $users = $this->users->getByDisciplineAndTeam($request->input('discipline'), $team);
-
+                
                 return response()->json($users);
             }
         }

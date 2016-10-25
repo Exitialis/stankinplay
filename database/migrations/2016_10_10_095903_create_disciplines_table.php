@@ -18,6 +18,7 @@ class CreateDisciplinesTable extends Migration
 
             $table->string('label')->unique();
             $table->string('name');
+            $table->boolean('team')->default(true);
 
             $table->timestamps();
         });

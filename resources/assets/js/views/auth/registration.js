@@ -12,7 +12,8 @@ Vue.component('registration', {
                 middle_name: null,
                 group: null,
                 discipline: null,
-                captain: false
+                captain: false,
+                module: false
             },
             loading: false,
             confirm: false,

@@ -50,7 +50,34 @@ Vue.component('team', {
                     this.$store.commit('setUserInvites', response.data.invites);
                 }
             )
-        }
+        },
+        acceptInvite(id) {
+            this.$http.put('/invites', {
+                invite_id: this.userInvites[id].id,
+                action: 'accept'
+            }).then(
+                response => {
+                    if (response.data.status) {
+                        let invites = this.userInvites.splice(id, 1);
+                        this.$store.commit('setUserInvites', invites);
+                        this.loadTeam();
+                    }
+                }
+            )
+        },
+        declineInvite(id) {
+            this.$http.put('/invites', {
+                invite_id: this.userInvites[id].id,
+                action: 'decline'
+            }).then(
+                response => {
+                    if (response.data.status) {
+                        let invites = this.userInvites.splice(id, 1);
+                        this.$store.commit('setUserInvites', invites);
+                    }
+                }
+            )
+        },
     },
 
     mounted() {

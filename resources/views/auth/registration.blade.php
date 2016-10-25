@@ -30,6 +30,8 @@
 
                             {!! checkbox('form.captain', trans('Я капитан'), ['horizontal' => 1]) !!}
 
+                            {!! checkbox('form.module', trans('Нужен модуль'), ['horizontal' => 1]) !!}
+
                            {{-- <div class="form-group">
                                 <div class="row">
                                     <div class="col-sm-5 col-sm-offset-2">
