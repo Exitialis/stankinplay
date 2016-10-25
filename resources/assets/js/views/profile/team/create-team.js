@@ -1,12 +1,19 @@
 Vue.component('create-team', {
-    
+
     data() {
         return {
             errors: {},
             form: {
-                name: null
+                name: null,
+                discipline: null
             },
             options: null
+        }
+    },
+
+    computed: {
+        user() {
+            return this.$store.state.user;
         }
     },
 
@@ -22,22 +29,11 @@ Vue.component('create-team', {
                     window.toastr.error('При создании команды произошла ошибка.')
                 }
             })
-        },
-        getOptions() {
-            this.$http.get('/disciplines').then(
-                response => {
-                    this.options = response.data;
-                }
-            ).catch(
-                response => {
-                    console.log(response);
-                }
-            )
         }
     },
 
     mounted() {
-        this.getOptions();
+        this.form.discipline = this.user.discipline_id;
     }
 
 });

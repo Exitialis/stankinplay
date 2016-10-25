@@ -112,8 +112,8 @@
         </div>
     </team>
     {{--   Приглашение пользователя  --}}
-    <invite-user inline-template>
-        <div v-if="team" class="modal fade" id="inviteUser" tabindex="-1" role="dialog">
+    <invite-user v-if="team" inline-template>
+        <div class="modal fade" id="inviteUser" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -145,8 +145,6 @@
                     <form class="form-horizontal" @submit.prevent="store('{{ route('team.store') }}')">
                         <div class="modal-body">
                             {!! text('form.name', trans('Название команды')) !!}
-
-                            <select-list v-model="form.discipline" :options="options" label="Дисциплина"></select-list>
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-primary">{{ trans('Создать') }}</button>

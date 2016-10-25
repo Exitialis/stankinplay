@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Team;
 
 use App\Http\Requests\Team\StoreRequest;
 use App\Http\Controllers\Controller;
+use App\Models\Discipline;
+use App\Models\Team;
 use App\Repositories\Contracts\TeamRepositoryContract;
 use App\Repositories\TeamRepository;
 
@@ -34,6 +36,10 @@ class TeamController extends Controller
 
     public function store(StoreRequest $request)
     {
+        if ( ! Discipline::find($request->input('discipline'))->team) {
+            return response()->json(['errors' => ['discipline' => 'Для вашей дисциплины невозможно создание команд']], 422);
+        }
+
         $team = $this->teams->create([
             'name' => $request->input('name'),
             'discipline_id' => $request->input('discipline'),

@@ -45,7 +45,7 @@ class StoreRequest extends FormRequest
     {
         return [
             'name' => 'required|max:255|unique:teams',
-            'discipline' => 'required|exists:disciplines,id,team,0'
+            'discipline' => 'required|exists:disciplines,id'
         ];
     }
 }
