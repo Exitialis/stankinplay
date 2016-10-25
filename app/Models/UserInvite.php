@@ -20,4 +20,9 @@ class UserInvite extends Model
     {
         return $this->belongsTo(Team::class);
     }
+
+    public function status()
+    {
+        return $this->belongsTo(InviteUserStatus::class, 'status_id');
+    }
 }

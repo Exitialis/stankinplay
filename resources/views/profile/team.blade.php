@@ -1,6 +1,33 @@
 <div class="row">
     <team inline-template>
         <div class="col-sm-12">
+            <div v-if="userInvites" class="row">
+                <div v-if="userInvites.length >= 1" class="col-sm-12">
+                    <h4 class="text-info">У вас есть приглашения в команду:</h4>
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>Пригласитель</th>
+                            <th>Команда</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="userInvite in userInvites">
+                            <td>@{{ userInvite.inviter.login }}</td>
+                            <td>@{{ userInvite.team.name }}</td>
+                            <td>
+                                <button class="btn btn-success">Принять</button>
+                            </td>
+                            <td>
+                                <button class="btn btn-error">Отклонить</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
             <h4 class="text-primary">Ваша команда</h4>
             <div v-if="team" class="row">
                 <div class="col-md-3 col-sm-4 col-xs-6">
@@ -51,13 +78,34 @@
                     </table>
                 </div>
             </div>
+            <div v-if="invites && manageTeam" class="row">
+                <div v-if="invites.length >= 1" class="col-sm-12">
+                    <h4>Приглашения в команду</h4>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Логин</th>
+                                <th>Статус приглашения</th>
+                                <th>Дата приглашения</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="invite in invites">
+                                <td>@{{ invite.invited.login }}</td>
+                                <td>@{{ invite.status.display_status }}</td>
+                                <td>@{{ invite.created_at }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
             <button v-if="manageTeam && !team" class="btn btn-primary btn-raised" data-toggle="modal" data-target="#createTeam">
                 {{ trans('Создать команду') }}
             </button>
         </div>
     </team>
 
-    <invite-user inline-template>
+    <invite-user v-if="manageTeam" inline-template>
         <div v-if="team" class="modal fade" id="inviteUser" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -78,7 +126,7 @@
         </div>
     </invite-user>
 
-    <create-team inline-template>
+    <create-team v-if="manageTeam" inline-template>
         <div class="modal fade" id="createTeam" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">

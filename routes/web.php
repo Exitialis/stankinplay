@@ -34,6 +34,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::group(['namespace' => 'Invites'], function() {
         Route::get('invites', 'InviteController@get')->name('invites.get');
         Route::post('invites', 'InviteController@sendInvitation')->name('invites.sendInvite');
+        Route::get('invites/{team}', 'InviteController@getTeamInvites')->name('invites.team.get');
     });
     Route::group(['namespace' => 'Users'], function() {
         Route::get('users', 'UserController@get');

@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Models\Team;
 use App\Models\User;
 use App\Repositories\Contracts\UserRepositoryContract;
 use Illuminate\Http\Request;
@@ -42,11 +43,19 @@ class UserRepository extends BaseRepository implements UserRepositoryContract
      * Найти пользователей по дисциплине.
      *
      * @param $discipline
+     * @param Team $team
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function getByDiscipline($discipline)
+    public function getByDisciplineAndTeam($discipline, Team $team)
     {
-        return $this->model->where('discipline_id', $discipline)->select('id', 'login as name')->get();
+        return $this->model->where('discipline_id', $discipline)
+                            ->where('team_id', '<>', $team->id)
+                            ->orWhere('team_id', NULL)
+                            ->whereHas('invites', function($query) use($team) {
+                                $query->where('team_id', $team->id);
+                            }, 0)
+                            ->select('id', 'login as name')
+                            ->get();
     }
 
 }

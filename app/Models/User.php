@@ -65,6 +65,11 @@ class User extends Authenticatable
         return $this->belongsTo(Discipline::class);
     }
 
+    public function ownTeam()
+    {
+        return $this->hasOne(Team::class, 'captain_id');
+    }
+
     /**
      * Имеет приглашения в команду.
      *

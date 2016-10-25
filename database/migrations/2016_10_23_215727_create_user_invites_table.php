@@ -25,6 +25,9 @@ class CreateUserInvitesTable extends Migration
             $table->integer('team_id')->unsigned();
             $table->foreign('team_id')->references('id')->on('teams')->onDelete('cascade');
 
+            $table->integer('status_id')->unsigned();
+            $table->foreign('status_id')->references('id')->on('invite_user_statuses')->onDelete('cascade');
+
             $table->timestamps();
         });
     }

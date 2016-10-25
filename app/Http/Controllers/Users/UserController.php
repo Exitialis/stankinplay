@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Users;
 
+use App\Models\Team;
 use App\Repositories\Contracts\UserRepositoryContract;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
@@ -34,9 +35,14 @@ class UserController extends Controller
     public function get(Request $request)
     {
         if ($request->has('discipline')) {
-            $users = $this->users->getByDiscipline($request->input('discipline'));
-            
-            return response()->json($users);
+            $captain = \Auth::user();
+            if ($captain->can(['create-team', 'edit-team'])) {
+                $team = $captain->ownTeam;
+
+                $users = $this->users->getByDisciplineAndTeam($request->input('discipline'), $team);
+
+                return response()->json($users);
+            }
         }
 
         return response('');

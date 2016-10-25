@@ -5,6 +5,9 @@ Vue.component('invite-user', {
         },
         user() {
             return this.$store.state.user;
+        },
+        invites() {
+            return this.$store.state.invites;
         }
     },
 
@@ -24,6 +27,10 @@ Vue.component('invite-user', {
             this.form.team_id = this.team.id;
             this.$http.post(url, this.form).then(
                 response => {
+                    $('#inviteUser').modal('hide');
+                    this.getOptions();
+                    var invites = this.invites.concat([response.data.invite]);
+                    this.$store.commit('setInvites', invites);
                     this.erorrs = {};
                 }
             ).catch(
@@ -36,8 +43,10 @@ Vue.component('invite-user', {
         },
         getOptions() {
             this.$http.get('/users', {
-                discipline: this.user.discipline_id,
-            }).then(
+                    params: {
+                        discipline: this.user.discipline_id,
+                    }
+                }).then(
                 response => {
                     this.options = response.data;
                 }

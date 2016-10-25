@@ -17,6 +17,7 @@ use App\Models\Team;
 $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
 
     return [
+        'discipline_id' => 1,
         'login' => $faker->userName,
         'email' => $faker->email,
         'password' => bcrypt('12345'),

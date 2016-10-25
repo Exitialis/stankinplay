@@ -38,6 +38,11 @@ class Team extends Model
         return $this->belongsTo(Discipline::class);
     }
 
+    public function invites()
+    {
+        return $this->hasMany(UserInvite::class);
+    }
+
     /**
      * Создатель команды, он же - капитан.
      *

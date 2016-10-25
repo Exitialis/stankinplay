@@ -2,6 +2,7 @@
 
 namespace App\Managers;
 
+use App\Models\InviteUserStatus;
 use App\Models\Team;
 use App\Models\User;
 use App\Models\UserInvite;
@@ -23,6 +24,21 @@ class InviteManager
     }
 
     /**
+     * Получить приглашения команды.
+     *
+     * @param Team $team
+     * @return mixed
+     */
+    public function getTeamInvites($team)
+    {
+        if ( !  $team instanceof Team) {
+            $team = Team::findOrFail($team);
+        }
+
+        return $team->invites()->with(['status', 'inviter', 'invited'])->get();
+    }
+
+    /**
      * Пригласить пользователя в команду.
      *
      * @param $team_id
@@ -37,11 +53,13 @@ class InviteManager
 
         $user = User::findOrFail($user_id);
         $team = Team::findOrFail($team_id);
+        $status = InviteUserStatus::where('status', 'sended')->first();
 
         $invite = new UserInvite();
         $invite->inviter_id = $inviter->id;
         $invite->invited_id = $user->id;
         $invite->team_id = $team->id;
+        $invite->status_id = $status->id;
 
         $invite->save();
 

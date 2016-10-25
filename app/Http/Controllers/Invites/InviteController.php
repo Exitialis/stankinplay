@@ -38,6 +38,19 @@ class InviteController extends Controller
     }
 
     /**
+     * Получить приглашения от лица команды.
+     *
+     * @param $team
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getTeamInvites($team)
+    {
+        $invites = $this->manager->getTeamInvites($team);
+
+        return response()->json(compact('invites'));
+    }
+
+    /**
      * Отправить пришлашение пользователю на вступление в команду.
      *
      * @param Request $request
@@ -51,6 +64,8 @@ class InviteController extends Controller
         ]);
 
         $invite = $this->manager->inviteUser($request->input('team_id'), $request->input('user_id'));
+
+        $invite->load(['status', 'inviter', 'invited']);
 
         if ( ! $invite) {
             return response()->json(compact(flash('Невозможно отправить приглашение', 'error')));

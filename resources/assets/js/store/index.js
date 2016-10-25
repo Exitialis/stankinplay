@@ -6,7 +6,9 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         user: null,
-        team: null
+        team: null,
+        invites: null,
+        userInvites: null
     },
     mutations: {
         setUser(state, user) {
@@ -14,6 +16,12 @@ export default new Vuex.Store({
         },
         setTeam(state, team) {
             state.team = team;
+        },
+        setInvites(state, invites) {
+            state.invites = invites;
+        },
+        setUserInvites(state, invites) {
+            state.userInvites = invites;
         }
     },
     getters: {
