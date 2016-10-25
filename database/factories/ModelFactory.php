@@ -25,6 +25,7 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
         'last_name' => $faker->lastName,
         'middle_name' => $faker->firstName,
         'group' => 'idb-14-13',
+        'module' => true
     ];
 });
 
