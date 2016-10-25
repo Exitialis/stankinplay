@@ -62,48 +62,52 @@
             {{--   Участники команды  --}}
             <div v-if="team" class="row">
                 <div v-if="team.members" class="col-sm-12">
-                    <table class="table table-hover">
-                        <thead>
-                        <tr>
-                            <th>Логин:</th>
-                            <th>Фамилия:</th>
-                            <th>Имя:</th>
-                            <th>Отчество:</th>
-                            <th>Группа:</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr v-for="member in team.members">
-                            <td>@{{ member.login }}</td>
-                            <td>@{{ member.last_name }}</td>
-                            <td>@{{ member.first_name }}</td>
-                            <td>@{{ member.middle_name }}</td>
-                            <td>@{{ member.group }}</td>
-                        </tr>
-                        </tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>Логин:</th>
+                                <th>Фамилия:</th>
+                                <th>Имя:</th>
+                                <th>Отчество:</th>
+                                <th>Группа:</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr v-for="member in team.members">
+                                <td>@{{ member.login }}</td>
+                                <td>@{{ member.last_name }}</td>
+                                <td>@{{ member.first_name }}</td>
+                                <td>@{{ member.middle_name }}</td>
+                                <td>@{{ member.group }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
             {{--   Приглашения в команду от самой команды --}}
             <div v-if="invites && manageTeam" class="row">
                 <div v-if="invites.length >= 1" class="col-sm-12">
                     <h4>Приглашения в команду</h4>
-                    <table class="table table-hover">
-                        <thead>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
                             <tr>
                                 <th>Логин</th>
                                 <th>Статус приглашения</th>
                                 <th>Дата приглашения</th>
                             </tr>
-                        </thead>
-                        <tbody>
+                            </thead>
+                            <tbody>
                             <tr v-for="invite in invites">
                                 <td>@{{ invite.invited.login }}</td>
                                 <td :class="{'text-success': invite.status.status === 'accepted', 'text-danger': invite.status.status === 'decline', 'text-info': invite.status.status === 'sended'  }">@{{ invite.status.display_status }}</td>
                                 <td>@{{ invite.created_at }}</td>
                             </tr>
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
             <button v-if="manageTeam && !team" class="btn btn-primary btn-raised" data-toggle="modal" data-target="#createTeam">
