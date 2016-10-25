@@ -58,7 +58,8 @@ Vue.component('team', {
             }).then(
                 response => {
                     if (response.data.status) {
-                        let invites = this.userInvites.splice(id, 1);
+                        let invites = this.userInvites;
+                        invites = invites.splice(id, 1);
                         this.$store.commit('setUserInvites', invites);
                         this.loadTeam();
                     }

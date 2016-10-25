@@ -24,6 +24,12 @@ class DisciplineSeed extends Seeder
                 'name' => 'DOTA 2'
             ]);
         }
+        if ( ! Discipline::where('label', 'LOL')->first()) {
+            Discipline::create([
+                'label' => 'LOL',
+                'name' => 'League of Legends'
+            ]);
+        }
         if ( ! Discipline::where('label', 'HS')->first()) {
             Discipline::create([
                 'label' => 'HS',
