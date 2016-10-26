@@ -94,6 +94,8 @@ return [
 
     'migrations' => 'migrations',
 
+    'backup_path' => env('DB_BACKUP_PATH', ''),
+
     /*
     |--------------------------------------------------------------------------
     | Redis Databases

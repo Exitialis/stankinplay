@@ -56,11 +56,17 @@ return [
 
         's3' => [
             'driver' => 's3',
-            'key' => 'your-key',
-            'secret' => 'your-secret',
-            'region' => 'your-region',
-            'bucket' => 'your-bucket',
+            'key' => env('S3_KEY', ''),
+            'secret' => env('S3_SECRET'),
+            'region' => env('S3_REGION'),
+            'bucket' => env('S3_BUCKET'),
         ],
+        'google' => [
+            'driver' => 'google',
+            'clientId' => env('GOOGLE_DRIVE_CLIENT_ID', ''),
+            'clientSecret ' => env('GOOGLE_DRIVE_CLIENT_SECRET', ''),
+            'refreshToken ' => env('GOOGLE_DRIVE_REFRESH_TOKEN', ''),
+        ]
 
     ],
 
