@@ -50,8 +50,6 @@ class CreateTournament extends Command
 
         $name = $this->argument('name');
 
-
-
         foreach ($disciplines as $discipline) {
             $disciplineName = str_replace(':', '_', $discipline->label);
             $disciplineName = str_replace(' ', '_', $disciplineName);
@@ -78,11 +76,11 @@ class CreateTournament extends Command
             foreach ($members as $member) {
                 $this->api->addParticipant($tournament->challonge_id, $member->login);
             }
-            
+
             return true;
         }
 
-        $teams = Team::where('discipline_id', $discipline)->has('members', '>=', 4);
+        $teams = Team::where('discipline_id', $discipline)->has('members', '>=', 5)->get();
 
         foreach ($teams as $team) {
             $this->api->addParticipant($tournament->challonge_id, $team->name);
