@@ -80,7 +80,7 @@ class CreateTournament extends Command
             return true;
         }
 
-        $teams = Team::where('discipline_id', $discipline)->has('members', '>=', 5)->get();
+        $teams = Team::where('discipline_id', $discipline->id)->has('members', '>=', 5)->get();
 
         foreach ($teams as $team) {
             $this->api->addParticipant($tournament->challonge_id, $team->name);
