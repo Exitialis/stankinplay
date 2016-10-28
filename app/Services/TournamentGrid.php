@@ -19,7 +19,7 @@ class TournamentGrid
         ]);
     }
 
-    public function createTournament($name)
+    public function createTournament($name, $disciplineName)
     {
         $response = $this->client->post('tournaments.json', [
             'form_params' => [
@@ -28,7 +28,7 @@ class TournamentGrid
                     'name' => $name,
                     'hold_third_place_match' => true,
                     'ranked_by' => 'game wins',
-                    'url' => 'stankinplay_' . $name
+                    'url' => 'stankinplay_' . $disciplineName . '_' . $name
                 ]
             ]
         ]);

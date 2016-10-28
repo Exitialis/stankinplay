@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use App\Console\Commands\BackupDatabase;
+use App\Console\Commands\CreateTournament;
 use App\Console\Commands\MakeRepositoryCommand;
 use App\Console\Commands\MakeRepositoryContractCommand;
 use Illuminate\Console\Scheduling\Schedule;
@@ -18,7 +19,8 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         MakeRepositoryContractCommand::class,
         MakeRepositoryCommand::class,
-        BackupDatabase::class
+        BackupDatabase::class,
+        CreateTournament::class
     ];
 
     /**
