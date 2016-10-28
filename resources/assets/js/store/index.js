@@ -8,7 +8,8 @@ export default new Vuex.Store({
         user: null,
         team: null,
         invites: null,
-        userInvites: null
+        userInvites: null,
+        tournament: null
     },
     mutations: {
         setUser(state, user) {
@@ -22,6 +23,9 @@ export default new Vuex.Store({
         },
         setUserInvites(state, invites) {
             state.userInvites = invites;
+        },
+        setTour(state, tournament) {
+            state.tournament = tournament;
         }
     },
     getters: {

@@ -47,6 +47,13 @@ Route::group(['prefix' => 'admin', 'middleware' => 'role:admin|moderator', 'name
     Route::get('tournament', 'TournamentController@index')->name('admin.tournament');
 });
 
+Route::group(['prefix' => 'tournament', 'namespace' => 'Tournament'], function () {
+
+    Route::get('games', 'TournamentController@get')->name('tournament.get');
+
+});
+
+
 Route::get('disciplines', function() {
     return Discipline::select('id', 'name')->get();
 });

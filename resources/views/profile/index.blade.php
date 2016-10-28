@@ -14,6 +14,9 @@
                     <div v-if="currentTab === 'team'">
                         @include('profile.team')
                     </div>
+                    <div v-if="currentTab === 'tournament'">
+                        @include('profile.tournament')
+                    </div>
                     {{--<div v-if="currentTab === 'gameProfile'">
                         @include('profile.gameProfile')
                     </div>--}}
