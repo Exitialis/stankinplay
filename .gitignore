@@ -4,6 +4,8 @@
 /public/js
 /vendor
 /.idea
+.env.save
+backups/
 Homestead.json
 Homestead.yaml
 .env
