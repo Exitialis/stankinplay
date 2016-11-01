@@ -12,7 +12,8 @@ Vue.component('registration', {
                 middle_name: null,
                 group: null,
                 discipline: null,
-                captain: false
+                captain: false,
+                module: false
             },
             loading: false,
             confirm: false,
@@ -27,15 +28,12 @@ Vue.component('registration', {
                 this.loading = false;
                 this.confirm = true;
                 this.errors = {};
-                localStorage.setItem('registration', true);
             }).catch(response => {
                 this.loading = false;
-                localStorage.setItem('registration', false);
                 if (response.status === 422) {
                     this.errors = JSON.parse(response.body);
                     window.toastr.error('При регистрации произошла ошибка.')
                 }
-
             })
         },
         getDisciplines() {
@@ -53,6 +51,5 @@ Vue.component('registration', {
 
     mounted() {
         this.getDisciplines();
-        //this.registration = JSON.parse(localStorage.getItem('registration'));
     }
 });

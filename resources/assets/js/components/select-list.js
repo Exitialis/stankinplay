@@ -12,11 +12,19 @@ Vue.component('select-list', {
           </div>\
         </div>\
     ',
-    props: ['url', 'value', 'options', 'label', 'horizontal'],
+    props: ['value', 'options', 'label', 'horizontal'],
 
     methods: {
         select(event) {
-            this.$emit('input', event.target.value)
+            this.$emit('input', event.target.value);
+        }
+    },
+
+    watch: {
+        value(newValue) {
+            if (newValue === null) {
+                $(this.$el).children('div').children('select')[0].value = null;
+            }
         }
     }
 })

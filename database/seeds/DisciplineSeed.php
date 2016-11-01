@@ -30,5 +30,32 @@ class DisciplineSeed extends Seeder
                 'name' => 'League of Legends'
             ]);
         }
+        if ( ! Discipline::where('label', 'HS')->first()) {
+            Discipline::create([
+                'label' => 'HS',
+                'name' => 'Hearthstone',
+                'team' => false
+            ]);
+        }
+        if ( ! Discipline::where('label', 'FIFA')->first()) {
+            Discipline::create([
+                'label' => 'FIFA',
+                'name' => 'FIFA',
+                'team' => false
+            ]);
+        }
+        if ( ! Discipline::where('label', 'WOT')->first()) {
+            Discipline::create([
+                'label' => 'WOT',
+                'name' => 'World of Tanks'
+            ]);
+        }
+
+        if ( ! Discipline::where('label', 'WT')->first()) {
+            Discipline::create([
+                'label' => 'WT',
+                'name' => 'WarThunder'
+            ]);
+        }
     }
 }

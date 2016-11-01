@@ -26,6 +26,7 @@ class CreateUsersTable extends Migration
             $table->string('last_name');
             $table->string('middle_name');
             $table->string('group');
+            $table->boolean('module');
 
             $table->rememberToken();
             $table->timestamps();

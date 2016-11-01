@@ -10,9 +10,9 @@
                 <li :class="{active: currentTab === 'team'}">
                     <a href="#" @click.prevent="changeTab('team')">Команда</a>
                 </li>
-                <li :class="{active: currentTab === 'gameProfile'}">
+                {{--<li :class="{active: currentTab === 'gameProfile'}">
                     <a href="#" @click.prevent="changeTab('gameProfile')">Игровой профиль</a>
-                </li>
+                </li>--}}
             </ul>
         </div>
     </div>

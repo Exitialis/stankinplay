@@ -29,6 +29,7 @@ Vue.component('invite-user', {
                 response => {
                     $('#inviteUser').modal('hide');
                     this.getOptions();
+                    this.form.user_id = null;
                     var invites = this.invites.concat([response.data.invite]);
                     this.$store.commit('setInvites', invites);
                     this.erorrs = {};
