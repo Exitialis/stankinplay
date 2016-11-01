@@ -44,7 +44,8 @@ Route::group(['middleware' => 'auth'], function() {
 
 Route::group(['prefix' => 'admin', 'middleware' => 'role:admin|moderator', 'namespace' => 'Admin'], function() {
     Route::get('/', 'MainController@index')->name('admin');
-    Route::get('tournament', 'TournamentController@index')->name('admin.tournament');
+    
+    //Route::get('tournament', 'TournamentController@index')->name('admin.tournament');
 });
 
 Route::get('disciplines', function() {

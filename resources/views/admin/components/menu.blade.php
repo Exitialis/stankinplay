@@ -1,4 +1,4 @@
-<menu>
+<menu inline-template>
     <div class="well">
         <h4 class="text-center">Меню</h4>
         <div class="line"></div>

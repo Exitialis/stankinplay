@@ -5,14 +5,13 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title> {{ config('app.name') }}@yield('title')</title>
+    <title>{{ config('app.name') }}@yield('title')</title>
     <link rel="stylesheet" href="{{ asset('css/vendor.css') }}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 <body>
     <div id="wrapper" class="main">
         @include('components.header')
-
         <div class="container">
             @section('content')
 
@@ -22,7 +21,6 @@
     </div>
     <script>
         window.user = {!! Auth::check() ? json_encode(Auth::user()->load(['discipline', 'roles'])) : 'null' !!}
-
     </script>
     <script src="{{ elixir('js/app.js') }}"></script>
     @if(Session::has('notificate'))
