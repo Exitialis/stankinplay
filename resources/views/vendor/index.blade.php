@@ -24,7 +24,7 @@
         window.user = {!! Auth::check() ? json_encode(Auth::user()->load(['discipline', 'roles'])) : 'null' !!}
 
     </script>
-    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ elixir('js/app.js') }}"></script>
     @if(Session::has('notificate'))
         @php
             $flash = Session::get('notificate')['flash'];
