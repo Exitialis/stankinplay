@@ -6,6 +6,7 @@ use App\Console\Commands\BackupDatabase;
 use App\Console\Commands\CreateTournament;
 use App\Console\Commands\MakeRepositoryCommand;
 use App\Console\Commands\MakeRepositoryContractCommand;
+use App\Console\Commands\ParseCsv;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -20,7 +21,8 @@ class Kernel extends ConsoleKernel
         MakeRepositoryContractCommand::class,
         MakeRepositoryCommand::class,
         BackupDatabase::class,
-        CreateTournament::class
+        CreateTournament::class,
+        ParseCsv::class
     ];
 
     /**
