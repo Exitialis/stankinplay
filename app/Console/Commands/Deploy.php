@@ -6,6 +6,7 @@ use App\Models\Group;
 use App\Models\UniversityProfile;
 use App\Models\User;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Console\Command;
 use Masterminds\HTML5;
@@ -48,25 +49,31 @@ class Deploy extends Command
             //Создаем новые таблицы
             $this->call('migrate');
 
-
+            //Создаем группы.
+            (new \GroupSeeder())->run();
 
             $users = User::get();
 
             //Переносим данные из полей пользователя в профиль.
             foreach ($users as $user) {
                 $profile = new UniversityProfile();
+                $ids = [];
+                foreach ($profile->getFillable() as $attribute) {
+                    if ($attribute == 'group_id') {
+                        if ( ! $group = Group::where('name', 'LIKE', '%'.$user->group.'%')->first()) {
+                            Log::info('У пользователя ' . $user->id . ' не найдена группа: ' . $user->group);
+                            $ids[] = $user->id;
+                            continue;
+                        }
 
-                foreach ($profile->getAttributes() as $attribute) {
-                    if ($attribute == 'group') {
-                        $profile->group_id = Group::where('name', 'LIKE', '%'.$user->group.'%')->first()->id;
+                        $profile->group_id = $group->id;
+                        continue;
                     }
 
                     $profile->{$attribute} = $user->{$attribute};
                 }
-
                 $profile->save();
             }
-
             $this->dropUserFields();
         });
     }

@@ -20,6 +20,14 @@ class GroupSeeder extends Seeder
 
         $links = $el->getChildren();
 
+        $specialists = [
+            16 => 2,
+            15 => 2,
+            14 => 2,
+            12 => 1,
+            11 => 1
+        ];
+
         foreach ($links as $link) {
             if ($link instanceof Dom\HtmlNode) {
                 if ($link->tag->name() == 'a') {
@@ -29,9 +37,17 @@ class GroupSeeder extends Seeder
                         continue;
                     }
                     if ( ! \App\Models\Group::where('name', 'LIKE', '%'.$name.'%')->first()) {
-                        \App\Models\Group::create($name);
+                        $group = new \App\Models\Group();
+                        $group->name = $name;
+                        $group->save();
                     }
                 }
+            }
+        }
+
+        foreach ($specialists as $key => $value) {
+            for($i = 0; $i < $value; $i++) {
+                \App\Models\Group::create(['name' => 'МДС-'.$key.'-0'.$value]);
             }
         }
     }
