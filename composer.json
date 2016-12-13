@@ -13,7 +13,8 @@
         "greggilbert/recaptcha": "^2.1",
         "zizaco/entrust": "^1.7",
         "league/flysystem-aws-s3-v3": "~1.0",
-        "guzzlehttp/guzzle": "^6.2"
+        "guzzlehttp/guzzle": "^6.2",
+        "laravel/passport": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

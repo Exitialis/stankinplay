@@ -1,4 +1,4 @@
-<div class="row">
+<div v-if="ready" class="row">
     <div class="col-sm-12">
         <h4 class="text-primary">Основная информация</h4>
         <div class="row">
@@ -26,12 +26,6 @@
             </div>
             <div class="col-md-3 col-sm-4 col-xs-6">
                 <div class="form-group">
-                    <label>Группа:</label>
-                    <p>@{{ user.group }}</p>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-4 col-xs-6">
-                <div class="form-group">
                     <label>Дисциплина</label>
                     <p>@{{ user.discipline.name }}</p>
                 </div>
@@ -39,21 +33,38 @@
             <div class="col-md-3 col-sm-4 col-xs-6">
                 <div class="form-group">
                     <label>Фамилия</label>
-                    <p>@{{ user.last_name }}</p>
+                    <p>@{{ universityProfile.last_name }}</p>
                 </div>
             </div>
             <div class="col-md-3 col-sm-4 col-xs-6">
                 <div class="form-group">
                     <label>Имя</label>
-                    <p>@{{ user.first_name }}</p>
+                    <p>@{{ universityProfile.first_name }}</p>
                 </div>
             </div>
             <div class="col-md-3 col-sm-4 col-xs-6">
                 <div class="form-group">
                     <label>Отчество</label>
-                    <p>@{{ user.middle_name }}</p>
+                    <p>@{{ universityProfile.middle_name }}</p>
                 </div>
             </div>
+            <div class="col-md-3 col-sm-4 col-xs-6">
+                <div class="form-group">
+                    <label>Группа:</label>
+                    <p>@{{ universityProfile.group.name }}</p>
+                </div>
+            </div>
+        </div>
+        <h4 class="text-primary">Дополнительная информация</h4>
+        <div class="row">
+            <form>
+                <div class="col-md-3 col-sm-4 col-xs-6">
+                    <div class="form-group">
+                        <label>Модуль:</label>
+                        <input type="checkbox" v-model="form.module">
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>

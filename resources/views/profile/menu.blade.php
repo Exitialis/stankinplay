@@ -5,7 +5,7 @@
         <div class="col-md-12">
             <ul class="nav nav-pills nav-stacked">
                 <li :class="{active: currentTab === 'main'}">
-                    <a href="#" @click.prevent="changeTab('main')">Основная информация</a>
+                    <a href="#" @click.prevent="changeTab('main')">Информация</a>
                 </li>
                 <li :class="{active: currentTab === 'team'}">
                     <a href="#" @click.prevent="changeTab('team')">Команда</a>

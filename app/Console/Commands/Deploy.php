@@ -72,6 +72,7 @@ class Deploy extends Command
 
                     $profile->{$attribute} = $user->{$attribute};
                 }
+                $profile->user_id = $user->id;
                 $profile->save();
             }
             $this->dropUserFields();

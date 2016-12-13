@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Passport\HasApiTokens;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 
 /**
@@ -44,7 +45,7 @@ use Zizaco\Entrust\Traits\EntrustUserTrait;
  */
 class User extends Authenticatable
 {
-    use Notifiable, EntrustUserTrait;
+    use HasApiTokens, Notifiable, EntrustUserTrait;
 
     protected $hidden = [
         'password',
@@ -78,5 +79,15 @@ class User extends Authenticatable
     public function invites()
     {
         return $this->hasMany(UserInvite::class, 'invited_id');
+    }
+
+    /**
+     * Профиль в вузе.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function universityProfile()
+    {
+        return $this->hasOne(UniversityProfile::class);
     }
 }

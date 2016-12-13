@@ -13,6 +13,14 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:api');
+$router->group(['namespace' => 'Api'], function($router) {
+    $router->group(['middleware' => 'auth:api'], function($router) {
+        $router->group(['namespace' => 'User', 'prefix' => 'users'], function($router) {
+            $router->group(['namespace' => 'Profiles', 'prefix' => 'profiles'], function($router) {
+                $router->get('university', 'UniversityProfileController@lists')->name('api.users.profiles.university.lists');
+                $router->get('university/{userId}', 'UniversityProfileController@get')->name('api.users.profiles.university.get');
+            });
+        });
+
+    });
+});
