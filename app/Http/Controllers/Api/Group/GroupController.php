@@ -19,7 +19,7 @@ class GroupController extends Controller
     {
         $groups = Group::where('name', 'LIKE', $request->input('q') . '%')
             ->limit(10)
-            ->select('name', 'id')
+            ->select('name as text', 'id')
             ->get()
             ->toArray();
 

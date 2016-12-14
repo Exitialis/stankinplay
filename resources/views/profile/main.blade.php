@@ -55,7 +55,7 @@
                 <div class="col-md-3 col-sm-4 col-xs-6">
                     <div class="form-group">
                         <label>Группа:</label>
-                        <v-select2 v-model="form.group" :ajax-url="'{{ route('api.users.groups.lists') }}'">
+                        <v-select2 v-model="form.group" :ajax-url="'{{ route('api.users.groups.lists') }}'" :default-value="form.group">
 
                         </v-select2>
                     </div>

@@ -8,5 +8,5 @@ class Group extends Model
 {
     protected $fillable = ['name'];
 
-    protected $visible = ['id', 'name'];
+    protected $visible = ['id', 'name', 'text'];
 }
