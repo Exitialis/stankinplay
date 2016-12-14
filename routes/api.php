@@ -14,6 +14,12 @@ use Illuminate\Http\Request;
 */
 
 $router->group(['namespace' => 'Api'], function($router) {
+
+    $router->group(['namespace' => 'Group', 'prefix' => 'groups'], function($router) {
+        $router->get('/', 'GroupController@index')->name('api.users.groups');
+        $router->get('lists', 'GroupController@lists')->name('api.users.groups.lists');
+    });
+
     $router->group(['middleware' => 'auth:api'], function($router) {
         $router->group(['namespace' => 'User', 'prefix' => 'users'], function($router) {
             $router->group(['namespace' => 'Profiles', 'prefix' => 'profiles'], function($router) {

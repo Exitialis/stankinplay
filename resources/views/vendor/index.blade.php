@@ -8,6 +8,7 @@
     <title>{{ config('app.name') }}@yield('title')</title>
     <link rel="stylesheet" href="{{ asset('css/vendor.css') }}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    @yield('css')
 </head>
 <body>
     <div id="wrapper" class="main">

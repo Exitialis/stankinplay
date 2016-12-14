@@ -48,20 +48,22 @@
                     <p>@{{ universityProfile.middle_name }}</p>
                 </div>
             </div>
-            <div class="col-md-3 col-sm-4 col-xs-6">
-                <div class="form-group">
-                    <label>Группа:</label>
-                    <p>@{{ universityProfile.group.name }}</p>
-                </div>
-            </div>
         </div>
         <h4 class="text-primary">Дополнительная информация</h4>
         <div class="row">
             <form>
                 <div class="col-md-3 col-sm-4 col-xs-6">
                     <div class="form-group">
+                        <label>Группа:</label>
+                        <v-select2 v-model="form.group" :ajax-url="'{{ route('api.users.groups.lists') }}'">
+
+                        </v-select2>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-4 col-xs-6">
+                    <div class="form-group">
                         <label>Модуль:</label>
-                        <input type="checkbox" v-model="form.module">
+                        <input class="form-control" type="checkbox" v-model="form.module">
                     </div>
                 </div>
             </form>

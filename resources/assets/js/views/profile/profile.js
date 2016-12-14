@@ -15,6 +15,7 @@ Vue.component('profile', {
             universityProfile: {},
             form: {
                 module: universityProfile.module || false,
+                group: universityProfile.group || {},
                 studentID: universityProfile.studentID || '',
                 budget: universityProfile.budget || false,
                 grants: universityProfile.grants || false
@@ -37,6 +38,7 @@ Vue.component('profile', {
                     this.form.module = universityProfile.module || false;
                     this.form.budget = universityProfile.budget || false;
                     this.form.grants = universityProfile.grants || false;
+                    this.form.group = universityProfile.group || {};
                     this.ready = true;
                 }
             )
