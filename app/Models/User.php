@@ -42,6 +42,11 @@ use Zizaco\Entrust\Traits\EntrustUserTrait;
  * @property-read \App\Models\Discipline $discipline
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Role[] $roles
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereDisciplineId($value)
+ * @property-read \App\Models\Team $ownTeam
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\UserInvite[] $invites
+ * @property-read \App\Models\UniversityProfile $universityProfile
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Passport\Client[] $clients
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Passport\Token[] $tokens
  */
 class User extends Authenticatable
 {

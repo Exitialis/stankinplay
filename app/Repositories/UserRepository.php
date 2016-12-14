@@ -28,15 +28,13 @@ class UserRepository extends BaseRepository implements UserRepositoryContract
     public function saveUser(Request $request)
     {
         return $this->model->firstOrCreate(['login' => $request->input('login')], [
+            'discipline_id' => $request->input('discipline'),
             'login' => $request->input('login'),
             'email' => $request->input('email'),
             'password' => bcrypt($request->input('password')),
             'first_name' => $request->input('first_name'),
             'last_name' => $request->input('last_name'),
             'middle_name' => $request->input('middle_name'),
-            'group' => $request->input('group'),
-            'discipline_id' => $request->input('discipline'),
-            'module' => $request->input('module')
         ]);
     }
 

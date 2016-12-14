@@ -22,9 +22,6 @@ class CreateUniversityProfilesTable extends Migration
             $table->integer('group_id')->unsigned()->nullable();
             $table->foreign('group_id')->references('id')->on('groups');
 
-            $table->string('last_name');
-            $table->string('first_name');
-            $table->string('middle_name');
             $table->integer('studentID')->nullable();
             $table->boolean('module')->default(0);
             $table->boolean('budget')->default(0)->nullable();

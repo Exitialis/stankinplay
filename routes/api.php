@@ -25,6 +25,7 @@ $router->group(['namespace' => 'Api'], function($router) {
             $router->group(['namespace' => 'Profiles', 'prefix' => 'profiles'], function($router) {
                 $router->get('university', 'UniversityProfileController@lists')->name('api.users.profiles.university.lists');
                 $router->get('university/{userId}', 'UniversityProfileController@get')->name('api.users.profiles.university.get');
+                $router->put('university/{profileId}', 'UniversityProfileController@update')->name('api.users.profile.university.update');
             });
         });
 

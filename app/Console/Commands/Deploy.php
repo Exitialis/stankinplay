@@ -85,7 +85,7 @@ class Deploy extends Command
     private function dropUserFields()
     {
         Schema::table('users', function(Blueprint $table) {
-            $table->dropColumn(['first_name', 'last_name', 'middle_name', 'group', 'module']);
+            $table->dropColumn(['group', 'module']);
         });
     }
 }

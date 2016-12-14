@@ -33,38 +33,54 @@
             <div class="col-md-3 col-sm-4 col-xs-6">
                 <div class="form-group">
                     <label>Фамилия</label>
-                    <p>@{{ universityProfile.last_name }}</p>
+                    <p>@{{ user.last_name }}</p>
                 </div>
             </div>
             <div class="col-md-3 col-sm-4 col-xs-6">
                 <div class="form-group">
                     <label>Имя</label>
-                    <p>@{{ universityProfile.first_name }}</p>
+                    <p>@{{ user.first_name }}</p>
                 </div>
             </div>
             <div class="col-md-3 col-sm-4 col-xs-6">
                 <div class="form-group">
                     <label>Отчество</label>
-                    <p>@{{ universityProfile.middle_name }}</p>
+                    <p>@{{ user.middle_name }}</p>
                 </div>
             </div>
         </div>
         <h4 class="text-primary">Дополнительная информация</h4>
         <div class="row">
-            <form>
-                <div class="col-md-3 col-sm-4 col-xs-6">
-                    <div class="form-group">
-                        <label>Группа:</label>
-                        <v-select2 v-model="form.group" :ajax-url="'{{ route('api.users.groups.lists') }}'" :default-value="form.group">
-
-                        </v-select2>
+            <form @submit.prevent="submit('{{ route('api.users.profile.university.update', auth()->id()) }}')">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-4 col-xs-6">
+                            <div class="form-group">
+                                <label>Группа:</label>
+                                <v-select2 v-model="form.group_id" :ajax-url="'{{ route('api.users.groups.lists') }}'" :default-value="group"></v-select2>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-4 col-xs-6">
-                    <div class="form-group">
-                        <label>Модуль:</label>
-                        <input class="form-control" type="checkbox" v-model="form.module">
-                    </div>
+                    <label>&nbsp;</label>
+                    {!! checkbox('form.module', trans('Нужен модуль')) !!}
+                </div>
+                <div class="col-md-3 col-sm-4 col-xs-6">
+                    <label>&nbsp;</label>
+                    {!! checkbox('form.budget', trans('Бюджет')) !!}
+                </div>
+                <div class="col-md-3 col-sm-4 col-xs-6">
+                    <label>&nbsp;</label>
+                    {!! checkbox('form.grants', trans('Стипендия')) !!}
+                </div>
+                <div class="col-md-3 col-sm-4 col-xs-6">
+                    {!! text('form.studentID', trans('Номер студенческого')) !!}
+                </div>
+                <div class="col-md-3 col-sm-4 col-xs-6">
+                    <button type="submit" class="btn btn-success">
+                        Сохранить
+                    </button>
                 </div>
             </form>
         </div>

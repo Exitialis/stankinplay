@@ -28,4 +28,20 @@ class UniversityProfileController extends Controller
 
         return response()->json(compact('profile'));
     }
+
+    public function update($userId, Request $request)
+    {
+        $this->validate($request, [
+            'group_id' => 'required|exists:groups,id',
+            'studentID' => 'required|min:6|max:6'
+        ]);
+
+        $profile = User::findOrFail($userId)->universityProfile;
+
+        $profile->update($request->only($profile->getFillable()));
+
+        notificate(trans('Профиль обновлен'));
+
+        return response()->json(true);
+    }
 }
