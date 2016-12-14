@@ -38,7 +38,10 @@ class UniversityProfileController extends Controller
 
         $profile = User::findOrFail($userId)->universityProfile;
 
-        $profile->update($request->only($profile->getFillable()));
+        $data = $request->only($profile->getFillable());
+        $data['user_id'] = $userId;
+
+        $profile->update($data);
 
         notificate(trans('Профиль обновлен'));
 
