@@ -13,10 +13,6 @@ Route::group(['prefix' => 'auth', 'namespace' => 'Auth', 'middleware' => 'guest'
         Route::post('login', 'LoginController@login')->name('login.post');
 });
 
-/*Route::get('test', function() {
-    return view('test1');
-});*/
-
 /**
  * Профиль пользователя.
  */
@@ -44,7 +40,7 @@ Route::group(['middleware' => 'auth'], function() {
 
 Route::group(['prefix' => 'admin', 'middleware' => 'role:admin|moderator', 'namespace' => 'Admin'], function() {
     Route::get('/', 'MainController@index')->name('admin');
-    
+    Route::get('users', 'UsersController@index')->name('admin.users');
     //Route::get('tournament', 'TournamentController@index')->name('admin.tournament');
 });
 
@@ -56,7 +52,7 @@ Route::post('permission-check', 'Permissions\PermissionController@can');
 
 Route::get('/', function() {
     return redirect()->route('profile.get');
-});
+})->name('home');
 
 //Route::get('menu', 'Menu\TopMenuController@get')->name('menu.get');
 
