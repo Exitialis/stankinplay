@@ -59,7 +59,19 @@ class User extends Authenticatable
         'updated_at'
     ];
 
+    protected $appends = ['full_name'];
+
     protected $guarded = [];
+
+    /**
+     * ФИО пользователя.
+     *
+     * @return string
+     */
+    public function getFullNameAttribute()
+    {
+        return $this->last_name . ' ' . $this->first_name . ' ' . $this->middle_name;
+    }
 
     public function team()
     {

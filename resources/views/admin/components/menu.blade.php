@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-md-12">
             <ul class="nav nav-pills nav-stacked text-center">
-                <li>
+                <li class="{{ active_link('admin.users') }}">
                     <a href="{{ route('admin.users') }}">Пользователи</a>
                 </li>
             </ul>

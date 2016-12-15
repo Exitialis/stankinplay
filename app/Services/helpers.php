@@ -29,3 +29,18 @@ if ( ! function_exists('notificate')) {
     }
 
 }
+
+if ( ! function_exists('active_link')) {
+    function active_link($route, $className = 'active') {
+        $routes = count(func_get_args()) ? func_get_args() : [$route];
+        $current = app('router')->currentRouteName();
+
+        foreach ($routes as $route) {
+            if (starts_with($current, $route)) {
+                return $className;
+            }
+        }
+
+        return null;
+    }
+}
