@@ -4,6 +4,7 @@ namespace App\Console;
 
 use App\Console\Commands\BackupDatabase;
 use App\Console\Commands\CreateTournament;
+use App\Console\Commands\Deploy;
 use App\Console\Commands\MakeRepositoryCommand;
 use App\Console\Commands\MakeRepositoryContractCommand;
 use App\Console\Commands\ParseCsv;
@@ -23,6 +24,7 @@ class Kernel extends ConsoleKernel
         BackupDatabase::class,
         CreateTournament::class,
         ParseCsv::class
+        Deploy::class
     ];
 
     /**
@@ -33,8 +35,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        //$schedule->command('db:backup')
-        //          ->at('14:36');
+        $schedule->command('db:backup')
+                  ->at('14:55');
     }
 
     /**

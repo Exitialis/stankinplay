@@ -17,6 +17,7 @@ window.bootstrap = require('bootstrap-material-design/scripts');
 $.material.init();
 
 window.toastr = require('toastr');
+window.select2 = require('select2');
 
 Vue.http.headers.common['X-CSRF-TOKEN'] = $('meta[name=csrf-token]').attr('content');
 
@@ -34,10 +35,3 @@ Vue.http.interceptors.push((request, next) => {
             window.toastr.error('Too Many Attempts.')
     })
 });
-
-// import Echo from "laravel-echo"
-
-// window.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     key: 'your-pusher-key'
-// });

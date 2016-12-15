@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Passport\HasApiTokens;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 
 /**
@@ -41,10 +42,15 @@ use Zizaco\Entrust\Traits\EntrustUserTrait;
  * @property-read \App\Models\Discipline $discipline
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Role[] $roles
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereDisciplineId($value)
+ * @property-read \App\Models\Team $ownTeam
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\UserInvite[] $invites
+ * @property-read \App\Models\UniversityProfile $universityProfile
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Passport\Client[] $clients
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Passport\Token[] $tokens
  */
 class User extends Authenticatable
 {
-    use Notifiable, EntrustUserTrait;
+    use HasApiTokens, Notifiable, EntrustUserTrait;
 
     protected $hidden = [
         'password',
@@ -53,7 +59,19 @@ class User extends Authenticatable
         'updated_at'
     ];
 
+    protected $appends = ['full_name'];
+
     protected $guarded = [];
+
+    /**
+     * ФИО пользователя.
+     *
+     * @return string
+     */
+    public function getFullNameAttribute()
+    {
+        return $this->last_name . ' ' . $this->first_name . ' ' . $this->middle_name;
+    }
 
     public function team()
     {
@@ -78,5 +96,15 @@ class User extends Authenticatable
     public function invites()
     {
         return $this->hasMany(UserInvite::class, 'invited_id');
+    }
+
+    /**
+     * Профиль в вузе.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function universityProfile()
+    {
+        return $this->hasOne(UniversityProfile::class);
     }
 }

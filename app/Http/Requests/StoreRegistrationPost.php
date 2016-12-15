@@ -30,7 +30,7 @@ class StoreRegistrationPost extends FormRequest
             'first_name' => 'required|max:255',
             'last_name' => 'required|max:255',
             'middle_name' => 'required|max:255',
-            'group' => 'required|max:255',
+            'group_id' => 'required|exists:groups,id',
             'discipline' => 'required|exists:disciplines,id'
             //'g-recaptcha-response' => 'required|recaptcha'
         ];

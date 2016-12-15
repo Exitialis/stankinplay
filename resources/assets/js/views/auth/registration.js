@@ -10,7 +10,7 @@ Vue.component('registration', {
                 last_name: null,
                 first_name: null,
                 middle_name: null,
-                group: null,
+                group_id: null,
                 discipline: null,
                 captain: false,
                 module: false

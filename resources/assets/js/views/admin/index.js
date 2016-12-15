@@ -1,2 +1,1 @@
-require('./tournament.js');
-require('./components');
+require('./users');

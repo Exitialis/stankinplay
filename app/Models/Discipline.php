@@ -18,6 +18,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Discipline whereUpdatedAt($value)
  * @property string $label
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Discipline whereLabel($value)
+ * @property boolean $team
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Discipline whereTeam($value)
  */
 class Discipline extends Model
 {

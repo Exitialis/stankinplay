@@ -13,14 +13,16 @@
         "greggilbert/recaptcha": "^2.1",
         "zizaco/entrust": "^1.7",
         "league/flysystem-aws-s3-v3": "~1.0",
-        "guzzlehttp/guzzle": "^6.2"
+        "guzzlehttp/guzzle": "^6.2",
+        "laravel/passport": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
         "phpunit/phpunit": "~5.0",
         "symfony/css-selector": "3.1.*",
-        "symfony/dom-crawler": "3.1.*"
+        "symfony/dom-crawler": "3.1.*",
+        "paquettg/php-html-parser": "^1.7"
     },
     "autoload": {
         "classmap": [

@@ -19,14 +19,16 @@ class CreateUsersTable extends Migration
             $table->integer('discipline_id')->unsigned();
             $table->foreign('discipline_id')->references('id')->on('disciplines');
 
+            $table->integer('team_id')->unsigned();
+            $table->foreign('team_id')->references('id')->on('teams');
+
             $table->string('login')->unique();
             $table->string('email')->unique();
             $table->string('password');
-            $table->string('first_name');
+
             $table->string('last_name');
+            $table->string('first_name');
             $table->string('middle_name');
-            $table->string('group');
-            $table->boolean('module');
 
             $table->rememberToken();
             $table->timestamps();

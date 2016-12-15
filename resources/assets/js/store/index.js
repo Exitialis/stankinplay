@@ -6,6 +6,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         user: null,
+        universityProfile: null,
         team: null,
         invites: null,
         userInvites: null
@@ -22,6 +23,9 @@ export default new Vuex.Store({
         },
         setUserInvites(state, invites) {
             state.userInvites = invites;
+        },
+        setUniversityProfile(state, profile) {
+            state.universityProfile = profile;
         }
     },
     getters: {

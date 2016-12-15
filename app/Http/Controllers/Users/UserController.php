@@ -37,11 +37,13 @@ class UserController extends Controller
         if ($request->has('discipline')) {
             $captain = \Auth::user();
             if ($captain->can(['create-team', 'edit-team'])) {
-                $team = $captain->ownTeam;
+                if ($captain->ownTeam) {
+                    $team = $captain->ownTeam;
 
-                $users = $this->users->getByDisciplineAndTeam($request->input('discipline'), $team);
-                
-                return response()->json($users);
+                    $users = $this->users->getByDisciplineAndTeam($request->input('discipline'), $team);
+
+                    return response()->json($users);
+                }
             }
         }
 

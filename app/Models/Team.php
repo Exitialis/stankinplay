@@ -22,6 +22,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Team whereUpdatedAt($value)
  * @property integer $captain_id
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Team whereCaptainId($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $members
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\UserInvite[] $invites
+ * @property-read \App\Models\User $captain
  */
 class Team extends Model
 {

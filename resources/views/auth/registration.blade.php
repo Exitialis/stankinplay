@@ -26,7 +26,13 @@
 
                             {!! select('form.discipline', 'disciplines', trans('Дисциплина'), 'true', ['horizontal' => 1]) !!}
 
-                            {!! text('form.group', trans('Группа'), true, ['placeholder' => 'XXX-11-11', 'horizontal' => 1]) !!}
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">Группа:</label>
+                                <div class="col-sm-10">
+                                    <label>&nbsp;</label>
+                                    <v-select2 v-model="form.group_id" :ajax-url="'{{ route('api.users.groups.lists') }}'"></v-select2>
+                                </div>
+                            </div>
 
                             {!! checkbox('form.captain', trans('Я капитан'), ['horizontal' => 1]) !!}
 
@@ -61,4 +67,8 @@
             </div>
         </div>
     </registration>
+@endsection
+
+@section('css')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css">
 @endsection

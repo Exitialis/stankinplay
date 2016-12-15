@@ -3,6 +3,7 @@
 namespace App\Managers;
 
 use App\Models\Role;
+use App\Models\UniversityProfile;
 use App\Repositories\Contracts\UserRepositoryContract;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
@@ -33,6 +34,12 @@ class AuthManager
     public function register(Request $request)
     {
         $user = $this->users->saveUser($request);
+
+        $universityProfile = UniversityProfile::create([
+            'user_id' => $user->id,
+            'group_id' => $request->input('group_id'),
+            'module' => $request->input('module')
+        ]);
 
         if ( ! $user) {
             return false;
