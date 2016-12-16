@@ -12,14 +12,15 @@
 
             <div class="navbar-collapse collapse navbar-inverse-collapse">
                 <ul class="nav navbar-nav">
-
-                    <li v-if="user" :class="{active: checkUrl('{{ route('profile.get') }}')}">
-                        <a href="{{ route('profile.get') }}">Профиль</a>
-                    </li>
-                    @if (auth()->user()->hasRole('admin'))
-                        <li :class="{active: checkUrl('{{ route('admin') }}')}">
-                            <a href="{{ route('admin') }}">Управление секцией</a>
+                    @if(auth()->check())
+                        <li v-if="user" :class="{active: checkUrl('{{ route('profile.get') }}')}">
+                            <a href="{{ route('profile.get') }}">Профиль</a>
                         </li>
+                        @if (auth()->user()->hasRole('admin'))
+                            <li :class="{active: checkUrl('{{ route('admin') }}')}">
+                                <a href="{{ route('admin') }}">Управление секцией</a>
+                            </li>
+                        @endif
                     @endif
                 </ul>
                 <ul class="nav navbar-nav navbar-right">

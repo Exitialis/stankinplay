@@ -2,7 +2,7 @@
 
 @section('admin.content')
 
-    <admin-users :ajax-url="'{{ route('api.users') }}" inline-template>
+    <admin-users :ajax-url="'{{ route('api.users') }}'" inline-template>
         <div>
             <h3>Пользователи</h3>
 
@@ -10,13 +10,13 @@
                 <table class="table table-hover">
                     <thead>
                     <tr>
-                        <th @click="sortBy('last_name')">ФИО</th>
-                        <th @click="sortBy('group_id')">Группа</th>
-                        <th @click="sortBy('')">Дисциплина</th>
-                        <th @click="sortBy">Студенческий</th>
-                        <th @click="sortBy">Модуль</th>
-                        <th @click="sortBy">Бюджет</th>
-                        <th @click="sortBy">Стипендия</th>
+                        <th><a href="#" @click.prevent="sortBy('full_name')">ФИО</a></th>
+                        <th><a href="#" @click.prevent="sortBy('group_id')">Группа</a></th>
+                        <th><a href="#" @click.prevent="sortBy('discipline_id')">Дисциплина</a></th>
+                        <th><a href="#" @click.prevent="sortBy('studentID')">Студенческий</a></th>
+                        <th><a href="#" @click.prevent="sortBy('module')">Модуль</a></th>
+                        <th><a href="#" @click.prevent="sortBy('budget')">Бюджет</a></th>
+                        <th><a href="#" @click.prevent="sortBy('grants')">Стипендия</a></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -57,7 +57,7 @@
                 </table>
             </div>
 
-            <pagination :url="ajaxUrl"
+            <pagination :url="url"
                         v-model="users">
             </pagination>
         </div>

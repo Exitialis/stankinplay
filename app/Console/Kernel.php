@@ -23,7 +23,7 @@ class Kernel extends ConsoleKernel
         MakeRepositoryCommand::class,
         BackupDatabase::class,
         CreateTournament::class,
-        ParseCsv::class
+        ParseCsv::class,
         Deploy::class
     ];
 

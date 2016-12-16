@@ -115,6 +115,9 @@ Vue.component('pagination', {
         },
         ready(value) {
             this.$emit('ready', value)
+        },
+        url(value) {
+            this.loadData();
         }
     },
 

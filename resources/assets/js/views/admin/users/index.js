@@ -20,10 +20,13 @@ Vue.component('admin-users', {
         sortBy(field) {
             //Разбираем ссылку
             let url = urlParser.parse(this.url, true);
-            //Добавляем sort в параметры
-            url.query['sort'] = field;
 
-            this.url = urlParser.format(url);
+            //Добавляем sort в параметры
+            url.query.sort = field;
+            url.search = '';
+            url = urlParser.format(url);
+
+            this.url = url;
         }
     }
 
