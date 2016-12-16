@@ -1,3 +1,5 @@
+var urlParser = require('url');
+
 Vue.component('pagination', {
 
     template: `
@@ -27,7 +29,7 @@ Vue.component('pagination', {
             type: String,
             required: true
         },
-        value: {}
+        value: {},
     },
 
     data() {
@@ -38,6 +40,7 @@ Vue.component('pagination', {
             last_page: null,
             ready: false,
             loading: false,
+            temp: urlParser
         }
     },
 
@@ -78,12 +81,14 @@ Vue.component('pagination', {
 
     methods: {
         loadData(page) {
-            if (this.loading) return
-            var url = this.url
+            if (this.loading) return;
+            var url = urlParser.parse(this.url, true);
             if (page) {
-                url += '?page=' + page
+                url.query.page = page;
+                url.search = '';
             }
-            this.loading = true
+            url = url.format();
+            this.loading = true;
             this.$http.get(url).then(
                 response => {
                     this.$emit('input', response.data.data)

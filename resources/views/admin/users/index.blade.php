@@ -21,10 +21,10 @@
                     </thead>
                     <tbody>
                     <tr v-for="user in users">
-                        <td>@{{ user.full_name }}</td>
-                        <td>@{{ user.university_profile ? user.university_profile.group ? user.university_profile.group.name : 'Не указана' : 'Не указана' }}</td>
-                        <td>@{{ user.discipline ? user.discipline.name : 'Не указана' }}</td>
-                        <td>@{{ user.university_profile ? user.university_profile.studentID ? user.university_profile.studentID : 'Не указан' : 'Не указан' }}</td>
+                        <td>@{{ user.full_name ? user.full_name : 'Не указана' }}</td>
+                        <td>@{{ user.group_name ? user.group_name : 'Не указана' }}</td>
+                        <td>@{{ user.discipline_name ? user.discipline_name : 'Не указана' }}</td>
+                        <td>@{{ user.studentID ? user.studentID : 'Не указан' }}</td>
                         <td>
                             <p v-if=" ! user.university_profile">
                                 <i class="fa fa-times text-danger" aria-hidden="true"></i>
