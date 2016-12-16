@@ -26,7 +26,10 @@ class SqlDebug
      */
     public function handle(QueryExecuted $event)
     {
-        \Log::debug($event->sql);
+        if (app()->environment() === 'local') {
+            \Log::debug($event->sql);
+        }
+
         /*var_dump($query->bindings);
         var_dump($query->time);*/
     }
