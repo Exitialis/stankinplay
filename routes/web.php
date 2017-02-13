@@ -12,7 +12,9 @@ Route::group(['prefix' => 'auth', 'namespace' => 'Auth', 'middleware' => 'guest'
         Route::get('login', 'LoginController@index')->name('login.get');
         Route::post('login', 'LoginController@login')->name('login.post');
 
-        Route::get('forgot');
+        Route::get('forgot', 'ForgotController@index')->name('forgot');
+        Route::post('forgot', 'ForgotController@reset')->name('forgot.reset');
+        Route::get('forgot/{code}')->name('forgot.reset');
 });
 
 /**

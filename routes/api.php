@@ -1,5 +1,6 @@
 <?php
 
+use App\Mail\ResetPassword;
 use Illuminate\Http\Request;
 
 /*
@@ -18,6 +19,10 @@ $router->group(['namespace' => 'Api'], function($router) {
     $router->group(['namespace' => 'Group', 'prefix' => 'groups'], function($router) {
         $router->get('/', 'GroupController@index')->name('api.users.groups');
         $router->get('lists', 'GroupController@lists')->name('api.users.groups.lists');
+    });
+
+    $router->get('mailtest', function() {
+        \Mail::to('lpexitialis@gmail.com')->send(new ResetPassword());
     });
 
     $router->group(['middleware' => 'auth:api'], function($router) {
