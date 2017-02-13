@@ -11,6 +11,8 @@ Route::group(['prefix' => 'auth', 'namespace' => 'Auth', 'middleware' => 'guest'
 
         Route::get('login', 'LoginController@index')->name('login.get');
         Route::post('login', 'LoginController@login')->name('login.post');
+
+        Route::get('forgot');
 });
 
 /**
