@@ -33,5 +33,5 @@ use Illuminate\Database\Eloquent\Model;
  */
 class CsgoProfile extends Model
 {
-    //
+
 }

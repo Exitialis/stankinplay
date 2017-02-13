@@ -11,5 +11,5 @@ use Illuminate\Database\Eloquent\Model;
  */
 class UserGameProfiles extends Model
 {
-    //
+
 }

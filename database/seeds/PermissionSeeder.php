@@ -16,7 +16,6 @@ class PermissionSeeder extends Seeder
             $perm = new Permission();
 
             $perm->name = 'create-team';
-            $perm->display_name = "Создание команды";
             $perm->description = "Возможность создавать команду";
             $perm->save();
         }
@@ -25,7 +24,6 @@ class PermissionSeeder extends Seeder
             $perm = new Permission();
 
             $perm->name = 'edit-team';
-            $perm->display_name = 'Редактирование команды';
             $perm->description = 'Возможность редакитровать команду';
             $perm->save();
         }

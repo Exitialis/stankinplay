@@ -21,5 +21,4 @@ use Illuminate\Database\Eloquent\Model;
  */
 class InviteUserStatus extends Model
 {
-    
 }

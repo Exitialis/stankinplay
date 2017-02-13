@@ -20,7 +20,6 @@ class RoleSeeder extends Seeder
             $admin = new Role();
 
             $admin->name = 'admin';
-            $admin->display_name = 'Администратор';
             $admin->description = 'Администратор сайта';
             $admin->save();
 
@@ -31,7 +30,6 @@ class RoleSeeder extends Seeder
             $captain = new Role();
 
             $captain->name = 'captain';
-            $captain->display_name = 'Капитан';
             $captain->description = 'Капитан команды';
             $captain->save();
 
@@ -42,7 +40,6 @@ class RoleSeeder extends Seeder
             $moderator = new Role();
 
             $moderator->name = 'moderator';
-            $moderator->display_name = 'Модератор';
             $moderator->description = 'Модератор сайта';
             $moderator->save();
         }
@@ -51,7 +48,6 @@ class RoleSeeder extends Seeder
             $player = new Role();
 
             $player->name = 'player';
-            $player->display_name = 'Игрок';
             $player->description = 'Игрок';
             $player->save();
         }
@@ -60,7 +56,6 @@ class RoleSeeder extends Seeder
             $member = new Role();
 
             $member->name = 'member';
-            $member->display_name = 'Участник';
             $member->description = 'Участник секции';
             $member->save();
         }

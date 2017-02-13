@@ -12,48 +12,48 @@ class DisciplineSeed extends Seeder
      */
     public function run()
     {
-        if ( ! Discipline::where('label', 'CS:GO')->first()) {
+        if ( ! Discipline::where('name', 'CS:GO')->first()) {
             Discipline::create([
-                'label' => 'CS:GO',
+                'name' => 'CS:GO',
                 'name' => 'CS:GO'
             ]);
         }
-        if ( ! Discipline::where('label', 'DOTA 2')->first()) {
+        if ( ! Discipline::where('name', 'DOTA 2')->first()) {
             Discipline::create([
-                'label' => 'DOTA 2',
+                'name' => 'DOTA 2',
                 'name' => 'DOTA 2'
             ]);
         }
-        if ( ! Discipline::where('label', 'LOL')->first()) {
+        if ( ! Discipline::where('name', 'LOL')->first()) {
             Discipline::create([
-                'label' => 'LOL',
+                'name' => 'LOL',
                 'name' => 'League of Legends'
             ]);
         }
-        if ( ! Discipline::where('label', 'HS')->first()) {
+        if ( ! Discipline::where('name', 'HS')->first()) {
             Discipline::create([
-                'label' => 'HS',
+                'name' => 'HS',
                 'name' => 'Hearthstone',
                 'team' => false
             ]);
         }
-        if ( ! Discipline::where('label', 'FIFA')->first()) {
+        if ( ! Discipline::where('name', 'FIFA')->first()) {
             Discipline::create([
-                'label' => 'FIFA',
+                'name' => 'FIFA',
                 'name' => 'FIFA',
                 'team' => false
             ]);
         }
-        if ( ! Discipline::where('label', 'WOT')->first()) {
+        if ( ! Discipline::where('name', 'WOT')->first()) {
             Discipline::create([
-                'label' => 'WOT',
+                'name' => 'WOT',
                 'name' => 'World of Tanks'
             ]);
         }
 
-        if ( ! Discipline::where('label', 'WT')->first()) {
+        if ( ! Discipline::where('name', 'WT')->first()) {
             Discipline::create([
-                'label' => 'WT',
+                'name' => 'WT',
                 'name' => 'WarThunder'
             ]);
         }
