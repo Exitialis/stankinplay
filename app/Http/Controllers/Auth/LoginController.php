@@ -35,6 +35,6 @@ class LoginController extends Controller
             return response()->json(compact('user', 'flash', 'redirect'));
         }
 
-        return response()->json(flash('При авторизации произошла ошибка', 'error'));
+        return response()->json(flash('При авторизации произошла ошибка. Неверный логин или пароль.', 'error'));
     }
 }

@@ -14,7 +14,8 @@ Route::group(['prefix' => 'auth', 'namespace' => 'Auth', 'middleware' => 'guest'
 
         Route::get('forgot', 'ForgotController@index')->name('forgot');
         Route::post('forgot', 'ForgotController@reset')->name('forgot.reset');
-        Route::get('forgot/{code}')->name('forgot.reset');
+        Route::get('forgot/{code}', 'ForgotController@verify')->name('forgot.code');
+        Route::post('forgot/save-pass', 'ForgotController@saveNewPassword')->name('forgot.savePass');
 });
 
 /**
