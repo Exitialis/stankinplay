@@ -41,6 +41,10 @@ class UniversityProfile extends Model
 
     protected $visible = ['group_id', 'group', 'studentID', 'module', 'budget', 'grants'];
 
+    protected $casts = [
+        'module' => 'boolean'
+    ];
+
     /**
      * Группа в университете.
      *

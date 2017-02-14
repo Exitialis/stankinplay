@@ -30,4 +30,29 @@ class UserController extends Controller
 
         return response()->json($users);
     }
+
+    public function filter(Request $request)
+    {
+        $userAttributes = User::getModel()->getVisible();
+        $universityProfileAttributes = UniversityProfile::getModel()->getVisible();
+
+        $inputs = $request->all();
+
+        $userWhere = [];
+        $universityProfileWhere = [];
+
+        foreach ($inputs as $filter => $value) {
+            if (in_array($filter, $userAttributes)) {
+                $userWhere[] = [$filter, 'LIKE', '%'.$value];
+            } else if (in_array($filter, $universityProfileAttributes)) {
+                $universityProfileWhere[] = [$filter, 'LIKE', '%'.$value];
+            }
+        }
+
+        $users = User::where($userWhere)->whereHas('universityProfile', function($query) use($universityProfileWhere) {
+            $query->where($universityProfileWhere);
+        })->with('universityProfile')->paginate(10);
+
+        return response()->json(compact('users'));
+    }
 }

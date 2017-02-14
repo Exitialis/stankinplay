@@ -56,7 +56,7 @@ class User extends Authenticatable
 
     protected $hidden = ['password', 'remember_token', 'created_at', 'updated_at'];
 
-    //protected $visible = ['id', 'login', 'email', 'first_name', 'last_name', 'middle_name', 'full_name',  'team', 'discipline', 'ownTeam', 'invites', 'universityProfile'];
+    protected $visible = ['id', 'login', 'email', 'first_name', 'last_name', 'middle_name', 'full_name',  'team', 'discipline', 'ownTeam', 'invites', 'universityProfile'];
 
     protected $guarded = [];
 
