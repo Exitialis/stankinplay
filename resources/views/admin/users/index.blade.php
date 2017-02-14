@@ -6,6 +6,25 @@
         <div>
             <h3>Пользователи</h3>
 
+            <form autocomplete="off" class="form" @submit.prevent="login('{{ route('login.post') }}')">
+
+                {!! select('form.discipline', 'disciplines', trans('Дисциплина'), 'true', ['horizontal' => 1]) !!}
+                {!! text('form.login', trans('Логин'), true, ['placeholder' => 'login']) !!}
+
+                {!! text('form.password', trans('Пароль'), true, ['type' => 'password']) !!}
+
+                <div class="row">
+                    <div class="col-sm-6 col-sm-offset-3">
+                        <button type="submit" class="btn btn-success btn-block" :disabled="loading">
+                            <i class="fa fa-spin fa-spinner" v-if="loading"></i> {{ trans('Войти') }}
+                        </button>
+                    </div>
+                </div>
+                <p class="text-center">
+                    <a href="{{ route('forgot') }}" class="text-small">Забыли пароль?</a>
+                </p>
+            </form>
+
             <div class="table-responsive">
                 <table class="table table-hover">
                     <thead>
@@ -48,4 +67,8 @@
         </div>
     </admin-users>
 
+@endsection
+
+@section('css')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css">
 @endsection
