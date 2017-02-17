@@ -1,4 +1,4 @@
-var urlParser = require('url');
+const urlParser = require('url');
 
 Vue.component('admin-users', {
 
@@ -7,41 +7,81 @@ Vue.component('admin-users', {
             type: String,
             required: true
         },
-        form: {
-
-        },
-        errors: {}
+        disciplinesUrl: {
+            type: String,
+            required: true,
+        }
     },
 
     data() {
         return {
             users: [],
-            url: this.ajaxUrl
+            url: this.ajaxUrl,
+            disciplines: [],
+            form: {
+                discipline_id: null,
+                group_id: null,
+                studentID: null,
+                module: null,
+                budget: null,
+                grants: null,
+            },
+            errors: {},
+            loading: false,
+            currentPage: 1,
+            totalPages: 0,
+            perPage: 10,
         }
     },
 
     methods: {
-        sortBy(field) {
-            //Разбираем ссылку
+        filter() {
+            this.loading = true;
+
             let url = urlParser.parse(this.url, true);
 
-            if (url.query.sort === field) {
-                if (url.query.order === 'desc') {
-                    url.query.order = 'asc';
-                } else {
-                    url.query.order = 'desc';
-                }
-            } else {
-                url.query.sort = field;
-            }
-
-            //Необходимо для корректной работы библиотеки.
             url.search = '';
 
-            url = urlParser.format(url);
+            url.query.group_id = this.form.group_id;
+            url.query.discipline_id = this.form.discipline_id;
 
-            this.url = url;
+            this.url = url.format();
+            this.fetchUsers();
+
+            $('#filter').modal('hide');
+        },
+        fetchUsers(page) {
+            this.loading = true;
+
+            if(page) {
+                let url = urlParser.parse(this.url, true);
+                url.query.page = page;
+                url.search = '';
+                this.url = url.format();
+            }
+
+            this.$http.get(this.url).then(response => {
+                this.totalPages = response.data.users['last_page'];
+                this.perPage = response.data.users['per_page'];
+                this.currentPage = response.data.users['current_page'];
+                this.users = response.data.users.data;
+                this.loading = false;
+            }).catch(error => {
+                console.log(error);
+            })
+        },
+        getDisciplines() {
+            this.$http.get(this.disciplinesUrl).then(response => {
+                this.disciplines = response.data;
+            }).catch(error => {
+                console.log(error);
+            })
         }
+    },
+
+    created() {
+        this.fetchUsers();
+        this.getDisciplines();
     }
 
 });

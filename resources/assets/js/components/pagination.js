@@ -3,131 +3,102 @@ var urlParser = require('url');
 Vue.component('pagination', {
 
     template: `
-        <div class="row">
-            <div class="col-sm-12">
-                <ul class="nav nav-pills" v-if="pages.length > 1">
-                    <li v-if="prev_page_url" class="active">
-                        <a href="#" @click.prevent="prevPage()" v-text="'<<'"></a>
-                    </li>
-                    <li v-for="page in pages" :class="{active: page.active}">
-                        <a href="#" @click.prevent="changePage(page.number)">{{ page.number }}</a>
-                    </li>
-                    <li v-if="next_page_url" class="active">
-                        <a href="#" @click.prevent="nextPage()" v-text="'>>'"></a>
-                    </li>
+        <div class="pagination">
+            <div class="row">
+                <div class="col-sm-12">
+                    <ul class="nav nav-pills">
+                        <li v-if="hasPrev()">
+                            <a href="#" @click.prevent="changePage(prevPage)" v-text="'<<'"></a>
+                        </li>
+                        <li v-if="hasFirst()" :class="{active: current == 1}">
+                            <a href="#" @click.prevent="changePage(1)">1</a>
+                        </li>
+                        <li v-for="page in pages" :class="{ active: current == page }">
+                            <a href="#" @click.prevent="changePage(page)" >
+                              {{ page }}
+                            </a>
+                        </li>
+                        <li v-if="hasLast()"><a href="#" @click.prevent="changePage(totalPages)">{{ totalPages }}</a></li>
+                        <li v-if="hasNext()" >
+                            <a href="#" @click.prevent="changePage(nextPage)" v-text="'>>'"></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        
+            <div class="pagination__mid">
+                
+                   
+                    
                 </ul>
+            </div>
+            <div class="pagination__right">
+                
             </div>
         </div>
     `,
 
     props: {
-        pagesToShow: {
+        current: {
             type: Number,
-            default: 5
+            default: 1
         },
-        url: {
-            type: String,
-            required: true
+        totalPages: {
+            type: Number,
+            default: 0
         },
-        value: {},
-    },
-
-    data() {
-        return {
-            next_page_url: null,
-            prev_page_url: null,
-            current_page: null,
-            last_page: null,
-            ready: false,
-            loading: false,
-            temp: urlParser
+        perPage: {
+            type: Number,
+            default: 9
+        },
+        pageRange: {
+            type: Number,
+            default: 2
         }
     },
-
     computed: {
-        pages() {
-            let diff = this.current_page - Math.floor(this.pagesToShow / 2)
-            //начальная страница - первая, конечная - первая + разница
-            let firstPage = 1
-            let lastPage = firstPage + this.pagesToShow
-
-            if (lastPage > this.last_page) {
-                lastPage = this.last_page + 1
-            }
-
-            if (this.last_page > this.pagesToShow) {
-                if (diff > 0) {
-                    firstPage = diff
-                    lastPage = firstPage + this.pagesToShow
-                    if (lastPage > this.last_page) {
-                        lastPage = this.last_page + 1
-                        firstPage = lastPage - this.pagesToShow
-                    }
-                }
-            }
-
+        pages: function () {
             var pages = []
 
-            for (var i = firstPage;i < lastPage; i++) {
-                pages.push({
-                    number: i,
-                    active: this.current_page == i
-                })
+            for (var i = this.rangeStart; i <= this.rangeEnd; i++) {
+                pages.push(i)
             }
 
             return pages
+        },
+        rangeStart: function () {
+            var start = this.current - this.pageRange
+
+            return (start > 0) ? start : 1
+        },
+        rangeEnd: function () {
+            var end = this.current + this.pageRange
+
+            return (end < this.totalPages) ? end : this.totalPages
+        },
+        nextPage: function () {
+            return this.current + 1
+        },
+        prevPage: function () {
+            return this.current - 1
         }
     },
-
     methods: {
-        loadData(page) {
-            if (this.loading) return;
-            var url = urlParser.parse(this.url, true);
-            if (page) {
-                url.query.page = page;
-                url.search = '';
-            }
-            url = url.format();
-            this.loading = true;
-            this.$http.get(url).then(
-                response => {
-                    this.$emit('input', response.data.data)
-                    this.next_page_url = response.data.next_page_url
-                    this.prev_page_url = response.data.prev_page_url
-                    this.current_page = response.data.current_page
-                    this.last_page = response.data.last_page
-                    this.loading = false
-                    this.ready = true
-                }
-            )
+        hasFirst: function () {
+            return this.rangeStart !== 1
         },
-        changePage(page) {
-            this.loadData(page)
+        hasLast: function () {
+            return this.rangeEnd < this.totalPages
         },
-        prevPage() {
-            var page = this.current_page - 1
-            this.loadData(page)
+        hasPrev: function () {
+            return this.current > 1
         },
-        nextPage() {
-            var page = this.current_page + 1
-            this.loadData(page)
+        hasNext: function () {
+            return this.current < this.totalPages
+        },
+        changePage: function (page) {
+            this.$emit('page-changed', page)
         }
-    },
-
-    watch: {
-        loading(value) {
-            this.$emit('loading', value)
-        },
-        ready(value) {
-            this.$emit('ready', value)
-        },
-        url(value) {
-            this.loadData();
-        }
-    },
-
-    created() {
-        this.loadData()
     }
 
 });

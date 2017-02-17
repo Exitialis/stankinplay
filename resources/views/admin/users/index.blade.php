@@ -2,36 +2,59 @@
 
 @section('admin.content')
 
-    <admin-users :ajax-url="'{{ route('api.users') }}'" inline-template>
+    <admin-users :ajax-url="'{{route('api.users.filter')}}'" :disciplines-url="'{{ route('api.disciplines') }}'"
+                 inline-template>
         <div>
             <h3>Пользователи</h3>
-            
-            <h4>Фильтр пользователей</h4>
 
-            <form autocomplete="off" class="form" @submit.prevent="sort('{{ route('login.post') }}')">
+            <div class="modal fade" id="filter" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">{{ trans('Фильтр') }}</h4>
+                        </div>
+                        <form class="form-horizontal" autocomplete="off" @submit.prevent="filter">
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2">Группа:</label>
+                                    <div class="col-sm-10">
+                                        <v-select2 v-model="form.group_id" :ajax-url="'{{ route('api.users.groups.lists') }}'"></v-select2>
+                                    </div>
+                                </div>
 
-                {!! select('form.discipline', 'disciplines', trans('Дисциплина'), 'true', ['horizontal' => 1]) !!}
-
-                <div class="row">
-                    <div class="col-sm-6 col-sm-offset-3">
-                        <button type="submit" class="btn btn-success btn-block" :disabled="loading">
-                            <i class="fa fa-spin fa-spinner" v-if="loading"></i> {{ trans('Войти') }}
-                        </button>
+                                {!! select('form.discipline_id', 'disciplines', trans('Дисциплина'), 'true', ['horizontal' => 1]) !!}
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-success btn-block" :disabled="loading" >
+                                    <i class="fa fa-spin fa-spinner" v-if="loading"></i> {{ trans('Фильтровать') }}
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
-            </form>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <button class="btn btn-primary btn-raised" data-toggle="modal" data-target="#filter">
+                        {{ trans('Фильтровать') }}
+                    </button>
+                </div>
+            </div>
+
 
             <div class="table-responsive">
                 <table class="table table-hover">
                     <thead>
                     <tr>
-                        <th><a href="#" @click.prevent="sortBy('full_name')">ФИО</a></th>
-                        <th><a href="#" @click.prevent="sortBy('group_id')">Группа</a></th>
-                        <th><a href="#" @click.prevent="sortBy('discipline_name')">Дисциплина</a></th>
-                        <th><a href="#" @click.prevent="sortBy('studentID')">Студенческий</a></th>
-                        <th><a href="#" @click.prevent="sortBy('module')">Модуль</a></th>
-                        <th><a href="#" @click.prevent="sortBy('budget')">Бюджет</a></th>
-                        <th><a href="#" @click.prevent="sortBy('grants')">Стипендия</a></th>
+                        <th>ФИО</th>
+                        <th>Группа</th>
+                        <th>Дисциплина</th>
+                        <th>Студенческий</th>
+                        <th>Модуль</th>
+                        <th>Бюджет</th>
+                        <th>Стипендия</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -52,14 +75,18 @@
                             <i v-if="user.grants" class="fa fa-check text-success" aria-hidden="true"></i>
                             <i v-else class="fa fa-times text-danger" aria-hidden="true"></i>
                         </td>
+
                     </tr>
                     </tbody>
                 </table>
             </div>
 
-            <pagination :url="url"
-                        v-model="users">
-            </pagination>
+            <pagination
+                    :current="currentPage"
+                    :total-pages="totalPages"
+                    :per-page="perPage"
+            @page-changed="fetchUsers"
+            ></pagination>
         </div>
     </admin-users>
 

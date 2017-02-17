@@ -47,6 +47,7 @@ use Zizaco\Entrust\Traits\EntrustUserTrait;
  * @property-read \App\Models\UniversityProfile $universityProfile
  * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Passport\Client[] $clients
  * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Passport\Token[] $tokens
+ * @property-read mixed $full_name
  */
 class User extends Authenticatable
 {
@@ -56,7 +57,7 @@ class User extends Authenticatable
 
     protected $hidden = ['password', 'remember_token', 'created_at', 'updated_at'];
 
-    protected $visible = ['id', 'login', 'email', 'first_name', 'last_name', 'middle_name', 'full_name',  'team', 'discipline', 'ownTeam', 'invites', 'universityProfile'];
+    protected $visible = ['id', 'login', 'email', 'first_name', 'last_name', 'middle_name', 'full_name',  'team', 'discipline', 'discipline_id', 'ownTeam', 'invites', 'universityProfile'];
 
     protected $guarded = [];
 
