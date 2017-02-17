@@ -21,6 +21,10 @@ $router->group(['namespace' => 'Api'], function($router) {
         $router->get('lists', 'GroupController@lists')->name('api.users.groups.lists');
     });
 
+    $router->group(['namespace' => 'Discipline', 'prefix' => 'disciplines'], function($router) {
+        $router->get('/', 'DisciplinesController@index')->name('api.disciplines');
+    });
+
     $router->group(['middleware' => 'auth:api'], function($router) {
         $router->group(['namespace' => 'User', 'prefix' => 'users'], function($router) {
             $router->get('/', 'UserController@index')->name('api.users');

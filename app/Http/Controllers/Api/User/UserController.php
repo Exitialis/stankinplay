@@ -43,9 +43,9 @@ class UserController extends Controller
 
         foreach ($inputs as $filter => $value) {
             if (in_array($filter, $userAttributes)) {
-                $userWhere[] = [$filter, 'LIKE', '%'.$value];
+                $userWhere[] = [$filter, 'LIKE', $value.'%'];
             } else if (in_array($filter, $universityProfileAttributes)) {
-                $universityProfileWhere[] = [$filter, 'LIKE', '%'.$value];
+                $universityProfileWhere[] = [$filter, 'LIKE', $value.'%'];
             }
         }
 

@@ -6,12 +6,11 @@
         <div>
             <h3>Пользователи</h3>
 
+            <h4>Фильтр пользователей</h4>
+
             <form autocomplete="off" class="form" @submit.prevent="login('{{ route('login.post') }}')">
 
                 {!! select('form.discipline', 'disciplines', trans('Дисциплина'), 'true', ['horizontal' => 1]) !!}
-                {!! text('form.login', trans('Логин'), true, ['placeholder' => 'login']) !!}
-
-                {!! text('form.password', trans('Пароль'), true, ['type' => 'password']) !!}
 
                 <div class="row">
                     <div class="col-sm-6 col-sm-offset-3">
@@ -20,9 +19,6 @@
                         </button>
                     </div>
                 </div>
-                <p class="text-center">
-                    <a href="{{ route('forgot') }}" class="text-small">Забыли пароль?</a>
-                </p>
             </form>
 
             <div class="table-responsive">
