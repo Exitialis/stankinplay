@@ -37,9 +37,9 @@ use Illuminate\Database\Eloquent\Model;
 class UniversityProfile extends Model
 {
     
-    protected $fillable = ['user_id', 'group_id', 'studentID', 'module', 'budget', 'grants'];
+    protected $fillable = ['user_id', 'group_id', 'studentID', 'module', 'budget', 'grants', 'anotherSections', 'gto', 'socialActivity'];
 
-    protected $visible = ['group_id', 'group', 'studentID', 'module', 'budget', 'grants'];
+    protected $visible = ['group_id', 'group', 'studentID', 'module', 'budget', 'grants', 'anotherSections', 'gto', 'socialActivity'];
 
     protected $casts = [
         'module' => 'boolean'

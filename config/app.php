@@ -183,6 +183,7 @@ return [
         App\Providers\RepositoryServiceProvider::class,
         App\Providers\ComponentsServiceProvider::class,
 
+        Maatwebsite\Excel\ExcelServiceProvider::class,
         Laravel\Passport\PassportServiceProvider::class,
     ],
 
@@ -236,6 +237,7 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
         //'Recaptcha' => Greggilbert\Recaptcha\Facades\Recaptcha::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
 
     ],
 

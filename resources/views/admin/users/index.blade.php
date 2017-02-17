@@ -5,10 +5,10 @@
     <admin-users :ajax-url="'{{ route('api.users') }}'" inline-template>
         <div>
             <h3>Пользователи</h3>
-
+            
             <h4>Фильтр пользователей</h4>
 
-            <form autocomplete="off" class="form" @submit.prevent="login('{{ route('login.post') }}')">
+            <form autocomplete="off" class="form" @submit.prevent="sort('{{ route('login.post') }}')">
 
                 {!! select('form.discipline', 'disciplines', trans('Дисциплина'), 'true', ['horizontal' => 1]) !!}
 

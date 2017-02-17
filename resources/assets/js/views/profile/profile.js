@@ -28,7 +28,10 @@ Vue.component('profile', {
                 group_id: universityProfile.group || {},
                 studentID: universityProfile.studentID || '',
                 budget: universityProfile.budget || false,
-                grants: universityProfile.grants || false
+                grants: universityProfile.grants || false,
+                anotherSections: universityProfile.anotherSections || false,
+                gto: universityProfile.gto || false,
+                socialActivity: universityProfile.socialActivity || false
             },
             errors: {},
             ready: false,
@@ -50,6 +53,9 @@ Vue.component('profile', {
                     this.form.budget = universityProfile.budget || false;
                     this.form.grants = universityProfile.grants || false;
                     this.form.studentID = universityProfile.studentID || '';
+                    this.form.anotherSections = universityProfile.anotherSections || false;
+                    this.form.gto = universityProfile.gto || false;
+                    this.form.socialActivity = universityProfile.socialActivity || false;
                     if ( ! universityProfile.studentID) {
                         window.toastr.info('Пожалуйста, заполните данные в разделе дополнительная информация');
                     }

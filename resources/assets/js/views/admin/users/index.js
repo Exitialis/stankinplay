@@ -6,7 +6,11 @@ Vue.component('admin-users', {
         ajaxUrl: {
             type: String,
             required: true
-        }
+        },
+        form: {
+
+        },
+        errors: {}
     },
 
     data() {

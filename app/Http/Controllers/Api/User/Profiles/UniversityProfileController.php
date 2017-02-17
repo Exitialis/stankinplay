@@ -33,12 +33,13 @@ class UniversityProfileController extends Controller
     {
         $this->validate($request, [
             'group_id' => 'required|exists:groups,id',
-            'studentID' => 'required|min:6|max:6'
+            'studentID' => 'required|min:6|max:6',
         ]);
 
         $profile = User::findOrFail($userId)->universityProfile;
 
         $data = $request->only($profile->getFillable());
+
         $data['user_id'] = $userId;
 
         $profile->update($data);
