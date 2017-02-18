@@ -24,6 +24,13 @@
                                 </div>
 
                                 {!! select('form.discipline_id', 'disciplines', trans('Дисциплина'), 'true', ['horizontal' => 1]) !!}
+                                {!! text('form.studentID', trans('Номер студенческого'), 'true', ['horizontal' => 1]) !!}
+                                {!! checkbox('form.module', trans('Модуль')) !!}
+                                {!! checkbox('form.budget', trans('Бюджет')) !!}
+                                {!! checkbox('form.grants', trans('Стипендия')) !!}
+                                {!! checkbox('form.anotherSections', trans('Другие секции')) !!}
+                                {!! checkbox('form.gto', trans('ГТО')) !!}
+                                {!! checkbox('form.socialActivity', trans('Участие в организационной деятельности')) !!}
                             </div>
                             <div class="modal-footer">
                                 <button type="submit" class="btn btn-success btn-block" :disabled="loading" >
@@ -55,27 +62,41 @@
                         <th>Модуль</th>
                         <th>Бюджет</th>
                         <th>Стипендия</th>
+                        <th>Другие секции</th>
+                        <th>ГТО</th>
+                        <th>Орг. Деятельность</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr v-for="user in users">
                         <td>@{{ user.full_name ? user.full_name : 'Не указана' }}</td>
-                        <td>@{{ user.group_name ? user.group_name : 'Не указана' }}</td>
-                        <td>@{{ user.discipline_name ? user.discipline_name : 'Не указана' }}</td>
-                        <td>@{{ user.studentID ? user.studentID : 'Не указан' }}</td>
-                        <td>
-                            <i v-if="user.module" class="fa fa-check text-success" aria-hidden="true"></i>
+                        <td>@{{ user.university_profile ? user.university_profile.group ? user.university_profile.group.name  : 'Не указана' : 'Не указана' }}</td>
+                        <td>@{{ user.discipline ? user.discipline.name : 'Не указана' }}</td>
+                        <td>@{{ user.university_profile ? user.university_profile.studentID ? user.university_profile.studentID  : 'Не указана' : 'Не указана' }}</td>
+                        <td v-if="user.university_profile">
+                            <i v-if="user.university_profile.module" class="fa fa-check text-success" aria-hidden="true"></i>
                             <i v-else class="fa fa-times text-danger" aria-hidden="true"></i>
                         </td>
-                        <td>
-                            <i v-if="user.budget" class="fa fa-check text-success" aria-hidden="true"></i>
+                        <td v-if="user.university_profile">
+                            <i v-if="user.university_profile.budget" class="fa fa-check text-success" aria-hidden="true"></i>
                             <i v-else class="fa fa-times text-danger" aria-hidden="true"></i>
                         </td>
-                        <td>
-                            <i v-if="user.grants" class="fa fa-check text-success" aria-hidden="true"></i>
+                        <td v-if="user.university_profile">
+                            <i v-if="user.university_profile.grants" class="fa fa-check text-success" aria-hidden="true"></i>
                             <i v-else class="fa fa-times text-danger" aria-hidden="true"></i>
                         </td>
-
+                        <td v-if="user.university_profile">
+                            <i v-if="user.university_profile.anotherSections" class="fa fa-check text-success" aria-hidden="true"></i>
+                            <i v-else class="fa fa-times text-danger" aria-hidden="true"></i>
+                        </td>
+                        <td v-if="user.university_profile">
+                            <i v-if="user.university_profile.gto" class="fa fa-check text-success" aria-hidden="true"></i>
+                            <i v-else class="fa fa-times text-danger" aria-hidden="true"></i>
+                        </td>
+                        <td v-if="user.university_profile">
+                            <i v-if="user.university_profile.socialActivity" class="fa fa-check text-success" aria-hidden="true"></i>
+                            <i v-else class="fa fa-times text-danger" aria-hidden="true"></i>
+                        </td>
                     </tr>
                     </tbody>
                 </table>

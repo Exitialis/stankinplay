@@ -49,11 +49,11 @@ class UserController extends Controller
             }
         }
 
-        //dd($userWhere, $universityProfileWhere);
-
         $users = User::where($userWhere)->whereHas('universityProfile', function($query) use($universityProfileWhere) {
             $query->where($universityProfileWhere);
-        })->with('universityProfile')->paginate(10);
+        })->with(['universityProfile' => function($query) {
+            $query->with('group');
+        }, 'discipline'])->paginate(10);
 
         return response()->json(compact('users'));
     }
