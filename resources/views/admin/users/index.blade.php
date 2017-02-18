@@ -7,7 +7,7 @@
         <div>
             <h3>Пользователи</h3>
 
-            <div class="modal fade" id="filter" tabindex="-1" role="dialog">
+            <div class="modal fade" id="filter" role="dialog">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">

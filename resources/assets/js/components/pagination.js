@@ -10,15 +10,14 @@ Vue.component('pagination', {
                         <li v-if="hasPrev()">
                             <a href="#" @click.prevent="changePage(prevPage)" v-text="'<<'"></a>
                         </li>
-                        <li v-if="hasFirst()" :class="{active: current == 1}">
-                            <a href="#" @click.prevent="changePage(1)">1</a>
-                        </li>
+                        
+                        
                         <li v-for="page in pages" :class="{ active: current == page }">
                             <a href="#" @click.prevent="changePage(page)" >
                               {{ page }}
                             </a>
                         </li>
-                        <li v-if="hasLast()"><a href="#" @click.prevent="changePage(totalPages)">{{ totalPages }}</a></li>
+                        
                         <li v-if="hasNext()" >
                             <a href="#" @click.prevent="changePage(nextPage)" v-text="'>>'"></a>
                         </li>
