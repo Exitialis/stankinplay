@@ -19,6 +19,13 @@ class RegistrationController extends Controller
     protected $users;
 
     /**
+     * Менеджер регистрации.
+     *
+     * @var AuthManager
+     */
+    protected $manager;
+
+    /**
      * RegistrationController constructor.
      * @param $users
      */

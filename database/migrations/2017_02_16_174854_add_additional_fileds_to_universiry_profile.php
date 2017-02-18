@@ -14,9 +14,9 @@ class AddAdditionalFiledsToUniversiryProfile extends Migration
     public function up()
     {
         Schema::table('university_profiles', function(Blueprint $table) {
-            $table->boolean('anotherSections')->after('grants');
-            $table->boolean('gto')->after('grants');
-            $table->boolean('socialActivity')->after('grants');
+            $table->boolean('anotherSections')->after('grants')->default(false);
+            $table->boolean('gto')->after('grants')->default(false);
+            $table->boolean('socialActivity')->after('grants')->default(false);
         });
     }
 
