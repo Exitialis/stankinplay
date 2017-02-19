@@ -33,40 +33,44 @@ class AuthManager
      */
     public function register(Request $request)
     {
-        $user = $this->users->saveUser($request);
+        \DB::transaction(function() {
+            $user = $this->users->saveUser($request);
 
-        $universityProfile = UniversityProfile::create([
-            'user_id' => $user->id,
-            'group_id' => $request->input('group_id'),
-            'module' => $request->input('module')
-        ]);
+            $universityProfile = UniversityProfile::create([
+                'user_id' => $user->id,
+                'group_id' => $request->input('group_id'),
+                'module' => $request->input('module')
+            ]);
 
-        if ( ! $user) {
-            return false;
-        }
-
-        $playerRole = Role::where('name', 'player')->firstOrFail();
-
-        if ($request->input('captain')) {
-            //Если в дисциплине нет команд
-            if ( ! $user->discipline->team) {
-                $user->attachRole($playerRole);
-                return $user;
-            }
-
-            if ( ! $captain = Role::where('name', 'captain')->firstOrFail()) {
-                $user->delete();
+            if ( ! $user) {
                 return false;
             }
 
-            $user->attachRole($captain);
+            $playerRole = Role::where('name', 'player')->firstOrFail();
+
+            if ($request->input('captain')) {
+                //Если в дисциплине нет команд
+                if ( ! $user->discipline->team) {
+                    $user->attachRole($playerRole);
+                    return $user;
+                }
+
+                if ( ! $captain = Role::where('name', 'captain')->firstOrFail()) {
+                    $user->delete();
+                    return false;
+                }
+
+                $user->attachRole($captain);
+
+                return $user;
+            }
+
+            $user->attachRole($playerRole);
 
             return $user;
-        }
+        });
 
-        $user->attachRole($playerRole);
-
-        return $user;
+        return false;
     }
 
 

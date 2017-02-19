@@ -12,6 +12,7 @@
 */
 
 use App\Models\Discipline;
+use App\Models\Group;
 use App\Models\Team;
 
 $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
@@ -24,8 +25,7 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
         'first_name' => $faker->firstName,
         'last_name' => $faker->lastName,
         'middle_name' => $faker->firstName,
-        'group' => 'idb-14-13',
-        'module' => true
+        'team_id' => null
     ];
 });
 

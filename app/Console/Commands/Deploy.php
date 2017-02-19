@@ -45,7 +45,7 @@ class Deploy extends Command
      */
     public function handle()
     {
-        \DB::transaction(function() {
+       /* \DB::transaction(function() {
             //Создаем новые таблицы
             $this->call('migrate');
 
@@ -76,7 +76,9 @@ class Deploy extends Command
                 $profile->save();
             }
             $this->dropUserFields();
-        });
+        });*/
+
+
     }
 
     /**
