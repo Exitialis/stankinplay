@@ -41,9 +41,21 @@ class UniversityProfile extends Model
 
     protected $visible = ['group_id', 'group', 'group_id', 'studentID', 'module', 'budget', 'grants', 'anotherSections', 'gto', 'socialActivity'];
 
-    protected $casts = [
-        'module' => 'boolean'
+    public $exportedAttributes = [
+        'group' => 'Группа',
+        'studentID' => 'Номер студенческого',
+        'module' => 'Нужен модуль',
+        'budget' => 'Бюджет',
+        'grants' => 'Стипендия',
+        'anotherSections' => 'Хожу в другие секции',
+        'gto' => 'Хотел бы сдать ГТО',
+        'socialActivity' => 'Социальная активность'
     ];
+
+    public function castBoolean($value)
+    {
+        return $value ? 'Да' : 'Нет';
+    }
 
     /**
      * Группа в университете.

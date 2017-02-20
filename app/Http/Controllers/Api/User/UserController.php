@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\User;
 
 use App\Models\UniversityProfile;
 use App\Models\User;
+use Excel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -31,7 +32,64 @@ class UserController extends Controller
         return response()->json($users);
     }
 
+    /**
+     * Фильтр пользователей по аттрибутам.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function filter(Request $request)
+    {
+        return response()->json($this->searchUsers($request)->paginate(10));
+    }
+
+    /**
+     * Экспорт в excel.
+     *
+     * @param Request $request
+     */
+    public function export(Request $request)
+    {
+        $users = $this->searchUsers($request)->get();
+
+        $userExportedAttributes = (new User())->exportedAttributes;
+        $universityProfileExportedAttributes = (new UniversityProfile())->exportedAttributes;
+
+        $output = [];
+
+        $output[] = array_merge(array_values($userExportedAttributes), array_values($universityProfileExportedAttributes));
+
+        foreach ($users as $user) {
+            $temp = [];
+            foreach ($userExportedAttributes as $attribute => $attributeTranslation) {
+                if ($attribute == 'discipline') {
+                    $temp[] = $user->discipline->name;
+                } else {
+                    $temp[] = $user->{$attribute};
+                }
+            }
+
+            foreach ($universityProfileExportedAttributes as $attribute => $attributeTranslation) {
+                if ($attribute == 'group') {
+                    $temp[] = $user->universityProfile->group ? $user->universityProfile->group->name : 'Не указана';
+                } elseif ($attribute != 'studentID' || $attribute != 'group') {
+                    $temp[] = $user->universityProfile->castBoolean($user->universityProfile->{$attribute});
+                } else {
+                    $temp[] = $user->universityProfile->{$attribute};
+                }
+            }
+
+            $output[] = $temp;
+        }
+
+        Excel::create('temp', function($excel) use($output) {
+            $excel->sheet('test', function ($sheet) use($output) {
+                $sheet->fromArray($output);
+            });
+        })->export('xls');
+    }
+
+    private function searchUsers(Request $request)
     {
         $userAttributes = User::getModel()->getVisible();
         $universityProfileAttributes = UniversityProfile::getModel()->getVisible();
@@ -42,10 +100,17 @@ class UserController extends Controller
         $universityProfileWhere = [];
 
         foreach ($inputs as $filter => $value) {
-            if (in_array($filter, $userAttributes)) {
-                $userWhere[] = [$filter, 'LIKE', $value.'%'];
-            } else if (in_array($filter, $universityProfileAttributes)) {
-                $universityProfileWhere[] = [$filter, 'LIKE', $value.'%'];
+            if($value) {
+                if ($value == 'true') {
+                    $value = 1;
+                } elseif ($value == 'false') {
+                    $value = 0;
+                }
+                if (in_array($filter, $userAttributes)) {
+                    $userWhere[] = [$filter, 'LIKE', $value.'%'];
+                } else if (in_array($filter, $universityProfileAttributes)) {
+                    $universityProfileWhere[] = [$filter, 'LIKE', $value.'%'];
+                }
             }
         }
 
@@ -53,39 +118,9 @@ class UserController extends Controller
             $query->where($universityProfileWhere);
         })->with(['universityProfile' => function($query) {
             $query->with('group');
-        }, 'discipline'])->paginate(10);
+        }, 'discipline']);
 
-        return response()->json(compact('users'));
-    }
-    public function temp()
-    {
-        $users = User::with(['universityProfile' => function($query) {
-            $query->with('group');
-        }])->whereHas('team', function($query) {
-            $query->where('name', '#lowiq')->orWhere('name', 'MAT.TEAM')->orWhere('name', 'MayDay');
-        })->get();
-
-        $output = [];
-
-        $output[] = ['Фамилия', 'Имя', 'Отчество', 'Группа', 'Студенческий', 'Бюджет', 'Стипендия'];
-
-        foreach ($users as $user) {
-            $first_name = $user->first_name;
-            $last_name = $user->last_name;
-            $middle_name = $user->middle_name;
-            $group = $user->universityProfile->group ? $user->universityProfile->group->name : '';
-            $studentID = $user->universityProfile->studentID ?: 'Не заполнено' ;
-            $budget = $user->universityProfile->budget ? 'Да' : 'Нет';
-            $grants = $user->universityProfile->grants ? 'Да' : 'Нет';
-
-            $output[] = [$first_name, $last_name, $middle_name, $group, $studentID, $budget, $grants];
-        }
-
-        Excel::create('temp', function($excel) use($output) {
-            $excel->sheet('test', function ($sheet) use($output) {
-                $sheet->fromArray($output);
-            });
-        })->export('xls');
+        return $users;
     }
 
 }

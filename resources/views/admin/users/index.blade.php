@@ -3,6 +3,7 @@
 @section('admin.content')
 
     <admin-users :ajax-url="'{{route('api.users.filter')}}'" :disciplines-url="'{{ route('api.disciplines') }}'"
+                 :export-url="'{{ route('api.users.export') }}'"
                  inline-template>
         <div>
             <h3>Пользователи</h3>
@@ -33,7 +34,7 @@
                                 {!! checkbox('form.socialActivity', trans('Участие в организационной деятельности')) !!}
                             </div>
                             <div class="modal-footer">
-                                <button type="submit" class="btn btn-success btn-block" :disabled="loading" >
+                                <button type="submit" class="btn btn-success btn-block" :disabled="loading">
                                     <i class="fa fa-spin fa-spinner" v-if="loading"></i> {{ trans('Фильтровать') }}
                                 </button>
                             </div>
@@ -47,6 +48,14 @@
                     <button class="btn btn-primary btn-raised" data-toggle="modal" data-target="#filter">
                         {{ trans('Фильтровать') }}
                     </button>
+                    <form action="{{ route('api.users.export') }}" method="post">
+                        {{ csrf_field() }}
+                        <input type="hidden" v-for="(value, key) in form" v-if="value" :value="value" :name="key">
+                        <button class="btn btn-primary btn-raised" data-toggle="modal">
+                            {{ trans('Экспорт') }}
+                        </button>
+                    </form>
+
                 </div>
             </div>
 

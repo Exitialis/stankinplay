@@ -33,7 +33,7 @@ class AuthManager
      */
     public function register(Request $request)
     {
-        \DB::transaction(function() {
+        return \DB::transaction(function() use($request) {
             $user = $this->users->saveUser($request);
 
             $universityProfile = UniversityProfile::create([
@@ -69,8 +69,6 @@ class AuthManager
 
             return $user;
         });
-
-        return false;
     }
 
 

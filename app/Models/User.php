@@ -59,6 +59,15 @@ class User extends Authenticatable
 
     protected $visible = ['id', 'login', 'email', 'first_name', 'last_name', 'middle_name', 'full_name',  'team', 'discipline', 'discipline_id', 'ownTeam', 'invites', 'universityProfile'];
 
+    public $exportedAttributes = [
+        'login' => 'Никнейм',
+        /*'last_name' => 'Фамилия',
+        'first_name' => 'Имя',
+        'middle_name' => 'Отчество',*/
+        'full_name' => 'ФИО',
+        'discipline' => 'Дисциплина',
+    ];
+
     protected $guarded = [];
 
     /**

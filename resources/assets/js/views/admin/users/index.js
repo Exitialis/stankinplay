@@ -67,10 +67,10 @@ Vue.component('admin-users', {
             }
 
             this.$http.get(this.url).then(response => {
-                this.totalPages = response.data.users['last_page'];
-                this.perPage = response.data.users['per_page'];
-                this.currentPage = response.data.users['current_page'];
-                this.users = response.data.users.data;
+                this.totalPages = response.data['last_page'];
+                this.perPage = response.data['per_page'];
+                this.currentPage = response.data['current_page'];
+                this.users = response.data.data;
                 this.loading = false;
             }).catch(error => {
                 console.log(error);

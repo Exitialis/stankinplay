@@ -57,7 +57,7 @@ class RegistrationController extends Controller
         $user = $this->manager->register($request);
 
         if ( ! $user) {
-            return response()->json(flash(trans('Произошла ошибка', 'error')));
+            return response()->json(flash(trans('Произошла ошибка'), 'error'));
         }
 
         $redirect = route('login.get');
