@@ -28,6 +28,7 @@ Vue.component('admin-users', {
                 anotherSections: null,
                 socialActivity: null,
                 gto: null,
+                onlyMembers: null
             },
             errors: {},
             loading: false,
@@ -47,7 +48,7 @@ Vue.component('admin-users', {
 
             for(let prop in this.form) {
                 if (this.form[prop] !== null) {
-                    url.query[prop] = prop === 'module' || prop === 'budget' || prop === 'grants' || prop === 'gto' || prop === 'anotherSections' || prop === 'socialActivity' ? +this.form[prop] : this.form[prop];
+                    url.query[prop] = prop === 'module' || prop === 'budget' || prop === 'grants' || prop === 'gto' || prop === 'anotherSections' || prop === 'socialActivity' || prop === 'onlyMembers' ? +this.form[prop] : this.form[prop];
                 }
             }
 

@@ -26,6 +26,7 @@
 
                                 {!! select('form.discipline_id', 'disciplines', trans('Дисциплина'), 'true', ['horizontal' => 1]) !!}
                                 {!! text('form.studentID', trans('Номер студенческого'), 'true', ['horizontal' => 1]) !!}
+                                {!! checkbox('form.onlyMembers', trans('Только участники секции')) !!}
                                 {!! checkbox('form.module', trans('Модуль')) !!}
                                 {!! checkbox('form.budget', trans('Бюджет')) !!}
                                 {!! checkbox('form.grants', trans('Стипендия')) !!}
