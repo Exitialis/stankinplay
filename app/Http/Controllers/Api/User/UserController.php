@@ -12,7 +12,7 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('role:admin,api');
+        $this->middleware('role:admin|discipline_head,api');
     }
 
     public function index(Request $request)
@@ -124,6 +124,15 @@ class UserController extends Controller
         })->with(['universityProfile' => function($query) {
             $query->with('group');
         }, 'discipline']);
+
+        $user = auth('api')->user();
+
+        //Даем доступ главам дисциплин только до пользователей из их дисциплины.
+        if( !$user->hasRole('admin') && $user->hasRole('discipline_head')) {
+            $users->whereHas('discipline', function ($query) use($user) {
+                $query->where('name', $user->discipline->name);
+            });
+        }
 
         return $users;
     }

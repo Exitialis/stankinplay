@@ -36,11 +36,11 @@ class RoleSeeder extends Seeder
             $captain->attachPermissions([$createTeam, $editTeam]);
         }
 
-        if ( ! Role::where('name', 'section_head')->first()) {
+        if ( ! Role::where('name', 'discipline_head')->first()) {
             $captain = new Role();
 
-            $captain->name = 'section_head';
-            $captain->description = 'Глава секции';
+            $captain->name = 'discipline_head';
+            $captain->description = 'Ответственный за дисциплину';
             $captain->save();
 
             $captain->attachPermissions([$createTeam, $editTeam]);

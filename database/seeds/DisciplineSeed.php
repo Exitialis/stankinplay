@@ -12,46 +12,46 @@ class DisciplineSeed extends Seeder
      */
     public function run()
     {
-        if ( ! Discipline::where('name', 'CS:GO')->first()) {
+        if ( ! Discipline::where('label', 'CS:GO')->first()) {
             Discipline::create([
                 'label' => 'CS:GO',
                 'name' => 'CS:GO'
             ]);
         }
-        if ( ! Discipline::where('name', 'DOTA 2')->first()) {
+        if ( ! Discipline::where('label', 'DOTA 2')->first()) {
             Discipline::create([
                 'label' => 'DOTA 2',
                 'name' => 'DOTA 2'
             ]);
         }
-        if ( ! Discipline::where('name', 'LOL')->first()) {
+        if ( ! Discipline::where('label', 'LOL')->first()) {
             Discipline::create([
                 'label' => 'LOL',
                 'name' => 'League of Legends'
             ]);
         }
-        if ( ! Discipline::where('name', 'HS')->first()) {
+        if ( ! Discipline::where('label', 'HS')->first()) {
             Discipline::create([
                 'label' => 'HS',
                 'name' => 'Hearthstone',
                 'team' => false
             ]);
         }
-        if ( ! Discipline::where('name', 'FIFA')->first()) {
+        if ( ! Discipline::where('label', 'FIFA')->first()) {
             Discipline::create([
                 'label' => 'FIFA',
                 'name' => 'FIFA',
                 'team' => false
             ]);
         }
-        if ( ! Discipline::where('name', 'WOT')->first()) {
+        if ( ! Discipline::where('label', 'WOT')->first()) {
             Discipline::create([
                 'label' => 'WOT',
                 'name' => 'World of Tanks'
             ]);
         }
 
-        if ( ! Discipline::where('name', 'WT')->first()) {
+        if ( ! Discipline::where('label', 'WT')->first()) {
             Discipline::create([
                 'label' => 'WT',
                 'name' => 'WarThunder'

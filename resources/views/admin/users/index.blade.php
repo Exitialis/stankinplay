@@ -24,7 +24,9 @@
                                     </div>
                                 </div>
 
-                                {!! select('form.discipline_id', 'disciplines', trans('Дисциплина'), 'true', ['horizontal' => 1]) !!}
+                                @if(!auth()->user()->hasRole('discipline_head') && auth()->user()->hasRole('admin'))
+                                    {!! select('form.discipline_id', 'disciplines', trans('Дисциплина'), 'true', ['horizontal' => 1]) !!}
+                                @endif
                                 {!! text('form.studentID', trans('Номер студенческого'), 'true', ['horizontal' => 1]) !!}
                                 {!! checkbox('form.onlyMembers', trans('Только участники секции')) !!}
                                 {!! checkbox('form.module', trans('Модуль')) !!}
@@ -45,10 +47,12 @@
             </div>
 
             <div class="row">
-                <div class="col-sm-6">
+                <div class="col-sm-3">
                     <button class="btn btn-primary btn-raised" data-toggle="modal" data-target="#filter">
                         {{ trans('Фильтровать') }}
                     </button>
+                </div>
+                <div class="col-sm-3">
                     @if(auth()->user()->hasRole('admin'))
                         <form action="{{ route('api.users.export') }}" method="post">
                             {{ csrf_field() }}
@@ -58,7 +62,6 @@
                             </button>
                         </form>
                     @endif
-
                 </div>
             </div>
 

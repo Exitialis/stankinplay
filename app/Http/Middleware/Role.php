@@ -22,8 +22,6 @@ class Role
     {
         $this->auth = \Auth::guard($guard);
 
-        \Log::debug('User: ' . $this->auth->id() . PHP_EOL . 'Role: ' . $roles . PHP_EOL . 'Request: ' . $request->fullUrl());
-
         if ($this->auth->guest() || !$this->auth->user()->hasRole(explode('|', $roles))) {
             abort(403);
         }
