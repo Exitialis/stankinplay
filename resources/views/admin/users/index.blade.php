@@ -49,13 +49,15 @@
                     <button class="btn btn-primary btn-raised" data-toggle="modal" data-target="#filter">
                         {{ trans('Фильтровать') }}
                     </button>
-                    <form action="{{ route('api.users.export') }}" method="post">
-                        {{ csrf_field() }}
-                        <input type="hidden" v-for="(value, key) in form" v-if="value" :value="value" :name="key">
-                        <button class="btn btn-primary btn-raised" data-toggle="modal">
-                            {{ trans('Экспорт') }}
-                        </button>
-                    </form>
+                    @if(auth()->user()->hasRole('admin'))
+                        <form action="{{ route('api.users.export') }}" method="post">
+                            {{ csrf_field() }}
+                            <input type="hidden" v-for="(value, key) in form" v-if="value" :value="value" :name="key">
+                            <button class="btn btn-primary btn-raised" data-toggle="modal">
+                                {{ trans('Экспорт') }}
+                            </button>
+                        </form>
+                    @endif
 
                 </div>
             </div>
