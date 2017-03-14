@@ -72,7 +72,7 @@ class UserController extends Controller
             foreach ($universityProfileExportedAttributes as $attribute => $attributeTranslation) {
                 if ($attribute == 'group') {
                     $temp[] = $user->universityProfile->group ? $user->universityProfile->group->name : 'Не указана';
-                } elseif ($attribute != 'studentID' || $attribute != 'group') {
+                } elseif ($attribute != 'studentID' && $attribute != 'group') {
                     $temp[] = $user->universityProfile->castBoolean($user->universityProfile->{$attribute});
                 } else {
                     $temp[] = $user->universityProfile->{$attribute};
@@ -82,8 +82,8 @@ class UserController extends Controller
             $output[] = $temp;
         }
 
-        Excel::create('temp', function($excel) use($output) {
-            $excel->sheet('test', function ($sheet) use($output) {
+        Excel::create('StankinplayUsers', function($excel) use($output) {
+            $excel->sheet('users', function ($sheet) use($output) {
                 $sheet->fromArray($output);
             });
         })->export('xls');

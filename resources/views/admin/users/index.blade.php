@@ -71,9 +71,7 @@
                         <th>Модуль</th>
                         <th>Бюджет</th>
                         <th>Стипендия</th>
-                        <th>Другие секции</th>
-                        <th>ГТО</th>
-                        <th>Орг. Деятельность</th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -92,18 +90,6 @@
                         </td>
                         <td v-if="user.university_profile">
                             <i v-if="user.university_profile.grants" class="fa fa-check text-success" aria-hidden="true"></i>
-                            <i v-else class="fa fa-times text-danger" aria-hidden="true"></i>
-                        </td>
-                        <td v-if="user.university_profile">
-                            <i v-if="user.university_profile.anotherSections" class="fa fa-check text-success" aria-hidden="true"></i>
-                            <i v-else class="fa fa-times text-danger" aria-hidden="true"></i>
-                        </td>
-                        <td v-if="user.university_profile">
-                            <i v-if="user.university_profile.gto" class="fa fa-check text-success" aria-hidden="true"></i>
-                            <i v-else class="fa fa-times text-danger" aria-hidden="true"></i>
-                        </td>
-                        <td v-if="user.university_profile">
-                            <i v-if="user.university_profile.socialActivity" class="fa fa-check text-success" aria-hidden="true"></i>
                             <i v-else class="fa fa-times text-danger" aria-hidden="true"></i>
                         </td>
                     </tr>
