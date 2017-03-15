@@ -24,7 +24,7 @@
                                     </div>
                                 </div>
 
-                                @if(!auth()->user()->hasRole('discipline_head') && auth()->user()->hasRole('admin'))
+                                @if( ! auth()->user()->hasRole('discipline_head') && auth()->user()->hasRole('admin'))
                                     {!! select('form.discipline_id', 'disciplines', trans('Дисциплина'), 'true', ['horizontal' => 1]) !!}
                                 @endif
                                 {!! text('form.studentID', trans('Номер студенческого'), 'true', ['horizontal' => 1]) !!}

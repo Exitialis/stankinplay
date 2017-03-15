@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api\User;
 
+use App\Http\Requests\UserUpdateRequest;
+use App\Models\Role;
 use App\Models\UniversityProfile;
 use App\Models\User;
 use Excel;
@@ -35,6 +37,80 @@ class UserController extends Controller
         $users = $users->paginate(10);
 
         return response()->json($users);
+    }
+
+    /**
+     * Обновить роль пользователя.
+     *
+     * @param $user
+     * @param UserUpdateRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function attachRole($user, UserUpdateRequest $request)
+    {
+        $user = User::find($user);
+
+        $roles = $request->input('roles', []);
+
+        $sanitazedRoles = $this->sanitizeRoles($user, $roles);
+
+        $user->attachRoles($roles);
+
+        return response()->json(flash(trans('Успешно сохранено')));
+    }
+
+    public function detachRole($user, Request $request)
+    {
+        $user = User::find($user);
+
+        $roles = $request->input('roles', []);
+
+        $user->detachRoles($this->sanitizeRoles($user, $roles));
+
+        return response()->json(flash(trans('Успешно удалено')));
+    }
+
+    /**
+     * Удаляет роли, которые пользователь не может назначить пользователю из параметров.
+     *
+     * @param User $user
+     * @param array $roles
+     * @return array
+     */
+    private function sanitizeRoles(User $user, array $roles)
+    {
+        $memberRole = Role::where('name', 'member')->first();
+        $currentUser = auth('api')->user();
+
+        $sanitizedRoles = [];
+
+        if($currentUser == $user) {
+            abort(401, 'Нельзя менять роль самому себе');
+        }
+
+        if( ! $memberRole) {
+            abort(404, 'Роль не найдена');
+        }
+
+        if($currentUser->hasRole('discipline_head') && ! $currentUser->hasRole('admin')) {
+            if( ! $user->hasRole('member')) {
+                return ['member'];
+            }
+        }
+
+        $dbRoles = Role::get()->toArray();
+
+        foreach ($roles as $role) {
+            if ($user->hasRole($role)) {
+                foreach ($dbRoles as $dbRole) {
+                    if ($role === $dbRole['name']) {
+                        array_push($sanitizedRoles, $dbRole);
+                    }
+                }
+            }
+        }
+
+        return $sanitizedRoles;
     }
 
     /**

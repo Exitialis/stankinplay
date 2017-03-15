@@ -16,7 +16,7 @@
                         <li v-if="user" :class="{active: checkUrl('{{ route('profile.get') }}')}">
                             <a href="{{ route('profile.get') }}">Профиль</a>
                         </li>
-                        @if (auth()->user()->hasRole('admin'))
+                        @if (auth()->user()->hasRole('admin') || auth()->user()->hasRole('moderator') || auth()->user()->hasRole('discipline_head'))
                             <li :class="{active: checkUrl('{{ route('admin') }}')}">
                                 <a href="{{ route('admin') }}">Управление секцией</a>
                             </li>
@@ -33,8 +33,6 @@
                     </li>
 
                     <li v-if="user"><a href="{{ route('profile.logout') }}">Выход</a></li>
-
-                    {{--<li><a href="{{ route('profile.logout') }}">Вход</a></li>--}}
                 </ul>
             </div>
         </div>

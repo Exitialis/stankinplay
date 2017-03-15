@@ -48,6 +48,7 @@ Route::group(['middleware' => 'auth'], function() {
 Route::group(['prefix' => 'admin', 'middleware' => 'role:admin|moderator|discipline_head', 'namespace' => 'Admin'], function() {
     Route::get('/', 'MainController@index')->name('admin');
     Route::get('users', 'UsersController@index')->name('admin.users');
+    Route::get('users/{user}', 'UsersController@show')->name('admin.users.user');
     //Route::get('tournament', 'TournamentController@index')->name('admin.tournament');
 });
 

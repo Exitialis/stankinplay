@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -12,5 +13,12 @@ class UsersController extends Controller
         return view('admin.users.index');
     }
 
+    public function show($user, Request $request)
+    {
+        $user = User::with(['universityProfile' => function($query) {
+            $query->with(['group']);
+        }, 'discipline', 'team', 'roles'])->find($user);
 
+        return view('admin.users.show', compact('user'));
+    }
 }
