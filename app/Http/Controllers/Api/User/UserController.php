@@ -48,13 +48,17 @@ class UserController extends Controller
      */
     public function find($user, Request $request)
     {
-        if ($request->has('relations')) {
-            $relations = $request->input('relations', []);
+//        if ($request->has('relations')) {
+//            $relations = $request->input('relations', []);
+//
+//            $user = User::with($relations)->find($user);
+//        } else {
+//            $user = User::find($user);
+//        }
 
-            $user = User::with($relations)->find($user);
-        } else {
-            $user = User::find($user);
-        }
+        $user =  $user = User::with(['universityProfile' => function($query) {
+            $query->with(['group']);
+        }, 'discipline', 'team', 'roles'])->find($user);
 
         if( ! $user) {
             abort(404, 'User not found');
@@ -149,9 +153,7 @@ class UserController extends Controller
         }
 
         if($currentUser->hasRole('discipline_head') && ! $currentUser->hasRole('admin')) {
-            if( ! $user->hasRole('member')) {
-                return Role::where('name', 'member')->first()->toArray();
-            }
+            return [Role::where('name', 'member')->first()->toArray()];
         }
 
         $dbRoles = Role::get()->toArray();

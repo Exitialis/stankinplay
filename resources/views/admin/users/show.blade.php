@@ -1,7 +1,7 @@
 @extends('admin.index')
 
 @section('admin.content')
-    <admin-users-show :user="{{ $user->toJson() }}"
+    <admin-users-show :user-prop="{{ $user->toJson() }}"
                       :update-url="'{{ route('api.users.roles.attach', $user->id) }}'"
                       :delete-url="'{{ route('api.users.roles.detach', $user->id) }}'"
                       :roles="{{ $roles }}"
@@ -89,8 +89,8 @@
             <div class="row">
                 @if( ! auth()->user()->hasRole('admin') && auth()->user()->hasRole('discipline_head'))
                     <div class="col-md-4 col-sm-4 col-xs-6" v-if="user.roles">
-                        <button v-if="roles.indexOf('member') == -1" class="btn btn-success btn-raised" @click="setMemberRole()">Назначить игроком</button>
-                        <button v-else class="btn btn-success btn-raised" @click="removeMemberRole()">Удалить из игроков секции</button>
+                        <button v-if="userRolesNames.indexOf('member') == -1" class="btn btn-success btn-raised" @click="setMemberRole()">Назначить игроком</button>
+                        <button v-else class="btn btn-danger btn-raised" @click="removeMemberRole()">Удалить из игроков секции</button>
                     </div>
                 @endif
             </div>

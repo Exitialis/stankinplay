@@ -2,7 +2,7 @@ import urlFormater from 'url';
 
 Vue.component('admin-users-show', {
     props: {
-        user: {
+        userProp: {
             type: Object,
             required: true
         },
@@ -28,7 +28,8 @@ Vue.component('admin-users-show', {
         return {
             form: {},
             errors: {},
-            loading: false
+            loading: false,
+            user: this.userProp
         }
     },
 
@@ -43,14 +44,31 @@ Vue.component('admin-users-show', {
     },
 
     methods: {
+        thenCallback(res)  {
+            this.loading = false;
+            this.errors = {};
+            this.updateUser();
+        },
+
+        catchCallback(err) {
+            this.loading = false;
+            if(err.status === 422) {
+                this.errors = JSON.parse(err.body);
+                window.toastr.error('При изменении ролей произошла ошибка.')
+            } else if(err.status === 401) {
+                this.errors = {};
+                window.toastr.error('Ошибка: Неавторизованное действие.')
+            }
+        },
+
         setMemberRole() {
             this.loading = true;
-            this.attachRoles(['member']);
+            this.attachRoles(['member']).then(this.thenCallback).catch(this.catchCallback);
         },
 
         removeMemberRole() {
             this.loading = true;
-            this.detachRoles(['member']);
+            this.detachRoles(['member']).then(this.thenCallback).catch(this.catchCallback);
         },
 
         updateRoles() {
@@ -84,20 +102,7 @@ Vue.component('admin-users-show', {
             if(promises.length > 0) {
                 this.loading = true;
 
-                Promise.all(promises).then(res => {
-                    this.loading = false;
-                    this.errors = {};
-                    this.updateUser();
-                }).catch(err => {
-                    this.loading = false;
-                    if(err.status === 422) {
-                        this.errors = JSON.parse(err.body);
-                        window.toastr.error('При изменении ролей произошла ошибка.')
-                    } else if(err.status === 401) {
-                        this.errors = {};
-                        window.toastr.error('Ошибка: Неавторизованное действие.')
-                    }
-                })
+                Promise.all(promises).then(this.thenCallback).catch(this.catchCallback)
             }
         },
 
@@ -117,15 +122,15 @@ Vue.component('admin-users-show', {
             };
 
             return this.$http.delete(url.format());
-        }
+        },
 
-        // updateUser() {
-        //     this.$http.get(this.userApiUrl).then(user => {
-        //         this.user = user;
-        //     }).catch(err => {
-        //         console.log(err);
-        //     })
-        // }
+        updateUser() {
+            this.$http.get(this.userApiUrl).then(res => {
+                this.user = res.data.user;
+            }).catch(err => {
+                console.log(err);
+            })
+        }
     },
 
     created() {
