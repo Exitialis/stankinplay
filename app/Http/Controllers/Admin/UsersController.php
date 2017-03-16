@@ -16,9 +16,17 @@ class UsersController extends Controller
 
     public function show($user, Request $request)
     {
+        $authUser = auth()->user();
+
         $user = User::with(['universityProfile' => function($query) {
             $query->with(['group']);
         }, 'discipline', 'team', 'roles'])->find($user);
+
+        if( ! $authUser->hasRole('admin') && $authUser->hasRole('discipline_head')) {
+            if($user->discipline->name !== $authUser->discipline->name) {
+                abort(403);
+            }
+        }
 
         $roles = Role::get();
 

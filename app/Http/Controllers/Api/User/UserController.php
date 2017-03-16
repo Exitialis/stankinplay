@@ -257,6 +257,14 @@ class UserController extends Controller
             $query->with('group');
         }, 'discipline']);
 
+        if(isset($inputs['onlyMembers'])) {
+            if($inputs['onlyMembers']) {
+                $users->whereHas('roles', function($query) {
+                    $query->where('name', 'member')->orWhere('name', 'admin')->orWhere('name', 'discipline_head');
+                });
+            }
+        }
+
         $user = auth('api')->user();
 
         //Даем доступ главам дисциплин только до пользователей из их дисциплины.
