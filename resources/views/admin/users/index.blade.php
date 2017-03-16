@@ -40,9 +40,18 @@
                                 {!! checkbox('form.socialActivity', trans('Участие в организационной деятельности')) !!}
                             </div>
                             <div class="modal-footer">
-                                <button type="submit" class="btn btn-success btn-block" :disabled="loading">
-                                    <i class="fa fa-spin fa-spinner" v-if="loading"></i> {{ trans('Фильтровать') }}
-                                </button>
+                                <div class="row">
+                                    <div class="col-sm-3 col-xs-6">
+                                        <button type="submit" class="btn btn-success btn-block" :disabled="loading">
+                                            <i class="fa fa-spin fa-spinner" v-if="loading"></i> {{ trans('Фильтровать') }}
+                                        </button>
+                                    </div>
+                                    <div class="col-sm-4 col-xs-6">
+                                        <button @click.prevent="clear" class="btn btn-primary btn-block" :disabled="loading">
+                                            <i class="fa fa-spin fa-spinner" v-if="loading"></i> {{ trans('Очистить') }}
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </form>
                     </div>

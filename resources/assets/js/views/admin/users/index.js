@@ -86,10 +86,16 @@ Vue.component('admin-users', {
             }).catch(error => {
                 console.log(error);
             })
+        },
+        clear() {
+            for(let prop in this.form) {
+                this.form[prop] = null;
+            }
         }
     },
 
     created() {
+        this.clear();
         this.fetchUsers();
         this.getDisciplines();
     }
