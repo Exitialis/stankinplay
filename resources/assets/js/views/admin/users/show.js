@@ -55,9 +55,9 @@ Vue.component('admin-users-show', {
             if(err.status === 422) {
                 this.errors = JSON.parse(err.body);
                 window.toastr.error('При изменении ролей произошла ошибка.')
-            } else if(err.status === 401) {
+            } else if(err.status === 403) {
                 this.errors = {};
-                window.toastr.error('Ошибка: Неавторизованное действие.')
+                window.toastr.error('Ошибка: Неавторизованное действие: ' + JSON.parse(err.body))
             }
         },
 
@@ -128,7 +128,7 @@ Vue.component('admin-users-show', {
             this.$http.get(this.userApiUrl).then(res => {
                 this.user = res.data.user;
             }).catch(err => {
-                console.log(err);
+
             })
         }
     },
