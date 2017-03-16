@@ -70,6 +70,8 @@ Vue.component('admin-users', {
                 this.url = url.format();
             }
 
+            console.log(this.url);
+
             this.$http.get(this.url).then(response => {
                 this.totalPages = response.data['last_page'];
                 this.perPage = response.data['per_page'];
@@ -91,6 +93,14 @@ Vue.component('admin-users', {
             for(let prop in this.form) {
                 this.form[prop] = null;
             }
+
+            let url = urlParser.parse(this.url, true);
+            url.query = {};
+            url.search = '';
+            this.url = url.format();
+
+            this.fetchUsers();
+            $('#filter').modal('hide');
         }
     },
 
