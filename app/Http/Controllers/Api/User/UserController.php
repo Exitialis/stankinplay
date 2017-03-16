@@ -145,7 +145,7 @@ class UserController extends Controller
         $sanitizedRoles = [];
 
         if($currentUser->id == $user->id) {
-            abort(401, 'Нельзя менять роль самому себе');
+            abort(403, 'Нельзя менять роль самому себе');
         }
 
         if( ! $memberRole) {
@@ -161,6 +161,9 @@ class UserController extends Controller
         foreach ($roles as $role) {
             foreach ($dbRoles as $dbRole) {
                 if ($role === $dbRole['name']) {
+                    if($user->hasRole('admin')) {
+                        abort(403, 'Нельзя удалить роль у другого администратора');
+                    }
                     array_push($sanitizedRoles, $dbRole);
                 }
             }

@@ -24,7 +24,7 @@ class UsersController extends Controller
 
         if( ! $authUser->hasRole('admin') && $authUser->hasRole('discipline_head')) {
             if($user->discipline->name !== $authUser->discipline->name) {
-                abort(403);
+                abort(403, 'Нельзя получить доступ к пользователю, который не относится к вашей дисциплине');
             }
         }
 
