@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -19,6 +20,8 @@ class UsersController extends Controller
             $query->with(['group']);
         }, 'discipline', 'team', 'roles'])->find($user);
 
-        return view('admin.users.show', compact('user'));
+        $roles = Role::get();
+
+        return view('admin.users.show', compact('user', 'roles'));
     }
 }

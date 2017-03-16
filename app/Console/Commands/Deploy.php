@@ -2,16 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Http\Middleware\Role;
-use App\Models\Group;
-use App\Models\UniversityProfile;
-use App\Models\User;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Schema;
+use App\Models\Role;
 use Illuminate\Console\Command;
-use Masterminds\HTML5;
-use PHPHtmlParser\Dom;
 
 class Deploy extends Command
 {
@@ -47,12 +39,16 @@ class Deploy extends Command
     public function handle()
     {
         \DB::transaction(function() {
-            $disciplineHead = new Role();
+            if( ! Role::where('name', 'discipline_head')->first()) {
+                $disciplineHead = new Role();
 
-            $disciplineHead->name = 'discipline_head';
-            $disciplineHead->display_name = 'Ответственный';
-            $disciplineHead->description = 'Ответственный за дисциплину';
-            $disciplineHead->save();
+                $disciplineHead->name = 'discipline_head';
+                $disciplineHead->display_name = 'Ответственный';
+                $disciplineHead->description = 'Ответственный за дисциплину';
+                $disciplineHead->save();
+            }
         });
+
+        $this->info('Deploy completed');
     }
 }

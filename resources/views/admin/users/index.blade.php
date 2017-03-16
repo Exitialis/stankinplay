@@ -98,6 +98,11 @@
                             <i v-if="user.university_profile.grants" class="fa fa-check text-success" aria-hidden="true"></i>
                             <i v-else class="fa fa-times text-danger" aria-hidden="true"></i>
                         </td>
+                        <td>
+                            <a :href="'{{ route('admin') }}' + '/users/' + user.id" >
+                                <i class="fa fa-pencil text-success" aria-hidden="true"></i>
+                            </a>
+                        </td>
                     </tr>
                     </tbody>
                 </table>

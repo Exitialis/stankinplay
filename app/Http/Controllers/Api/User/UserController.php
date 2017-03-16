@@ -40,7 +40,31 @@ class UserController extends Controller
     }
 
     /**
-     * Обновить роль пользователя.
+     * Найти пользователя с отношениями.
+     *
+     * @param $user
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function find($user, Request $request)
+    {
+        if ($request->has('relations')) {
+            $relations = $request->input('relations', []);
+
+            $user = User::with($relations)->find($user);
+        } else {
+            $user = User::find($user);
+        }
+
+        if( ! $user) {
+            abort(404, 'User not found');
+        }
+
+        return response()->json(compact('user'));
+    }
+
+    /**
+     * Установить роли пользователю.
      *
      * @param $user
      * @param UserUpdateRequest $request
@@ -52,20 +76,52 @@ class UserController extends Controller
 
         $roles = $request->input('roles', []);
 
-        $sanitazedRoles = $this->sanitizeRoles($user, $roles);
+        $sanitizedRoles = $this->sanitizeRoles($user, $roles);
 
-        $user->attachRoles($roles);
+        $clearedRoles = [];
+
+        //Последняя очистка. Удаляем уже существующие роли
+        foreach ($sanitizedRoles as $role) {
+            if ( ! $user->hasRole($role)) {
+                array_push($clearedRoles, $role);
+            }
+        }
+
+        $user->attachRoles($clearedRoles);
 
         return response()->json(flash(trans('Успешно сохранено')));
     }
 
-    public function detachRole($user, Request $request)
+    /**
+     * Удалить роли у пользователя.
+     *
+     * @param $user
+     * @param UserUpdateRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function detachRole($user, UserUpdateRequest $request)
     {
         $user = User::find($user);
 
         $roles = $request->input('roles', []);
 
-        $user->detachRoles($this->sanitizeRoles($user, $roles));
+        //Очищаем роли от лишних значений, проверяем роли по правам пользователя для установки.
+        $sanitizedRoles = $this->sanitizeRoles($user, $roles);
+
+        $clearedRoles = [];
+
+        //Последняя очистка. Проверяем, установлена ли у пользователя роль, которую мы хотим удалить.
+        foreach ($sanitizedRoles as $role) {
+            if ($user->hasRole($role)) {
+                array_push($clearedRoles, $role);
+            }
+        }
+
+        if( ! $clearedRoles) {
+            abort(422, []);
+        }
+
+        $user->detachRoles($clearedRoles);
 
         return response()->json(flash(trans('Успешно удалено')));
     }
@@ -77,14 +133,14 @@ class UserController extends Controller
      * @param array $roles
      * @return array
      */
-    private function sanitizeRoles(User $user, array $roles)
+    private function sanitizeRoles(User $user, array $roles): array
     {
         $memberRole = Role::where('name', 'member')->first();
         $currentUser = auth('api')->user();
 
         $sanitizedRoles = [];
 
-        if($currentUser == $user) {
+        if($currentUser->id == $user->id) {
             abort(401, 'Нельзя менять роль самому себе');
         }
 
@@ -94,18 +150,16 @@ class UserController extends Controller
 
         if($currentUser->hasRole('discipline_head') && ! $currentUser->hasRole('admin')) {
             if( ! $user->hasRole('member')) {
-                return ['member'];
+                return Role::where('name', 'member')->first()->toArray();
             }
         }
 
         $dbRoles = Role::get()->toArray();
 
         foreach ($roles as $role) {
-            if ($user->hasRole($role)) {
-                foreach ($dbRoles as $dbRole) {
-                    if ($role === $dbRole['name']) {
-                        array_push($sanitizedRoles, $dbRole);
-                    }
+            foreach ($dbRoles as $dbRole) {
+                if ($role === $dbRole['name']) {
+                    array_push($sanitizedRoles, $dbRole);
                 }
             }
         }

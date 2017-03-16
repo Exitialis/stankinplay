@@ -4,6 +4,8 @@
     <admin-users-show :user="{{ $user->toJson() }}"
                       :update-url="'{{ route('api.users.roles.attach', $user->id) }}'"
                       :delete-url="'{{ route('api.users.roles.detach', $user->id) }}'"
+                      :roles="{{ $roles }}"
+                      :user-api-url="'{{ route('api.users.find', $user->id) }}'"
                       inline-template>
         <div>
             <h3>Пользователь <span class="text-primary">@{{ user.login }}</span></h3>
@@ -85,13 +87,28 @@
                 </div>
             </div>
             <div class="row">
-                @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('discipline_head'))
+                @if( ! auth()->user()->hasRole('admin') && auth()->user()->hasRole('discipline_head'))
                     <div class="col-md-4 col-sm-4 col-xs-6" v-if="user.roles">
                         <button v-if="roles.indexOf('member') == -1" class="btn btn-success btn-raised" @click="setMemberRole()">Назначить игроком</button>
                         <button v-else class="btn btn-success btn-raised" @click="removeMemberRole()">Удалить из игроков секции</button>
                     </div>
                 @endif
             </div>
+            @if(auth()->user()->hasRole('admin'))
+                <form @submit.prevent="updateRoles()">
+                    <h4>Управление ролями пользователя: </h4>
+                    <div class="row">
+                        @foreach($roles as $role)
+                            <div class="col-md-4 col-sm-6 col-xs-12">
+                                {!! checkbox('form.' . $role->name, $role->display_name) !!}
+                            </div>
+                        @endforeach
+                    </div>
+                    <button type="submit" class="btn btn-success btn-raised" :disabled="loading">
+                        <i class="fa fa-spin fa-spinner" v-if="loading"></i> Сохранить
+                    </button>
+                </form>
+            @endif
         </div>
     </admin-users-show>
 
