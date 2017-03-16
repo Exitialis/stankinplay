@@ -265,7 +265,7 @@ class UserController extends Controller
         if(isset($inputs['onlyMembers'])) {
             if($inputs['onlyMembers']) {
                 $users->whereHas('roles', function($query) {
-                    $query->where('name', 'member')->orWhere('name', 'admin')->orWhere('name', 'discipline_head');
+                    $query->where('name', 'member')->orWhere('name', 'discipline_head');
                 });
             }
         }

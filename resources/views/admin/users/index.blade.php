@@ -27,6 +27,9 @@
                                 @if( ! auth()->user()->hasRole('discipline_head') && auth()->user()->hasRole('admin'))
                                     {!! select('form.discipline_id', 'disciplines', trans('Дисциплина'), 'true', ['horizontal' => 1]) !!}
                                 @endif
+                                {!! text('form.last_name', trans('Фамилия'), 'true', ['horizontal' => 1]) !!}
+                                {!! text('form.first_name', trans('Имя'), 'true', ['horizontal' => 1]) !!}
+                                {!! text('form.middle_name', trans('Отчество'), 'true', ['horizontal' => 1]) !!}
                                 {!! text('form.studentID', trans('Номер студенческого'), 'true', ['horizontal' => 1]) !!}
                                 {!! checkbox('form.onlyMembers', trans('Только участники секции')) !!}
                                 {!! checkbox('form.module', trans('Модуль')) !!}
