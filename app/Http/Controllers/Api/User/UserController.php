@@ -14,7 +14,9 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('role:admin|discipline_head,api');
+        $this->middleware('role:admin|discipline_head,api', [
+            'except' => ['export']
+        ]);
     }
 
     public function index(Request $request)
@@ -180,7 +182,7 @@ class UserController extends Controller
      */
     public function filter(Request $request)
     {
-        return response()->json($this->searchUsers($request)->paginate(10));
+        return response()->json($this->searchUsers($request, auth('api')->user())->paginate(10));
     }
 
     /**
@@ -190,7 +192,7 @@ class UserController extends Controller
      */
     public function export(Request $request)
     {
-        $users = $this->searchUsers($request)->get();
+        $users = $this->searchUsers($request, auth()->user())->get();
 
         $userExportedAttributes = (new User())->exportedAttributes;
         $universityProfileExportedAttributes = (new UniversityProfile())->exportedAttributes;
@@ -229,7 +231,7 @@ class UserController extends Controller
         })->export('xls');
     }
 
-    private function searchUsers(Request $request)
+    private function searchUsers(Request $request, User $user)
     {
         $userAttributes = User::getModel()->getVisible();
         $universityProfileAttributes = UniversityProfile::getModel()->getVisible();
@@ -267,8 +269,6 @@ class UserController extends Controller
                 });
             }
         }
-
-        $user = auth('api')->user();
 
         //Даем доступ главам дисциплин только до пользователей из их дисциплины.
         if( !$user->hasRole('admin') && $user->hasRole('discipline_head')) {
