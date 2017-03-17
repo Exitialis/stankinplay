@@ -45,8 +45,10 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        if($exception->getStatusCode() == 403 && $request->expectsJson()){
-            return response()->json($exception->getMessage(), 403);
+        if($exception instanceof HttpException) {
+            if($exception->getStatusCode() == 403 && $request->expectsJson()){
+                return response()->json($exception->getMessage(), 403);
+            }
         }
 
         return parent::render($request, $exception);
