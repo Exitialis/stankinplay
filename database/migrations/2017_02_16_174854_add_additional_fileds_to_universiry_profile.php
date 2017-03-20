@@ -28,9 +28,7 @@ class AddAdditionalFiledsToUniversiryProfile extends Migration
     public function down()
     {
         Schema::table('university_profiles', function(Blueprint $table) {
-            $table->dropColumn('anotherSections');
-            $table->dropColumn('gto');
-            $table->dropColumn('socialActivity');
+            $table->dropColumn(['anotherSections', 'gto', 'socialActivity']);
         });
     }
 }

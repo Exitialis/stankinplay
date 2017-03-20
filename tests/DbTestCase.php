@@ -9,8 +9,9 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 abstract class DbTestCase extends TestCase
 {
-    use DatabaseMigrations, DatabaseTransactions;
-
+    /**
+     * @var Faker\Generator
+     */
     protected $faker;
 
     protected $user;
@@ -24,13 +25,6 @@ abstract class DbTestCase extends TestCase
         $this->seed();
 
         $this->user = User::first();
-    }
-
-    protected function authHeaders(User $user)
-    {
-        $headers = ['Accept' => 'application/json'];
-
-        return $headers;
     }
 
     /**
