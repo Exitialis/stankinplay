@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Group;
 use Illuminate\Database\Seeder;
 use PHPHtmlParser\Dom;
 
@@ -12,6 +13,7 @@ class GroupSeeder extends Seeder
      */
     public function run()
     {
+        /*
         $dom = new Dom();
 
         $dom->loadFromFile(storage_path('stankinru.html'));
@@ -49,6 +51,13 @@ class GroupSeeder extends Seeder
             for($i = 0; $i < $value; $i++) {
                 \App\Models\Group::create(['name' => 'МДС-'.$key.'-0'.$value]);
             }
+        }
+    }*/
+
+        for($i = 0; $i < 20; $i++) {
+            Group::create([
+                'name' => 'ИДБ-14-'.$i
+            ]);
         }
     }
 }

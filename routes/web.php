@@ -2,6 +2,10 @@
 
 use App\Models\Discipline;
 
+Route::get('/', function() {
+    return redirect()->route('profile.get');
+})->name('home');
+
 /**
  * Авторизация и регистрация.
  */
@@ -57,10 +61,6 @@ Route::get('disciplines', function() {
 });
 
 Route::post('permission-check', 'Permissions\PermissionController@can');
-
-Route::get('/', function() {
-    return redirect()->route('profile.get');
-})->name('home');
 
 //Route::get('menu', 'Menu\TopMenuController@get')->name('menu.get');
 
