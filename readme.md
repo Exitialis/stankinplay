@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/stankinplay/stankinplay.svg)](https://travis-ci.org/stankinplay/stankinplay.svg)
+[![Build Status](https://api.travis-ci.org/Exitialis/stankinplay.svg)](https://api.travis-ci.org/Exitialis/stankinplay)
 
 ## Stankinplay
 
