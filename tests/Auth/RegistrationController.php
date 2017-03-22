@@ -52,6 +52,7 @@ class RegistrationController extends DbTestCase
             'middle_name' => $middleName,
             'discipline' => $discipline->id,
         ]);
+        
 
         $this->assertDatabaseHas('university_profiles', [
             'user_id' => $id,
