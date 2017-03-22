@@ -1,20 +1,25 @@
-
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
-
 require('./bootstrap');
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+require('./views')
 
-Vue.component('example', require('./components/Example.vue'));
+require('./components')
+
+import store from './store';
 
 const app = new Vue({
-    el: '#app'
+    store,
+    el: '#wrapper',
+
+    created() {
+        var v = this;
+
+        if ( ! window.user || window.user === undefined) {
+            store.commit('setUser', null);
+        } else {
+            window.user.can = function(permission) {
+                return v.$http.post('/permission-check', {permission: permission});
+            };
+            store.commit('setUser', window.user);
+        }
+    }
 });

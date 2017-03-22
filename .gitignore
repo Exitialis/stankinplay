@@ -7,3 +7,12 @@
 Homestead.json
 Homestead.yaml
 .env
+.env.save
+backups/
+_ide_helper.php
+.phpstorm.meta.php
+/public/build
+public/css
+public/fonts
+public/js
+public/mix-manifest.json

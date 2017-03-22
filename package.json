@@ -12,8 +12,18 @@
     "bootstrap-sass": "^3.3.7",
     "cross-env": "^3.2.3",
     "jquery": "^3.1.1",
+    "laravel-elixir": "^6.0.0-15",
     "laravel-mix": "^0.8.3",
     "lodash": "^4.17.4",
     "vue": "^2.1.10"
+  },
+  "dependencies": {
+    "bootstrap-material-design": "^0.5.10",
+    "font-awesome": "^4.7.0",
+    "select2": "^4.0.3",
+    "toastr": "^2.1.2",
+    "url": "^0.11.0",
+    "vue-resource": "^1.2.1",
+    "vuex": "^2.2.1"
   }
 }

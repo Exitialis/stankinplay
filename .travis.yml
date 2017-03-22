@@ -1,0 +1,20 @@
+language: php
+sudo: true
+
+php:
+  - 7.0
+  - 7.1
+
+notifications:
+ email: never
+
+services: mysql
+
+install:
+  # create a new database for the hyn connection
+  - export DB_CONNECTION=sqlite QUEUE_DRIVER=sync APP_ENV=testing CACHE_DRIVER=array SESSION_DRIVER=array
+
+script:
+  #script to setup the package for testing
+  - composer update
+  - phpunit

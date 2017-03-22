@@ -11,5 +11,12 @@ const { mix } = require('laravel-mix');
  |
  */
 
-mix.js('resources/assets/js/app.js', 'public/js')
-   .sass('resources/assets/sass/app.scss', 'public/css');
+mix.js('resources/assets/js/app.js', 'public/js/app.js').version();
+
+mix.less('resources/assets/less/app.less', 'public/css/app.css');
+
+mix.styles(['toastr/build/toastr.css', 'font-awesome/css/font-awesome.css'], 'public/css/vendor.css')
+    .copy('node_modules/font-awesome/fonts/*', 'public/fonts');
+
+
+
