@@ -9,3 +9,6 @@ Route::group(['namespace' => 'Api'], function($router) {
         $router->get('temp', 'GroupController@temp')->name('api.users.groups.temp');
     });
 });
+
+
+

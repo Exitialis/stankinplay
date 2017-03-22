@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ config('app.name') }}@yield('title')</title>
-    <link rel="stylesheet" href="{{ asset('css/vendor.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ mix('css/vendor.css') }}">
+    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
     @yield('css')
 </head>
 <body>
@@ -23,7 +23,7 @@
     <script>
         window.user = {!! Auth::check() ? json_encode(Auth::user()->load(['discipline', 'roles'])) : 'null' !!}
     </script>
-    <script src="{{ elixir('js/app.js') }}"></script>
+    <script src="{{ mix('js/app.js') }}"></script>
     @if(Session::has('notificate'))
         @php
             $flash = Session::get('notificate')['flash'];

@@ -18,4 +18,3 @@ mix.less('resources/assets/less/app.less', 'public/css/app.css');
 mix.styles(['toastr/build/toastr.css', 'font-awesome/css/font-awesome.css'], 'public/css/vendor.css')
     .copy('node_modules/font-awesome/fonts/*', 'public/fonts');
 
-

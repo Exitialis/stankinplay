@@ -7,10 +7,20 @@
 Homestead.json
 Homestead.yaml
 .env
+<<<<<<< HEAD
 /public/css
 /public/js
+=======
+>>>>>>> rework
 .env.save
 backups/
 _ide_helper.php
 .phpstorm.meta.php
 /public/build
+<<<<<<< HEAD
+=======
+public/css
+public/fonts
+public/js
+public/mix-manifest.json
+>>>>>>> rework
