@@ -8,6 +8,9 @@
          convertWarningsToExceptions="true"
          processIsolation="false"
          stopOnFailure="false">
+    <listeners>
+        <listener class="JohnKary\PHPUnit\Listener\SpeedTrapListener" />
+    </listeners>
     <testsuites>
         <testsuite name="Integration Tests">
             <directory suffix="Test.php">./tests/Feature</directory>
