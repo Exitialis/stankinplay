@@ -24,6 +24,7 @@ Route::group(['namespace' => 'Api'], function($router) {
                 $router->get('university/{userId}', 'UniversityProfileController@get')->name('api.users.profiles.university.get');
                 $router->put('university/{profileId}', 'UniversityProfileController@update')->name('api.users.profile.university.update');
             });
+
         });
 
     });

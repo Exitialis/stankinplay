@@ -30,8 +30,9 @@ class LoginController extends Controller
 
         if ($status) {
             $user = \Auth::user();
-            $flash = flash(trans('Авторизация успешно завершена!'));
+            $flash = notificate(trans('Авторизация успешно завершена!'));
             $redirect = route('profile.get');
+
             return response()->json(compact('user', 'flash', 'redirect'));
         }
 

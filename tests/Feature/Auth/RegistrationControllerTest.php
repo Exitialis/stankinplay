@@ -1,19 +1,19 @@
 <?php
 
-namespace Tests;
+namespace Tests\Feature\Auth;
 
 use App\Models\Discipline;
 use App\Models\Group;
 use App\Models\User;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Validation\ValidationException;
+use Tests\DbTestCase;
 
 class RegistrationController extends DbTestCase
 {
+
     public function testRegistrationPageOk()
     {
-        $this->get(route('registration.get'))->assertStatus(200);
+        $this->get(route('registration.get'))->assertStatus(200)->assertSee('Регистрация');
     }
 
     public function testRegistrationSuccessfully()
@@ -65,4 +65,11 @@ class RegistrationController extends DbTestCase
         ]);
 
     }
+
+    /*
+    public function testRegistrationFailsWithValidationErrors()
+    {
+        $this->post(route('registration.store'), [])->assertStatus(422);
+    }
+    */
 }
