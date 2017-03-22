@@ -16,5 +16,5 @@ install:
 
 script:
   #script to setup the package for testing
-  - composer update
-  - phpunit
+  - composer install
+  - vendor/bin/phpunit
