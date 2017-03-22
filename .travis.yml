@@ -12,7 +12,7 @@ services: mysql
 
 install:
   # create a new database for the hyn connection
-  - export DB_CONNECTION=sqlite QUEUE_DRIVER=sync APP_ENV=testing CACHE_DRIVER=array SESSION_DRIVER=array
+  - export DB_CONNECTION=sqlite QUEUE_DRIVER=sync APP_ENV=testing CACHE_DRIVER=array SESSION_DRIVER=array APP_KEY=base64:7MI5Ai5VyPShh1XqqAago3cnrWgzm5woYAhPhK3Gp8Q=
 
 script:
   #script to setup the package for testing
