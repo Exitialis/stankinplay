@@ -8,3 +8,4 @@ Route::group(['prefix' => 'auth', 'namespace' => 'Auth', 'middleware' => 'guest'
     Route::get('forgot/{code}', 'ForgotController@verify')->name('forgot.code');
     Route::post('forgot/save-pass', 'ForgotController@saveNewPassword')->name('forgot.savePass');
 });
+

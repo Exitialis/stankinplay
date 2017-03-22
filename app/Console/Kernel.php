@@ -2,6 +2,12 @@
 
 namespace App\Console;
 
+use App\Console\Commands\BackupDatabase;
+use App\Console\Commands\CreateTournament;
+use App\Console\Commands\Deploy;
+use App\Console\Commands\MakeRepositoryCommand;
+use App\Console\Commands\MakeRepositoryContractCommand;
+use App\Console\Commands\ParseCsv;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -13,7 +19,12 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        MakeRepositoryContractCommand::class,
+        MakeRepositoryCommand::class,
+        BackupDatabase::class,
+        CreateTournament::class,
+        ParseCsv::class,
+        Deploy::class
     ];
 
     /**
@@ -24,8 +35,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+//        $schedule->command('db:backup')
+//                  ->at('14:55');
     }
 
     /**

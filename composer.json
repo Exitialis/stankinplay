@@ -6,13 +6,33 @@
     "type": "project",
     "require": {
         "php": ">=5.6.4",
+<<<<<<< HEAD
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0"
+=======
+        "laravel/framework": "5.3.*",
+        "barryvdh/laravel-ide-helper": "^2.2",
+        "doctrine/dbal": "^2.5",
+        "laravelcollective/html": "^5.3",
+        "greggilbert/recaptcha": "^2.1",
+        "zizaco/entrust": "^1.7",
+        "league/flysystem-aws-s3-v3": "~1.0",
+        "guzzlehttp/guzzle": "^6.2",
+        "laravel/passport": "^1.0",
+        "maatwebsite/excel": "^2.1"
+>>>>>>> 40a5abeaf3a59e4a21a57c05fcc556831854ea55
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
+<<<<<<< HEAD
         "phpunit/phpunit": "~5.7"
+=======
+        "phpunit/phpunit": "~5.0",
+        "symfony/css-selector": "3.1.*",
+        "symfony/dom-crawler": "3.1.*",
+        "paquettg/php-html-parser": "^1.7"
+>>>>>>> 40a5abeaf3a59e4a21a57c05fcc556831854ea55
     },
     "autoload": {
         "classmap": [
@@ -20,12 +40,26 @@
         ],
         "psr-4": {
             "App\\": "app/"
+<<<<<<< HEAD
         }
     },
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"
         }
+=======
+        },
+        "files": [
+            "app/Services/helpers.php",
+            "app/Services/components.php"
+        ]
+    },
+    "autoload-dev": {
+        "classmap": [
+            "tests/TestCase.php",
+            "tests/DbTestCase.php"
+        ]
+>>>>>>> 40a5abeaf3a59e4a21a57c05fcc556831854ea55
     },
     "scripts": {
         "post-root-package-install": [
@@ -44,7 +78,11 @@
         ]
     },
     "config": {
+<<<<<<< HEAD
         "preferred-install": "dist",
         "sort-packages": true
+=======
+        "preferred-install": "dist"
+>>>>>>> 40a5abeaf3a59e4a21a57c05fcc556831854ea55
     }
 }
