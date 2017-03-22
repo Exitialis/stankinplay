@@ -8,8 +8,16 @@ use App\Http\Controllers\Controller;
 
 class DisciplinesController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->has('fields')) {
+            $fields = $request->input('fields');
+
+            $disciplines = Discipline::select($fields)->get();
+
+            return response()->json(compact('disciplines'));
+        }
+
         return response()->json(Discipline::get());
     }
 

@@ -1,5 +1,9 @@
 <?php
 
+Route::get('/', function() {
+   return redirect()->to('profile');
+})->name('home');
+
 /**
  * Авторизация и регистрация.
  */

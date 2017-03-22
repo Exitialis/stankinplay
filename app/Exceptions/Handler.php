@@ -6,6 +6,7 @@ use Exception;
 use HttpException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -45,9 +46,15 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if ($exception instanceof NotFoundHttpException) {
+            if ($request->expectsJson()) {
+                return response()->json('Ошибка: не найдено', $exception->getStatusCode());
+            }
+        }
+
         if($exception instanceof HttpException) {
-            if($exception->getStatusCode() == 403 && $request->expectsJson()){
-                return response()->json($exception->getMessage(), 403);
+            if ($request->expectsJson()) {
+                return response()->json($exception->getMessage(), $exception->getStatusCode());
             }
         }
 
