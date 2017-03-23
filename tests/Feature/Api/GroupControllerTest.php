@@ -11,13 +11,15 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class GroupControllerTest extends DbTestCase
 {
-    public function testGetPaginatedGroups()
-    {
-        $groups = Group::paginate(10)->items();
+    
 
-        $this->get(route('api.groups'))->assertStatus(200)
-            ->assertJson($groups);
-    }
+//    public function testGetPaginatedGroups()
+//    {
+//        $groups = Group::paginate(10)->items();
+//
+//        $this->get(route('api.groups'))->assertStatus(200)
+//            ->assertJsonFragment($groups);
+//    }
 
 //    public function testFindGroupsByName()
 //    {
