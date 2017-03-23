@@ -1,7 +1,7 @@
 <?php
 
 Route::get('/', function() {
-   return redirect()->to('profile');
+   return redirect()->route('profile.get');
 })->name('home');
 
 /**
@@ -17,6 +17,8 @@ Route::group(['prefix' => 'auth', 'namespace' => 'Auth', 'middleware' => 'guest'
     Route::get('forgot/{code}', 'ForgotController@verify')->name('forgot.code');
     Route::post('forgot/save-pass', 'ForgotController@saveNewPassword')->name('forgot.savePass');
 });
+
+
 
 /**
  * Профиль пользователя.

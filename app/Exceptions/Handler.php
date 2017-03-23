@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Validation\ValidationException;
 use Exception;
 use HttpException;
 use Illuminate\Auth\AuthenticationException;
