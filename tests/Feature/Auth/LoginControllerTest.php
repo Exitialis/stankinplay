@@ -2,6 +2,8 @@
 
 namespace Tests\Feature\Auth;
 
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\ValidationException;
 use Tests\DbTestCase;

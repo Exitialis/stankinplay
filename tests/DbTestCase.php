@@ -5,10 +5,14 @@ namespace Tests;
 use App\Models\User;
 use Faker\Factory;
 use Faker\Generator;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 
 abstract class DbTestCase extends TestCase
 {
+    use DatabaseMigrations, DatabaseTransactions;
+
     /**
      * @var Generator
      */
@@ -20,7 +24,6 @@ abstract class DbTestCase extends TestCase
     {
         parent::setUp();
 
-        $this->loadMigrations();
         $this->faker = Factory::create();
         $this->seed();
 
