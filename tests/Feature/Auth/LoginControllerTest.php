@@ -31,8 +31,12 @@ class LoginControllerTest extends DbTestCase
         ]);
     }
 
-    /*public function testLoginShouldBeThrowValidationException()
+    public function testLoginShouldBeThrowValidationException()
     {
-        $this->post(route('login.post'), []);
-    }*/
+        $this->post(route('login.post'), [])->assertStatus(302)
+            ->assertSessionHas('errors', $this->convertToValidationErrors([
+                'login' => ["Поле login обязательно для заполнения."],
+                'password' => ["Поле password обязательно для заполнения."],
+            ]));
+    }
 }

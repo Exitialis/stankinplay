@@ -30,7 +30,7 @@
                                 <label class="control-label col-sm-2">Группа:</label>
                                 <div class="col-sm-10">
                                     <label>&nbsp;</label>
-                                    <v-select2 v-model="form.group_id" :ajax-url="'{{ route('api.users.groups.lists') }}'"></v-select2>
+                                    <v-select2 v-model="form.group_id" :ajax-url="'{{ route('api.groups.lists') }}'"></v-select2>
                                 </div>
                             </div>
 

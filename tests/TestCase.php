@@ -3,16 +3,18 @@
 namespace Tests;
 
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use Illuminate\Support\MessageBag;
+use Illuminate\Support\ViewErrorBag;
 
 abstract class TestCase extends BaseTestCase
 {
    use CreatesApplication;
 
-//    public function assertValidation(array $errors)
-//    {
-//        $bag = new ViewErrorBag();
-//        $bag->put('default', new MessageBag($errors);
-//
-//        $this->assertSessionHas()
-//    }
+    protected function convertToValidationErrors(array $errors)
+    {
+        $bag = new ViewErrorBag();
+        $bag->put('default', new MessageBag($errors));
+
+        return $bag;
+    }
 }

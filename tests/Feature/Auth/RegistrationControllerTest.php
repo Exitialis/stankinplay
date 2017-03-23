@@ -71,9 +71,8 @@ class RegistrationController extends DbTestCase
 
     public function testRegistrationFailsWithValidationErrors()
     {
-        $bag = new ViewErrorBag();
-        $bag->put('default', new MessageBag(
-            [
+        $this->post(route('registration.store'), [])->assertStatus(302)
+            ->assertSessionHas('errors', $this->convertToValidationErrors([
                 'login' => ["Поле login обязательно для заполнения."],
                 'email' => ["Поле email обязательно для заполнения."],
                 'discipline' => ["Поле discipline обязательно для заполнения."],
@@ -84,11 +83,7 @@ class RegistrationController extends DbTestCase
                 'login' => ["Поле login обязательно для заполнения."],
                 'middle_name' => ["Поле middle name обязательно для заполнения."],
                 'password' => ["Поле password обязательно для заполнения."],
-            ]
-        ));
-
-        $this->post(route('registration.store'), [])->assertStatus(302)
-            ->assertSessionHas('errors', $bag);
+            ]));
     }
 
 }

@@ -18,8 +18,6 @@ Route::group(['prefix' => 'auth', 'namespace' => 'Auth', 'middleware' => 'guest'
     Route::post('forgot/save-pass', 'ForgotController@saveNewPassword')->name('forgot.savePass');
 });
 
-
-
 /**
  * Профиль пользователя.
  */
