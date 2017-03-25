@@ -11,6 +11,11 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class GroupControllerTest extends DbTestCase
 {
+
+    public function test()
+    {
+        $this->assertTrue(true);
+    }
     
 
 //    public function testGetPaginatedGroups()

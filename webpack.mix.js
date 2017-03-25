@@ -31,7 +31,7 @@ mix.webpackConfig({
                 match: [
                     'app/**/*.php',
                     'routes/**/*.php',
-                    // '_legacy/**/*.php',
+                    'tests/**/*.php',
                     'resources/views/**/*.php',
                     'public/mix-manifest.json',
                     'public/css/**/*.css',
