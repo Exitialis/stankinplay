@@ -8,11 +8,8 @@ use Tests\DbTestCase;
 class GroupControllerTest extends DbTestCase
 {
 
-    public function testStub()
+    public function test()
     {
-//        $user = \Mockery::mock(Group::class);
-//
-//        $user->shouldReceive('')
         $this->assertTrue(true);
     }
 
