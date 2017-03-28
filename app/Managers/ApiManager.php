@@ -2,7 +2,6 @@
 
 namespace App\Managers;
 
-
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
@@ -52,7 +51,7 @@ class ApiManager
         return $where;
     }
 
-    protected function getWith($relations)
+    protected function getWith($relations, $parent = null)
     {
         if (is_array($relations)) {
             foreach ($relations as $relationKey => $relationValue) {
@@ -62,9 +61,9 @@ class ApiManager
                     //и также, добавить дополнительную выборку по полям и их значениям
                     if ($relationInstance = $this->getRelationInstance($relationKey)) {
                         //Если есть поле relations, то тогда вызываем эту функцию еще разок
-                        if (isset($relationValue['relations'])) {
-                            $this->getWith($relationValue['relations']);
-                        }
+//                        if (isset($relationValue['relations'])) {
+//                            $this->getWith($relationValue['relations'], $relationKey);
+//                        }
                         //TODO: Добавить условие для повышения производительности.
                         //if(count($relationValue) > 1 || ( ! isset($relationValue['relations']) && count($relationValue) >= 1)) {
 
