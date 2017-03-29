@@ -13,7 +13,7 @@ Route::group(['namespace' => 'Api'], function($router) {
     });
 
     $router->group(['middleware' => 'auth:api'], function($router) {
-        $router->group(['namespace' => 'User', 'prefix' => 'users'], function($router) {
+        $router->group(['namespace' => 'User',  'prefix' => 'users'], function($router) {
             $router->get('/', 'UserController@index')->name('api.users');
             $router->get('filter', 'UserController@filter')->name('api.users.filter');
             $router->post('export', 'UserController@export')->name('api.users.export');

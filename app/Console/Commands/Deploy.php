@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Role;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Artisan;
 
 class Deploy extends Command
 {
@@ -38,17 +38,15 @@ class Deploy extends Command
      */
     public function handle()
     {
+        //Удаляем лишние таблицы
         \DB::transaction(function() {
-            if( ! Role::where('name', 'discipline_head')->first()) {
-                $disciplineHead = new Role();
+            \DB::table('migrations')->where('migration', 'LIKE', '%create_csgo_profiles_table')->update(['batch' => '6']);
 
-                $disciplineHead->name = 'discipline_head';
-                $disciplineHead->display_name = 'Ответственный';
-                $disciplineHead->description = 'Ответственный за дисциплину';
-                $disciplineHead->save();
+            if (Artisan::call('migrate:rollback')) {
+                //Удаляем файл с миграцией
+                unlink(database_path('migrations/2016_10_13_181235_create_csgo_profiles_table.php'));
             }
         });
-
-        $this->info('Deploy completed');
     }
 }
+
