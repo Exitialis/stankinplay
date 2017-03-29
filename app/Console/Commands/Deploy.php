@@ -38,15 +38,35 @@ class Deploy extends Command
      */
     public function handle()
     {
-        //Удаляем лишние таблицы
-        \DB::transaction(function() {
-            \DB::table('migrations')->where('migration', 'LIKE', '%create_csgo_profiles_table')->update(['batch' => '6']);
+        if ( ! $this->removeOldTables()) {
+            return;
+        }
+    }
 
-            if (Artisan::call('migrate:rollback')) {
-                //Удаляем файл с миграцией
-                unlink(database_path('migrations/2016_10_13_181235_create_csgo_profiles_table.php'));
-            }
-        });
+    protected function removeOldTables()
+    {
+        $this->info('Начат процесс очистки старых таблиц');
+        //Удаляем лишние таблицы
+        \DB::beginTransaction();
+        if ( ! \DB::table('migrations')->where('migration', 'LIKE', '%create_csgo_profiles_table')->update(['batch' => '6']) == 1) {
+            \DB::rollback();
+            $this->error('Не удалось изменить таблицу с миграциями');
+
+            return false;
+        }
+
+        if (Artisan::call('migrate:rollback')) {
+            $this->error('Не взоможно откатить миграцию');
+
+            return false;
+        }
+
+        //Удаляем файл с миграцией
+        unlink(database_path('migrations/2016_10_13_181235_create_csgo_profiles_table.php'));
+
+        $this->info('База данных почищена');
+
+        return true;
     }
 }
 
