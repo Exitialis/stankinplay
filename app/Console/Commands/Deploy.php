@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
+use League\Flysystem\Exception;
 
 class Deploy extends Command
 {
@@ -38,19 +39,34 @@ class Deploy extends Command
      */
     public function handle()
     {
+        \DB::beginTransaction();
+
         if ( ! $this->removeOldTables()) {
+            \DB::rollback();
+
             return;
         }
+
+        \DB::commit();
+
+        $this->info('Деплой завершен');
     }
 
     protected function removeOldTables()
     {
         $this->info('Начат процесс очистки старых таблиц');
         //Удаляем лишние таблицы
-        \DB::beginTransaction();
-        if ( ! \DB::table('migrations')->where('migration', 'LIKE', '%create_csgo_profiles_table')->update(['batch' => '6']) == 1) {
-            \DB::rollback();
+
+        if ((! \DB::table('migrations')->where('migration', 'LIKE', '%create_csgo_profiles_table')->update(['batch' => '6']) == 1)
+            &&  (! \DB::table('migrations')->where('migration', 'LIKE', '%create_steam_profiles_table')->update(['batch' => '6']) == 1)
+        ) {
             $this->error('Не удалось изменить таблицу с миграциями');
+
+            return false;
+        }
+
+        if ( ! \DB::delete("delete from migrations where `migration` LIKE '%add_additional%' OR `migration` LIKE '%create_csgo%'")) {
+            $this->error('Не удалось удалить миграцию с дополнительными полями для профиля пользователя');
 
             return false;
         }
@@ -60,9 +76,18 @@ class Deploy extends Command
 
             return false;
         }
+        try{
+            //Удаляем файл с миграцией
+            if ( ! unlink(database_path('migrations/2016_10_13_181235_create_csgo_profiles_table.php')) && ! unlink(database_path('migrations/2016_10_13_180647_create_steam_profiles_table.php'))) {
+                $this->error('Невозможно удалить файл миграции. Откат базы данных');
 
-        //Удаляем файл с миграцией
-        unlink(database_path('migrations/2016_10_13_181235_create_csgo_profiles_table.php'));
+                return false;
+            }
+        } catch(\ErrorException $e) {
+            $this->error($e->getMessage());
+
+            return false;
+        }
 
         $this->info('База данных почищена');
 

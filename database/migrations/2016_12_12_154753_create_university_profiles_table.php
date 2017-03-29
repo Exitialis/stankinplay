@@ -27,6 +27,10 @@ class CreateUniversityProfilesTable extends Migration
             $table->boolean('budget')->default(0)->nullable();
             $table->boolean('grants')->default(0)->nullable();
 
+            $table->boolean('anotherSections')->default(false);
+            $table->boolean('gto')->default(false);
+            $table->boolean('socialActivity')->default(false);
+
             $table->timestamps();
         });
     }
