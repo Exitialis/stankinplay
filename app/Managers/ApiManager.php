@@ -52,8 +52,6 @@ class ApiManager
             if (is_array($relation)) {
                 $this->getWith($relation);
             }
-
-            
         }
     }
 }
