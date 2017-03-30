@@ -41,17 +41,22 @@ class Deploy extends Command
     public function handle()
     {
         \DB::beginTransaction();
-        /*
+
         if ( ! $this->removeOldTables()) {
             \DB::rollback();
 
             return false;
         }
-        */
 
         \Artisan::call('migrate');
 
         if ( ! $this->moveUserTeamFieldToAnotherTable()) {
+            \DB::rollBack();
+
+            return false;
+        }
+
+        if ( ! $this->moveUserDisciplineFieldToAnotherTable()) {
             \DB::rollBack();
 
             return false;
@@ -127,6 +132,30 @@ class Deploy extends Command
 
         return true;
 
+    }
+
+    protected function moveUserDisciplineFieldToAnotherTable()
+    {
+        $users = \DB::table('users')->select('id as user_id', 'discipline_id')->get();
+
+        $users = collect($users)->map(function($x) {
+            return (array) $x;
+        })->toArray();
+
+        \DB::table('user_discipline')->insert($users);
+
+        try {
+            \Schema::table('users', function(Blueprint $table) {
+                $table->dropForeign('users_discipline_id_foreign');
+                $table->dropColumn('discipline_id');
+            });
+        } catch(Exception $e) {
+            $this->error('Невозможно удалить поле discipline_id');
+
+            return false;
+        }
+
+        $this->info('Дисциплины пользователей успешно перенесены');
     }
 }
 
