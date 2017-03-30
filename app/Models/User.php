@@ -57,7 +57,7 @@ class User extends Authenticatable
 
     protected $hidden = ['password', 'remember_token', 'created_at', 'updated_at'];
 
-    protected $visible = ['id', 'login', 'email', 'first_name', 'last_name', 'middle_name', 'full_name',  'team', 'discipline', 'discipline_id', 'ownTeam', 'invites', 'universityProfile', 'roles'];
+    protected $visible = ['id', 'login', 'email', 'first_name', 'last_name', 'middle_name', 'full_name',  'team', 'discipline', 'ownTeam', 'invites', 'universityProfile', 'roles'];
 
     public $exportedAttributes = [
         'login' => 'Никнейм',
@@ -87,7 +87,7 @@ class User extends Authenticatable
 
     public function discipline()
     {
-        return $this->belongsTo(Discipline::class);
+        return $this->belongsToMany(Discipline::class, 'discipline_id');
     }
 
     public function ownTeam()

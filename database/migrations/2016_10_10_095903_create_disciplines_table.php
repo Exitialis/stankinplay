@@ -18,6 +18,7 @@ class CreateDisciplinesTable extends Migration
 
             $table->string('label')->unique();
             $table->string('name');
+            $table->integer('max_players')->unsigned();
             $table->boolean('team')->default(true);
 
             $table->timestamps();

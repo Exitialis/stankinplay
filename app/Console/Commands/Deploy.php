@@ -42,6 +42,7 @@ class Deploy extends Command
     {
         \DB::beginTransaction();
 
+
         if ( ! $this->removeOldTables()) {
             \DB::rollback();
 
@@ -62,6 +63,12 @@ class Deploy extends Command
             return false;
         }
 
+        if ( ! $this->addAdditionalFieldsToDatabase()) {
+            \DB::rollBack();
+
+            return false;
+        }
+
         \DB::commit();
 
         $this->info('Деплой завершен');
@@ -73,7 +80,6 @@ class Deploy extends Command
     {
         $this->info('Начат процесс очистки старых таблиц');
         //Удаляем лишние таблицы
-
         if ( ! \DB::delete("delete from migrations where `migration` like  '%csgo%'")) {
             $this->error('Не удалось удалить данные из таблицы с миграциями');
 
@@ -156,6 +162,24 @@ class Deploy extends Command
         }
 
         $this->info('Дисциплины пользователей успешно перенесены');
+    }
+
+    protected function addAdditionalFieldsToDatabase()
+    {
+        try {
+            Schema::table('disciplines', function(Blueprint $table) {
+                $table->integer('max_players')->unsigned()->after('name');
+            });
+        } catch(Exception $e) {
+            $this->error('Не удалось создать поле max_players в таблице с дисциплинами');
+
+            return false;
+        }
+
+        $this->info('Добавлено дополнительное поле в таблицу с дисциплинами');
+
+        return true;
+
     }
 }
 
