@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Schema;
 use League\Flysystem\Exception;
 
 class Deploy extends Command
@@ -57,10 +58,10 @@ class Deploy extends Command
         $this->info('Начат процесс очистки старых таблиц');
         //Удаляем лишние таблицы
 
-        if ((! \DB::table('migrations')->where('migration', 'LIKE', '%create_csgo_profiles_table')->update(['batch' => '6']) == 1)
-            &&  (! \DB::table('migrations')->where('migration', 'LIKE', '%create_steam_profiles_table')->update(['batch' => '6']) == 1)
+        if ((! \DB::delete("delete from migrations where `migration` like  '%create_csgo_profiles_table'") == 1)
+            &&  (! \DB::delete("delete from migrations where `migration` like  '%create_steam_profiles_table'") == 1)
         ) {
-            $this->error('Не удалось изменить таблицу с миграциями');
+            $this->error('Не удалось очистить таблицу с миграциями');
 
             return false;
         }
@@ -71,11 +72,12 @@ class Deploy extends Command
             return false;
         }
 
-        if (Artisan::call('migrate:rollback')) {
-            $this->error('Не взоможно откатить миграцию');
+        if ( ! Schema::drop('csgo_profiles') && ! Schema::drop('steam_profiles')) {
+            $this->error('Невозможно удалить таблицы');
 
             return false;
         }
+
         try{
             //Удаляем файл с миграцией
             if ( ! unlink(database_path('migrations/2016_10_13_181235_create_csgo_profiles_table.php')) && ! unlink(database_path('migrations/2016_10_13_180647_create_steam_profiles_table.php'))) {
