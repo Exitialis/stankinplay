@@ -20,6 +20,7 @@ class CreateUserTeamTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('team_id')->references('id')->on('teams')->onDelete('cascade');
 
+            $table->unique('user_id');
             $table->primary(['user_id', 'team_id']);
         });
     }

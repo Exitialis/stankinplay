@@ -50,14 +50,6 @@ class UserController extends Controller
      */
     public function find($user, Request $request)
     {
-//        if ($request->has('relations')) {
-//            $relations = $request->input('relations', []);
-//
-//            $user = User::with($relations)->find($user);
-//        } else {
-//            $user = User::find($user);
-//        }
-
         $user =  $user = User::with(['universityProfile' => function($query) {
             $query->with(['group']);
         }, 'discipline', 'team', 'roles'])->find($user);

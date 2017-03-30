@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Artisan;
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use League\Flysystem\Exception;
 
@@ -41,16 +41,27 @@ class Deploy extends Command
     public function handle()
     {
         \DB::beginTransaction();
-
+        /*
         if ( ! $this->removeOldTables()) {
             \DB::rollback();
 
-            return;
+            return false;
+        }
+        */
+
+        \Artisan::call('migrate');
+
+        if ( ! $this->moveUserTeamFieldToAnotherTable()) {
+            \DB::rollBack();
+
+            return false;
         }
 
         \DB::commit();
 
         $this->info('Деплой завершен');
+
+        return true;
     }
 
     protected function removeOldTables()
@@ -58,34 +69,29 @@ class Deploy extends Command
         $this->info('Начат процесс очистки старых таблиц');
         //Удаляем лишние таблицы
 
-        if ((! \DB::delete("delete from migrations where `migration` like  '%create_csgo_profiles_table'") == 1)
-            &&  (! \DB::delete("delete from migrations where `migration` like  '%create_steam_profiles_table'") == 1)
-        ) {
-            $this->error('Не удалось очистить таблицу с миграциями');
+        if ( ! \DB::delete("delete from migrations where `migration` like  '%csgo%'")) {
+            $this->error('Не удалось удалить данные из таблицы с миграциями');
 
             return false;
         }
 
-        if ( ! \DB::delete("delete from migrations where `migration` LIKE '%add_additional%' OR `migration` LIKE '%create_csgo%'")) {
+        if ( ! \DB::delete("delete from migrations where `migration` like  '%steam%'")) {
+            $this->error('Не удалось удалить данные из таблицы с миграциями');
+
+            return false;
+        }
+
+        if ( ! \DB::delete("delete from migrations where `migration` LIKE '%add_additional%'")) {
             $this->error('Не удалось удалить миграцию с дополнительными полями для профиля пользователя');
 
             return false;
         }
 
-        if ( ! Schema::drop('csgo_profiles') && ! Schema::drop('steam_profiles')) {
+        try {
+            Schema::drop('csgo_profiles');
+            Schema::drop('steam_profiles');
+        } catch (Exception $e) {
             $this->error('Невозможно удалить таблицы');
-
-            return false;
-        }
-
-        try{
-            //Удаляем файл с миграцией
-            if ( ! unlink(database_path('migrations/2016_10_13_181235_create_csgo_profiles_table.php')) && ! unlink(database_path('migrations/2016_10_13_180647_create_steam_profiles_table.php'))) {
-                $this->error('Невозможно удалить файл миграции. Откат базы данных');
-
-                return false;
-            }
-        } catch(\ErrorException $e) {
             $this->error($e->getMessage());
 
             return false;
@@ -94,6 +100,33 @@ class Deploy extends Command
         $this->info('База данных почищена');
 
         return true;
+    }
+
+    protected function moveUserTeamFieldToAnotherTable()
+    {
+        $users = \DB::table('users')->select('id as user_id', 'team_id')->where('team_id', '!=', 'null')->get();
+
+        $users = collect($users)->map(function($x) {
+            return (array) $x;
+        })->toArray();
+
+        \DB::table('user_team')->insert($users);
+
+        try {
+            \Schema::table('users', function(Blueprint $table) {
+                $table->dropForeign('users_team_id_foreign');
+                $table->dropColumn('team_id');
+            });
+        } catch(Exception $e) {
+            $this->error('Невозможно удалить поле team_id');
+
+            return false;
+        }
+
+        $this->info('Команды пользователей успешно перенесены');
+
+        return true;
+
     }
 }
 
