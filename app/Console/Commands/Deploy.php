@@ -42,7 +42,6 @@ class Deploy extends Command
     {
         \DB::beginTransaction();
 
-
         if ( ! $this->removeOldTables()) {
             \DB::rollback();
 

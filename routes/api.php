@@ -16,7 +16,10 @@ Route::group(['namespace' => 'Api'], function($router) {
         $router->group(['namespace' => 'User',  'prefix' => 'users'], function($router) {
             $router->get('/', 'UserController@index')->name('api.users');
             $router->get('filter', 'UserController@filter')->name('api.users.filter');
-            $router->post('export', 'UserController@export')->name('api.users.export');
+            $router->get('{user_id}', 'UserController@find')->name('api.users.find');
+
+            $router->put('{user_id}/roles', 'UserController@attachRole')->name('api.users.roles.attach');
+            $router->delete('{user_id}/roles', 'UserController@detachRole')->name('api.users.roles.detach');
 
             $router->group(['namespace' => 'Profiles', 'prefix' => 'profiles'], function($router) {
                 $router->get('university', 'UniversityProfileController@lists')->name('api.users.profiles.university.lists');
