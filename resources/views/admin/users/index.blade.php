@@ -20,7 +20,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-2">Группа:</label>
                                     <div class="col-sm-10">
-                                        <v-select2 v-model="form.group_id" :ajax-url="'{{ route('api.users.groups.lists') }}'"></v-select2>
+                                        <v-select2 v-model="form.group_id" :ajax-url="'{{ route('api.groups.lists') }}'"></v-select2>
                                     </div>
                                 </div>
 
@@ -96,7 +96,7 @@
                     <tr v-for="user in users">
                         <td>@{{ user.full_name ? user.full_name : 'Не указана' }}</td>
                         <td>@{{ user.university_profile ? user.university_profile.group ? user.university_profile.group.name  : 'Не указана' : 'Не указана' }}</td>
-                        <td>@{{ user.discipline ? user.discipline.name : 'Не указана' }}</td>
+                        <td>@{{ user.discipline[0] ? user.discipline[0].name : 'Не указана' }}</td>
                         <td>@{{ user.university_profile ? user.university_profile.studentID ? user.university_profile.studentID  : 'Не указана' : 'Не указана' }}</td>
                         <td v-if="user.university_profile">
                             <i v-if="user.university_profile.module" class="fa fa-check text-success" aria-hidden="true"></i>

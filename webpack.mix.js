@@ -18,7 +18,7 @@ mix.js('resources/assets/js/app.js', 'public/js/app.js').version();
 
 mix.less('resources/assets/less/app.less', 'public/css/app.css');
 
-mix.styles(['toastr/build/toastr.css', 'font-awesome/css/font-awesome.css'], 'public/css/vendor.css')
+mix.styles(['node_modules/toastr/build/toastr.css', 'node_modules/font-awesome/css/font-awesome.css'], 'public/css/vendor.css')
     .copy('node_modules/font-awesome/fonts/*', 'public/fonts');
 
 mix.webpackConfig({

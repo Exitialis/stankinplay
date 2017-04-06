@@ -38,13 +38,15 @@ class TeamController extends Controller
     
     public function store(StoreRequest $request)
     {
-        if ( ! Discipline::find($request->input('discipline'))->team) {
+        $user = \Auth::user();
+
+        if ( ! $user->discipline->first()->team) {
             return response()->json(flash('Для вашей дисциплины невозможно создание команды', 'error'));
         }
 
         $team = $this->teams->create([
             'name' => $request->input('name'),
-            'discipline_id' => $request->input('discipline'),
+            'discipline_id' => $user->discipline->first(),
             'captain_id' => \Auth::user()->id
         ]);
 
@@ -52,7 +54,6 @@ class TeamController extends Controller
             return response()->json(flash('При создании команды произошла ошибка', 'error'));
         }
 
-        $user = \Auth::user();
         $user->team_id = $team->id;
         $user->save();
 

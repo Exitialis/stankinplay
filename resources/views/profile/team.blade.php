@@ -2,7 +2,7 @@
     <team inline-template>
         <div class="col-sm-12">
             <h3>Команда</h3>
-            <p v-if=" ! user.discipline.team">В вашей дисциплине нет команд.</p>
+            <p v-if=" ! user.discipline[0].team">В вашей дисциплине нет команд.</p>
             {{--   Приглашения в команду  --}}
             <div v-if="userInvites" class="row">
                 <div v-if="userInvites.length >= 1" class="col-sm-12">

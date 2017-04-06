@@ -21,9 +21,8 @@ class StoreRequest extends FormRequest
 
         if ($user->can('create-team')) {
             if ($user->hasRole('captain')) {
-
                 //Если уже создавал команду, то нельзя больше
-                if ( ! $user->team) {
+                if ( ! $user->team->first()) {
                     return true;
                 }
 
@@ -44,8 +43,7 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:255|unique:teams',
-            'discipline' => 'required|exists:disciplines,id'
+            'name' => 'required|max:255|unique:teams'
         ];
     }
 }

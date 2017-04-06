@@ -33,7 +33,7 @@ class Team extends Model
 
     public function members()
     {
-        return $this->hasMany(User::class);
+        return $this->belongsToMany(User::class, 'user_team');
     }
 
     public function discipline()
