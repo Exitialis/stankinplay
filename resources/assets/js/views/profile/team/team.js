@@ -10,9 +10,9 @@ Vue.component('profile-team', {
         return {
             manageTeam: null,
             url: '/api/team',
-            team: {},
-            invites: {},
-            userInvites: {},
+            team: null,
+            invites: null,
+            userInvites: null,
         }
     },
 

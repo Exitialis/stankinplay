@@ -1,13 +1,15 @@
 Vue.component('invite-user', {
+
+    props: {
+        team: {
+            type: String,
+            default: null
+        }
+    },
+
     computed: {
-        team() {
-            return this.$store.state.team;
-        },
         user() {
             return this.$store.state.user;
-        },
-        invites() {
-            return this.$store.state.invites;
         }
     },
 

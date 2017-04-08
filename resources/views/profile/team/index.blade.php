@@ -7,35 +7,35 @@
                 <h3>Команда</h3>
                 <p v-if=" ! user.discipline[0].team">В вашей дисциплине нет команд.</p>
                 {{--   Приглашения в команду  --}}
-                {{--<div v-if="userInvites" class="row">--}}
-                    {{--<div v-if="userInvites.length >= 1" class="col-sm-12">--}}
-                        {{--<h4 class="text-info">У вас есть приглашения в команду:</h4>--}}
-                        {{--<div class="row" v-for="(userInvite, index) in userInvites">--}}
-                            {{--<div class="col-md-3 col-sm-4 col-xs-6">--}}
-                                {{--<div class="form-group">--}}
-                                    {{--<label>Пригласитель</label>--}}
-                                    {{--<p>@{{ userInvite.inviter.login }}</p>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                            {{--<div class="col-md-3 col-sm-4 col-xs-6">--}}
-                                {{--<div class="form-group">--}}
-                                    {{--<label>Название команды</label>--}}
-                                    {{--<p>@{{ userInvite.team.name }}</p>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                            {{--<div class="col-md-3 col-sm-4 col-xs-6">--}}
-                                {{--<button @click.prevent="acceptInvite(index)" class="btn btn-success">--}}
-                                    {{--Принять--}}
-                                {{--</button>--}}
-                            {{--</div>--}}
-                            {{--<div class="col-md-3 col-sm-4 col-xs-6">--}}
-                                {{--<button @click.prevent="declineInvite(index)" class="btn btn-danger">--}}
-                                    {{--Отклонить--}}
-                                {{--</button>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
+                <div v-if="userInvites" class="row">
+                    <div v-if="userInvites.length >= 1" class="col-sm-12">
+                        <h4 class="text-info">У вас есть приглашения в команду:</h4>
+                        <div class="row" v-for="(userInvite, index) in userInvites">
+                            <div class="col-md-3 col-sm-4 col-xs-6">
+                                <div class="form-group">
+                                    <label>Пригласитель</label>
+                                    <p>@{{ userInvite.inviter.login }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-4 col-xs-6">
+                                <div class="form-group">
+                                    <label>Название команды</label>
+                                    <p>@{{ userInvite.team.name }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-4 col-xs-6">
+                                <button @click.prevent="acceptInvite(index)" class="btn btn-success">
+                                    Принять
+                                </button>
+                            </div>
+                            <div class="col-md-3 col-sm-4 col-xs-6">
+                                <button @click.prevent="declineInvite(index)" class="btn btn-danger">
+                                    Отклонить
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 {{--   Отображение команды  --}}
                 <h4 v-if="team" class="text-primary">Ваша команда</h4>
                 <div v-if="team" class="row">
@@ -63,7 +63,7 @@
                         </button>
                     </div>
                 </div>
-                {{--   Участники команды  --}}
+                {{--Участники команды--}}
                 <div v-if="team" class="row">
                     <div v-if="team.members" class="col-sm-12">
                         <div class="table-responsive">
@@ -90,7 +90,7 @@
                         </div>
                     </div>
                 </div>
-                {{--   Приглашения в команду от самой команды --}}
+                   {{--Приглашения в команду от самой команды --}}
                 <div v-if="invites && manageTeam" class="row">
                     <div v-if="invites.length >= 1" class="col-sm-12">
                         <h4>Приглашения в команду</h4>
@@ -121,7 +121,7 @@
             </div>
         </profile-team>
         {{--   Приглашение пользователя  --}}
-        {{--<invite-user inline-template>
+        <invite-user :team="'{{ $team }}'" inline-template>
             <div class="modal fade" id="inviteUser" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -144,7 +144,7 @@
             </div>
         </invite-user>
 
-        --}}{{--   Создание команды  --}}{{--
+           {{--Создание команды  --}}
         <create-team inline-template>
             <div class="modal fade" id="createTeam" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
@@ -165,7 +165,7 @@
                     </div>
                 </div>
             </div>
-        </create-team>--}}
+        </create-team>
     </div>
 @endsection
 
