@@ -43,7 +43,7 @@ Vue.component('invite-user', {
             )
         },
         getOptions() {
-            this.$http.get('/users', {
+            this.$http.get(`/api/team/users`, {
                     params: {
                         discipline: this.user.discipline_id,
                     }

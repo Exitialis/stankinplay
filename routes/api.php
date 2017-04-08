@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-
 Route::group(['namespace' => 'Api'], function($router) {
     $router->group(['namespace' => 'Group', 'prefix' => 'groups'], function($router) {
         $router->get('/', 'GroupController@index')->name('api.groups');
@@ -26,7 +24,14 @@ Route::group(['namespace' => 'Api'], function($router) {
                 $router->get('university/{userId}', 'UniversityProfileController@get')->name('api.users.profiles.university.get');
                 $router->put('university/{profileId}', 'UniversityProfileController@update')->name('api.users.profile.university.update');
             });
+        });
 
+        $router->group(['namespace' => 'Team'], function($router) {
+            $router->get('team', 'TeamController@get')->name('team.get');
+            $router->post('team', 'TeamController@store')->name('team.store');
+            $router->put('team', 'TeamController@update')->name('team.update');
+
+            $router->get('team/users', 'TeamController@getUsers')->name('team.users.get');
         });
 
     });

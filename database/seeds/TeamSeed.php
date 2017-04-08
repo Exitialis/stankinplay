@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Team;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class TeamSeed extends Seeder
@@ -12,6 +13,10 @@ class TeamSeed extends Seeder
      */
     public function run()
     {
-        //factory(Team::class, 5)->create();
+        $user = User::first();
+
+        factory(Team::class, 5)->create([
+            'captain_id' => $user->id
+        ]);
     }
 }

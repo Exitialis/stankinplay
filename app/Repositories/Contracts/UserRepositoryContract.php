@@ -9,5 +9,5 @@ interface UserRepositoryContract extends BaseRepositoryContract
 {
     public function saveUser(Request $request);
 
-    public function getByDisciplineAndTeam($discipline, Team $team);
+    public function getByDisciplineAndTeam(Team $team);
 }

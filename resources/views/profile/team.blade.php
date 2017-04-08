@@ -1,3 +1,5 @@
+
+@section('profile')
 <div class="row">
     <team inline-template>
         <div class="col-sm-12">

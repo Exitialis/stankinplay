@@ -25,23 +25,16 @@ Route::post('export', 'Api\User\UserController@export')->name('api.users.export'
  */
 Route::group(['prefix' => 'user', 'namespace' => 'Profile', 'middleware' => 'auth'], function (){
     Route::get('profile', 'ProfileController@index')->name('profile.get');
+    Route::get('profile/team', 'ProfileController@team')->name('profile.team');
     Route::get('logout', 'ProfileController@logout')->name('profile.logout');
 });
 
 Route::group(['middleware' => 'auth'], function() {
-    Route::group(['namespace' => 'Team'], function() {
-        Route::get('team', 'TeamController@get')->name('team.get');
-        Route::post('team', 'TeamController@store')->name('team.store');
-        Route::put('team', 'TeamController@update')->name('team.update');
-    });
     Route::group(['namespace' => 'Invites'], function() {
         Route::get('invites', 'InviteController@get')->name('invites.get');
         Route::post('invites', 'InviteController@sendInvitation')->name('invites.sendInvite');
         Route::get('invites/{team}', 'InviteController@getTeamInvites')->name('invites.team.get');
         Route::put('invites', 'InviteController@processInvite')->name('invites.process');
-    });
-    Route::group(['namespace' => 'Users'], function() {
-        Route::get('users', 'UserController@get');
     });
 });
 

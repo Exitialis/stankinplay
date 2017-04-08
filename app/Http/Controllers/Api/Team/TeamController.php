@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Team;
+namespace App\Http\Controllers\Api\Team;
 
-use App\Http\Requests\Team\StoreRequest;
 use App\Http\Controllers\Controller;
-use App\Models\Discipline;
-use App\Models\Team;
+use App\Http\Requests\Team\StoreRequest;
 use App\Repositories\Contracts\TeamRepositoryContract;
+use App\Repositories\Contracts\UserRepositoryContract;
 use App\Repositories\TeamRepository;
+use Illuminate\Http\Request;
 
 class TeamController extends Controller
 {
@@ -17,11 +17,19 @@ class TeamController extends Controller
     protected $teams;
 
     /**
+     * Репозиторий с пользователями.
+     *
+     * @var UserRepositoryContract
+     */
+    protected $users;
+
+    /**
      * TeamController constructor.
      */
-    public function __construct(TeamRepositoryContract $teams)
+    public function __construct(TeamRepositoryContract $teams, UserRepositoryContract $users)
     {
         $this->teams = $teams;
+        $this->users = $users;
     }
 
     /**
@@ -31,7 +39,7 @@ class TeamController extends Controller
      */
     public function get()
     {
-        $team = \Auth::user()->team()->with(['discipline', 'members'])->first();
+        $team = auth('api')->user()->team()->with(['discipline', 'members'])->first();
 
         return response()->json(compact('team'));
     }
@@ -60,5 +68,19 @@ class TeamController extends Controller
         $team->load(['discipline', 'members']);
 
         return response()->json(compact('team', flash('Команда успешно создана!')));
+    }
+
+    public function getUsers(Request $request)
+    {
+        $user = auth('api')->user();
+        if ($user->can(['create-team', 'edit-team'])) {
+            $team = $user->ownTeam()->first();
+
+            $users = $this->users->getByDisciplineAndTeam($team);
+
+            return response()->json($users);
+        }
+
+        abort(403, 'Доступ запрещен');
     }
 }

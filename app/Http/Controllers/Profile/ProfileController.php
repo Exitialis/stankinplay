@@ -28,18 +28,35 @@ class ProfileController extends Controller
         $this->users = $users;
     }
 
-
+    /**
+     * Страница профиля пользователя.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
-        return view('profile.index');
+        return view('profile.main');
     }
-    
+
+    /**
+     * Выход пользователя.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function logout(){
         Auth::logout();
-        $auth = Auth::guard()->check();
-        return view('auth.login', compact('auth'));
+
+        return view('auth.login');
     }
 
-
+    /**
+     * Получить страницу с командой пользователя.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function team()
+    {
+        return view('profile.team.index');
+    }
 
 }

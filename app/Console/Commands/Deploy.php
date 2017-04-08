@@ -68,6 +68,10 @@ class Deploy extends Command
             return false;
         }
 
+        Schema::table('university_profiles', function(Blueprint $table) {
+            $table->integer('studentID')->unsigned()->nullable()->default(null)->change();
+        });
+
         \DB::commit();
 
         $this->info('Деплой завершен');

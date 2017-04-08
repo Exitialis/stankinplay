@@ -39,9 +39,6 @@ Vue.component('profile', {
     },
 
     methods: {
-        changeTab(tab) {
-            this.currentTab = tab;
-        },
         loadProfile() {
             this.ready = false;
 

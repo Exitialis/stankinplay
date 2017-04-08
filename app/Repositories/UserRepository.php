@@ -45,16 +45,18 @@ class UserRepository extends BaseRepository implements UserRepositoryContract
      * @param Team $team
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function getByDisciplineAndTeam($discipline, Team $team)
+    public function getByDisciplineAndTeam(Team $team)
     {
-        return $this->model->where('discipline_id', $discipline)
-                            ->where('team_id', '<>', $team->id)
-                            ->orWhere('team_id', NULL)
-                            ->whereHas('invites', function($query) use($team) {
-                                $query->where('team_id', $team->id);
-                            }, 0)
-                            ->select('id', 'login as name')
-                            ->get();
+        $users = $this->model->whereHas('discipline', function($query) use($team) {
+            $query->where('id', $team->discipline()->first()->id);
+        })
+            ->whereHas('team', function($query) use($team){
+                $query->where('id', '<>', $team->id)->orWhere('id', null);
+            })
+            ->select('id', 'login as name')
+            ->get();
+
+        return response()->json(compact($users));
     }
 
 }
