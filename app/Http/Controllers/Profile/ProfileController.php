@@ -56,9 +56,7 @@ class ProfileController extends Controller
      */
     public function team()
     {
-        $team = auth()->user()->load(['team']);
-
-        return view('profile.team.index', compact('team'));
+        return view('profile.team.index');
     }
 
 }

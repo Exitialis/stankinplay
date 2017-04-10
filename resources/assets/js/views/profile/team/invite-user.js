@@ -2,7 +2,7 @@ Vue.component('invite-user', {
 
     props: {
         team: {
-            type: String,
+            type: Object,
             default: null
         }
     },
@@ -30,14 +30,16 @@ Vue.component('invite-user', {
             this.$http.post(url, this.form).then(
                 response => {
                     $('#inviteUser').modal('hide');
+                    window.toastr.success('Приглашение было успешно отправлено');
                     this.getOptions();
                     this.form.user_id = null;
-                    var invites = this.invites.concat([response.data.invite]);
-                    this.$store.commit('setInvites', invites);
-                    this.erorrs = {};
+                    this.$emit('newInvite', response.data.invite);
+                    this.errors = {};
                 }
             ).catch(
                 response => {
+                    window.toastr.error('При отправке приглашения произошла ошибка');
+
                     if (response.status === 422) {
                         this.errors = JSON.parse(response.body);
                     }

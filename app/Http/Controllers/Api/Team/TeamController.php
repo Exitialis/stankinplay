@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Team;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Team\StoreRequest;
+use App\Models\User;
 use App\Repositories\Contracts\TeamRepositoryContract;
 use App\Repositories\Contracts\UserRepositoryContract;
 use App\Repositories\TeamRepository;
@@ -25,6 +26,8 @@ class TeamController extends Controller
 
     /**
      * TeamController constructor.
+     * @param TeamRepositoryContract $teams
+     * @param UserRepositoryContract $users
      */
     public function __construct(TeamRepositoryContract $teams, UserRepositoryContract $users)
     {
@@ -76,7 +79,17 @@ class TeamController extends Controller
         if ($user->can(['create-team', 'edit-team'])) {
             $team = $user->ownTeam()->first();
 
-            $users = $this->users->getByDisciplineAndTeam($team);
+            $users = User::whereHas('discipline', function($query) use($team) {
+                $query->where('id', $team->discipline()->first()->id);
+            })
+                ->whereHas('team', function($query) use($team){
+                    $query->where('id', '<>', $team->id)->orWhere('id', null);
+                })
+                ->whereHas('invites', function($query) use($team) {
+                    $query->where('team_id', $team->id);
+                }, 0)
+                ->select('id', 'login as name')
+                ->get();
 
             return response()->json($users);
         }

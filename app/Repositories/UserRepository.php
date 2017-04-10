@@ -53,10 +53,13 @@ class UserRepository extends BaseRepository implements UserRepositoryContract
             ->whereHas('team', function($query) use($team){
                 $query->where('id', '<>', $team->id)->orWhere('id', null);
             })
+            ->whereHas('invites', function($query) use($team) {
+                $query->where('team_id', $team->id);
+            }, 0)
             ->select('id', 'login as name')
             ->get();
 
-        return response()->json(compact($users));
+        return $users;
     }
 
 }
