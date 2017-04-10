@@ -1,6 +1,13 @@
+import { mapGetters } from 'vuex';
+
 Vue.component('profile-team', {
 
     computed: {
+        ...mapGetters({
+            team: 'getTeam',
+            invites: 'getInvites',
+            userInvites: 'getUserInvites'
+        }),
         user() {
             return this.$store.state.user;
         }
@@ -9,35 +16,10 @@ Vue.component('profile-team', {
     data() {
         return {
             manageTeam: null,
-            url: '/api/team',
-            team: null,
-            invites: null,
-            userInvites: null,
         }
     },
 
     methods: {
-        loadTeam() {
-            this.$http.get(this.url).then(response => {
-                this.team = response.data.team;
-
-                if (!this.invites) {
-                    this.loadInvites();
-                }
-            }).catch(response => {
-                console.log(response);
-            })
-        },
-        loadInvites() {
-            this.$http.get('/invites/' + this.team.id).then(response => {
-                this.invites = response.data.invites
-            })
-        },
-        loadUserInvites() {
-            this.$http.get('/invites').then(response => {
-                this.userInvites = response.data.invites;
-            })
-        },
         acceptInvite(id) {
             this.$http.put('/invites', {
                 invite_id: this.userInvites[id].id,
@@ -67,8 +49,8 @@ Vue.component('profile-team', {
     },
 
     mounted() {
-        this.loadTeam();
-        this.loadUserInvites();
+        this.$store.dispatch('loadTeamWithInvites');
+        this.$store.dispatch('loadUserInvites');
 
         this.user.can(['create-team', 'edit-team']).then(
             response => {

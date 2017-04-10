@@ -29,15 +29,6 @@ Route::group(['prefix' => 'user', 'namespace' => 'Profile', 'middleware' => 'aut
     Route::get('logout', 'ProfileController@logout')->name('profile.logout');
 });
 
-Route::group(['middleware' => 'auth'], function() {
-    Route::group(['namespace' => 'Invites'], function() {
-        Route::get('invites', 'InviteController@get')->name('invites.get');
-        Route::post('invites', 'InviteController@sendInvitation')->name('invites.sendInvite');
-        Route::get('invites/{team}', 'InviteController@getTeamInvites')->name('invites.team.get');
-        Route::put('invites', 'InviteController@processInvite')->name('invites.process');
-    });
-});
-
 Route::group(['prefix' => 'admin', 'middleware' => 'role:admin|discipline_head', 'namespace' => 'Admin'], function() {
     Route::get('/', 'MainController@index')->name('admin');
     Route::get('users', 'UsersController@index')->name('admin.users');

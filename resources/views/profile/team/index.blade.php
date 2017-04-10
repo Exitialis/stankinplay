@@ -121,7 +121,7 @@
                     </button>
                 </div>
                 {{--   Приглашение пользователя  --}}
-                <invite-user @newInvite='updateInvites' :team="team"  inline-template>
+                <invite-user inline-template>
                     <div class="modal fade" id="inviteUser" tabindex="-1" role="dialog">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">

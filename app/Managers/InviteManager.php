@@ -16,7 +16,7 @@ class InviteManager
      */
     public function getUserInvites()
     {
-        if ( ! $user = \Auth::user()) {
+        if ( ! $user = auth('api')->user()) {
             return false;
         }
 
@@ -49,7 +49,7 @@ class InviteManager
      */
     public function inviteUser($team_id, $user_id)
     {
-        if ( ! $inviter = \Auth::user()) {
+        if ( ! $inviter = auth('api')->user()) {
             return false;
         }
 
@@ -80,7 +80,7 @@ class InviteManager
      */
     public function acceptInvite($invite)
     {
-        if ( ! $user = \Auth::user()) {
+        if ( ! $user = auth('api')->user()) {
             return false;
         }
 
@@ -110,7 +110,7 @@ class InviteManager
      */
     public function declineInvite($invite)
     {
-        if ( ! $user = \Auth::user()) {
+        if ( ! $user = auth('api')->user()) {
             return false;
         }
 

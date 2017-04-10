@@ -1,3 +1,6 @@
+import { mapGetters } from 'vuex';
+import * as types from '../../../store/mutation-types';
+
 Vue.component('invite-user', {
 
     props: {
@@ -8,9 +11,12 @@ Vue.component('invite-user', {
     },
 
     computed: {
-        user() {
-            return this.$store.state.user;
-        }
+        .. .mapGetters({
+            team: 'getTeam',
+            invites: 'getInvites',
+            userInvites: 'getUserInvites',
+            user: 'getUser'
+        }),
     },
 
     data() {
@@ -27,39 +33,31 @@ Vue.component('invite-user', {
     methods: {
         send(url) {
             this.form.team_id = this.team.id;
-            this.$http.post(url, this.form).then(
-                response => {
+            this.$http.post(url, this.form).then(response => {
                     $('#inviteUser').modal('hide');
                     window.toastr.success('Приглашение было успешно отправлено');
                     this.getOptions();
                     this.form.user_id = null;
-                    this.$emit('newInvite', response.data.invite);
+                    this.$store.commit(types.SEND_INVITE, response.data.invite);
                     this.errors = {};
-                }
-            ).catch(
-                response => {
-                    window.toastr.error('При отправке приглашения произошла ошибка');
+            }).catch(response => {
+                window.toastr.error('При отправке приглашения произошла ошибка');
 
-                    if (response.status === 422) {
-                        this.errors = JSON.parse(response.body);
-                    }
+                if (response.status === 422) {
+                    this.errors = JSON.parse(response.body);
                 }
-            )
+            })
         },
         getOptions() {
             this.$http.get(`/api/team/users`, {
-                    params: {
-                        discipline: this.user.discipline_id,
-                    }
-                }).then(
-                response => {
+                params: {
+                    discipline: this.user.discipline_id,
+                }
+            }).then(response => {
                     this.options = response.data;
-                }
-            ).catch(
-                response => {
+            }).catch(response => {
                     console.log(response);
-                }
-            )
+            })
         }
     },
 

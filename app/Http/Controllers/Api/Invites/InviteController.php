@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Invites;
+namespace App\Http\Controllers\Api\Invites;
 
 use App\Managers\InviteManager;
 use App\Models\UserInvite;

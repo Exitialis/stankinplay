@@ -11,7 +11,7 @@ const app = new Vue({
     el: '#wrapper',
 
     created() {
-        var v = this;
+        const v = this;
 
         if ( ! window.user || window.user === undefined) {
             store.commit('setUser', null);

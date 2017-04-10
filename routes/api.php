@@ -34,6 +34,13 @@ Route::group(['namespace' => 'Api'], function($router) {
             $router->get('team/users', 'TeamController@getUsers')->name('team.users.get');
         });
 
+        $router->group(['namespace' => 'Invites'], function($router) {
+            $router->get('userInvites', 'InviteController@get')->name('userInvites.get');
+            $router->post('invites', 'InviteController@sendInvitation')->name('invites.sendInvite');
+            $router->get('invites/{team}', 'InviteController@getTeamInvites')->name('invites.team.get');
+            $router->put('invites', 'InviteController@processInvite')->name('invites.process');
+        });
+
     });
 });
 
