@@ -1,5 +1,4 @@
 require('./auth')
-require('./test')
 require('./admin')
 require('./components')
 require('./profile')

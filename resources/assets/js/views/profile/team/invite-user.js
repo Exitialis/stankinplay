@@ -11,7 +11,7 @@ Vue.component('invite-user', {
     },
 
     computed: {
-        .. .mapGetters({
+        ...mapGetters({
             team: 'getTeam',
             invites: 'getInvites',
             userInvites: 'getUserInvites',

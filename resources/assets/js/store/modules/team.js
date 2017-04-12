@@ -28,7 +28,15 @@ const mutations = {
 
     [types.SEND_INVITE](state, invite) {
         state.invites.push(invite);
-    }
+    },
+
+    [types.ACCEPT_INVITE](state, id) {
+        state.userInvites.splice(id, 1);
+    },
+
+    [types.DECLINE_INVITE](state, id) {
+        state.userInvites.splice(id, 1);
+    },
 };
 
 const actions = {
@@ -53,9 +61,18 @@ const actions = {
             commit(types.RECEIVE_USER_INVITES, response.data.invites);
         });
     },
-    loadInvites({ commit, state }) {
-        teamApi.getInvites(state.team.id).then(response => {
-            commit(types.RECEIVE_INVITES, response.data.invites);
+    acceptInvite({ commit }, id) {
+        commit(types.ACCEPT_INVITE, id);
+
+        teamApi.getTeam().then(response => {
+            commit(types.RECEIVE_TEAM, response.data.team);
+        });
+    },
+    declineInvite({ commit }, id) {
+        commit(types.DECLINE_INVITE, id);
+
+        teamApi.getTeam().then(response => {
+            commit(types.RECEIVE_TEAM, response.data.team);
         });
     }
 };

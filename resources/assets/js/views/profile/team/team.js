@@ -21,22 +21,15 @@ Vue.component('profile-team', {
 
     methods: {
         acceptInvite(id) {
-            this.$http.put('/invites', {
+            this.$http.put('/api/invites', {
                 invite_id: this.userInvites[id].id,
                 action: 'accept'
             }).then(response => {
-                if (response.data.status) {
-                    let invites = this.userInvites;
-
-                    invites = invites.splice(id, 1);
-
-                    this.invites = invites;
-                    this.loadTeam();
-                }
+                this.$store.dispatch('acceptInvite', id);
             })
         },
         declineInvite(id) {
-            this.$http.put('/invites', {
+            this.$http.put('/api/invites', {
                 invite_id: this.userInvites[id].id,
                 action: 'decline'
             }).then(response => {

@@ -96,8 +96,7 @@ class InviteManager
 
         //Добавляем пользователя в команду
         $team = $invite->team;
-        $user->team_id = $team->id;
-        $user->save();
+        $user->team()->sync([$team->id]);
 
         return true;
     }
