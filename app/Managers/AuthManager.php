@@ -36,6 +36,8 @@ class AuthManager
         return \DB::transaction(function() use($request) {
             $user = $this->users->saveUser($request);
 
+            $user->discipline()->sync([$request->input('discipline')]);
+
             $universityProfile = UniversityProfile::create([
                 'user_id' => $user->id,
                 'group_id' => $request->input('group_id'),
@@ -50,7 +52,7 @@ class AuthManager
 
             if ($request->input('captain')) {
                 //Если в дисциплине нет команд
-                if ( ! $user->discipline->team) {
+                if ( ! $user->discipline()->first()->team) {
                     $user->attachRole($playerRole);
                     return $user;
                 }

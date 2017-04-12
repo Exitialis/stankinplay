@@ -37,7 +37,7 @@ Vue.component('registration', {
             })
         },
         getDisciplines() {
-            this.$http.get('/disciplines').then(
+            this.$http.get('/api/disciplines').then(
                 response => {
                     this.disciplines = response.data;
                 }

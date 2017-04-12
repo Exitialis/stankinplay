@@ -42,6 +42,10 @@ class Deploy extends Command
     {
         \DB::beginTransaction();
 
+        Schema::table('disciplines', function(Blueprint $table) {
+            $table->integer('max_players')->unsigned()->after('name');
+        });
+
         if ( ! $this->removeOldTables()) {
             \DB::rollback();
 
@@ -57,12 +61,6 @@ class Deploy extends Command
         }
 
         if ( ! $this->moveUserDisciplineFieldToAnotherTable()) {
-            \DB::rollBack();
-
-            return false;
-        }
-
-        if ( ! $this->addAdditionalFieldsToDatabase()) {
             \DB::rollBack();
 
             return false;
@@ -165,24 +163,6 @@ class Deploy extends Command
         }
 
         $this->info('Дисциплины пользователей успешно перенесены');
-    }
-
-    protected function addAdditionalFieldsToDatabase()
-    {
-        try {
-            Schema::table('disciplines', function(Blueprint $table) {
-                $table->integer('max_players')->unsigned()->after('name');
-            });
-        } catch(Exception $e) {
-            $this->error('Не удалось создать поле max_players в таблице с дисциплинами');
-
-            return false;
-        }
-
-        $this->info('Добавлено дополнительное поле в таблицу с дисциплинами');
-
-        return true;
-
     }
 }
 
