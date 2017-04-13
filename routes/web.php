@@ -29,6 +29,11 @@ Route::group(['prefix' => 'user', 'namespace' => 'Profile', 'middleware' => 'aut
     Route::get('logout', 'ProfileController@logout')->name('profile.logout');
 });
 
+//Страница с командами
+Route::group(['prefix' => 'team', 'namespace' => 'Team'], function() {
+    Route::get('/', 'TeamController@index')->name('team');
+});
+
 Route::group(['prefix' => 'admin', 'middleware' => 'role:admin|discipline_head', 'namespace' => 'Admin'], function() {
     Route::get('/', 'MainController@index')->name('admin');
     Route::get('users', 'UsersController@index')->name('admin.users');

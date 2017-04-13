@@ -2,11 +2,11 @@
 
 namespace App\Exceptions;
 
-use Illuminate\Validation\ValidationException;
 use Exception;
-use HttpException;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
@@ -19,7 +19,7 @@ class Handler extends ExceptionHandler
     protected $dontReport = [
         \Illuminate\Auth\AuthenticationException::class,
         \Illuminate\Auth\Access\AuthorizationException::class,
-        \Symfony\Component\HttpKernel\Exception\HttpException::class,
+        HttpException::class,
         \Illuminate\Database\Eloquent\ModelNotFoundException::class,
         \Illuminate\Session\TokenMismatchException::class,
         \Illuminate\Validation\ValidationException::class,
@@ -55,7 +55,17 @@ class Handler extends ExceptionHandler
 
         if($exception instanceof HttpException) {
             if ($request->expectsJson()) {
-                return response()->json($exception->getMessage(), $exception->getStatusCode());
+                return response()->json(flash($exception->getStatusCode() . ': '. $exception->getMessage(), 'error'));
+            }
+        }
+
+        if ($exception instanceof QueryException) {
+            if ($request->expectsJson()) {
+                if ($exception->getCode() === "45000") {
+                    if ($exception->errorInfo[1] == 1644) {
+                        return response()->json(flash($exception->errorInfo[2], 'error'));
+                    }
+                }
             }
         }
 

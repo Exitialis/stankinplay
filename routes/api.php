@@ -10,6 +10,8 @@ Route::group(['namespace' => 'Api'], function($router) {
         $router->get('/', 'DisciplinesController@index')->name('api.disciplines');
     });
 
+    $router->get('team/lists', 'Team\TeamController@lists')->name('team.lists');
+
     $router->group(['middleware' => 'auth:api'], function($router) {
         $router->group(['namespace' => 'User',  'prefix' => 'users'], function($router) {
             $router->get('/', 'UserController@index')->name('api.users');

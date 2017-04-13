@@ -21,11 +21,13 @@ class CreateFunctions extends Migration
             BEGIN  
                 DECLARE role_id int(10);
 				DECLARE counter int(10);
-                select id INTO role_id from roles where `name` = \'member\' COLLATE utf8_unicode_ci;
-                select count(*) INTO counter from users
+                select id INTO role_id from roles where `name` = \'member\';
+                select count(*) into counter from users
                     join user_discipline on users.id = user_discipline.user_id
                     join disciplines on disciplines.id = user_discipline.discipline_id
-                    where disciplines.name = disciplineName COLLATE utf8_unicode_ci;
+                    join role_user on users.id = role_user.user_id
+                    join roles on role_user.role_id = roles.id
+                    where disciplines.name = \'CS:GO\' AND roles.name = \'member\';
                 return counter;
             END
         ');

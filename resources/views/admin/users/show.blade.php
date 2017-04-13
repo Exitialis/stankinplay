@@ -42,7 +42,7 @@
                 <div class="col-md-3 col-sm-3 col-xs-6">
                     <div class="form-group">
                         <label>Дисциплина</label>
-                        <p>@{{ user.discipline.name }}</p>
+                        <p>@{{ user.discipline[0].name }}</p>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-3 col-xs-6">

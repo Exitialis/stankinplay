@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Team;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Team\StoreRequest;
+use App\Models\Team;
 use App\Models\User;
 use App\Repositories\Contracts\TeamRepositoryContract;
 use App\Repositories\Contracts\UserRepositoryContract;
@@ -26,6 +27,7 @@ class TeamController extends Controller
 
     /**
      * TeamController constructor.
+     *
      * @param TeamRepositoryContract $teams
      * @param UserRepositoryContract $users
      */
@@ -33,6 +35,33 @@ class TeamController extends Controller
     {
         $this->teams = $teams;
         $this->users = $users;
+    }
+
+    /**
+     * Получить список команд.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function lists(Request $request)
+    {
+
+        $teams = Team::with(['discipline', 'captain', 'members'])->paginate(10);
+
+//        $teams = Team::select('teams.*')->join('disciplines as disc', 'teams.discipline_id', '=', 'disc.id')
+//                                        ->join('users as captain', 'captain.id', '=', 'teams.captain_id')
+//                                        ->with(['discipline', 'captain', 'members']);
+
+        /*if ($request->has('orderBy')) {
+            $orderBy = $request->input('orderBy');
+
+            foreach ($orderBy as $order) {
+
+            }
+        }*/
+
+        //$teams = $teams->paginate(10);
+
+        return response()->json($teams);
     }
 
     /**

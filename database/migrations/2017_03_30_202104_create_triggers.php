@@ -19,16 +19,16 @@ class CreateTriggers extends Migration
             FOR EACH ROW BEGIN
                declare maxPlayers int(10);
                declare currentPlayers int(10);
-               declare disciplineName VARCHAR(100);
+               declare disciplineName VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
                select disciplines.name, disciplines.max_players INTO disciplineName, maxPlayers from disciplines
                     join user_discipline on disciplines.id = user_discipline.discipline_id
                     join users on users.id = user_discipline.user_id
                     where users.id = NEW.user_id;
                select countPlayersInDiscipline(disciplineName) into currentPlayers;
-               IF currentPlayers >= maxPlayers THEN
+               IF currentPlayers >= maxPlayers AND NEW.role_id = 5 THEN
                     SIGNAL SQLSTATE \'45000\'
-                    SET MESSAGE_TEXT = \'Player limit exceeded\';
-                END IF;
+                    SET MESSAGE_TEXT = \'Достигнут лимит игроков дисциплины. Чтобы добавить нового игрока, необходимо удалить старого.\';
+               END IF;
             END;
         ');
         }
