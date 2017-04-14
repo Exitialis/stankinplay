@@ -53,7 +53,7 @@ Vue.component('admin-users-show', {
         catchCallback(err) {
             this.loading = false;
             if(err.status === 422) {
-                this.errors = JSON.parse(err.body);
+                this.errors = err.data;
                 window.toastr.error('При изменении ролей произошла ошибка.')
             } else if(err.status === 403) {
                 this.errors = {};

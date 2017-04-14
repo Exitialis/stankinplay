@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
@@ -53,9 +54,17 @@ class Handler extends ExceptionHandler
             }
         }
 
+        if($exception instanceof AuthorizationException) {
+            if ($request->expectsJson()) {
+                return response()->json(flash('У вас недостаточно полномочий для выполнения данного действия', 'error'));
+            }
+        }
+
         if($exception instanceof HttpException) {
             if ($request->expectsJson()) {
-                return response()->json(flash($exception->getStatusCode() . ': '. $exception->getMessage(), 'error'));
+                return response()->json([
+                    'message' => $exception->getMessage()
+                ], $exception->getStatusCode());
             }
         }
 

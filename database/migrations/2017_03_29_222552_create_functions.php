@@ -27,7 +27,7 @@ class CreateFunctions extends Migration
                     join disciplines on disciplines.id = user_discipline.discipline_id
                     join role_user on users.id = role_user.user_id
                     join roles on role_user.role_id = roles.id
-                    where disciplines.name = \'CS:GO\' AND roles.name = \'member\';
+                    where disciplines.name = disciplineName AND roles.name = \'member\';
                 return counter;
             END
         ');

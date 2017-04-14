@@ -78,7 +78,7 @@ class TeamController extends Controller
     
     public function store(StoreRequest $request)
     {
-        $user = \Auth::user();
+        $user = $request->user('api');
 
         if ( ! $user->discipline->first()->team) {
             return response()->json(flash('Для вашей дисциплины невозможно создание команды', 'error'));
@@ -86,16 +86,15 @@ class TeamController extends Controller
 
         $team = $this->teams->create([
             'name' => $request->input('name'),
-            'discipline_id' => $user->discipline->first(),
-            'captain_id' => \Auth::user()->id
+            'discipline_id' => $user->discipline->first()->id,
+            'captain_id' => $user->id
         ]);
 
         if ( ! $team) {
             return response()->json(flash('При создании команды произошла ошибка', 'error'));
         }
 
-        $user->team_id = $team->id;
-        $user->save();
+        $user->team()->sync([$team->id]);
 
         $team->load(['discipline', 'members']);
 
@@ -107,6 +106,10 @@ class TeamController extends Controller
         $user = auth('api')->user();
         if ($user->can(['create-team', 'edit-team'])) {
             $team = $user->ownTeam()->first();
+
+            if( ! $team) {
+                return response()->json('Команда не найдена', 422);
+            }
 
             $users = User::whereHas('discipline', function($query) use($team) {
                 $query->where('id', $team->discipline()->first()->id);

@@ -58,7 +58,7 @@
                             <h4 class="text-success">Участники:</h4>
                         </div>
                         <div v-if="manageTeam" class="col-md-4">
-                            <button v-if="manageTeam && team" class="btn btn-primary btn-raised" data-toggle="modal"
+                            <button @click="loadOptions" v-if="manageTeam && team" class="btn btn-primary btn-raised" data-toggle="modal"
                                     data-target="#inviteUser">
                                 {{ trans('Пригласить участника') }}
                             </button>

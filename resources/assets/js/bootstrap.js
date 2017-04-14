@@ -18,12 +18,10 @@ axios.interceptors.response.use(response => {
         window.toastr[response.data.flash.level || 'success'](response.data.flash.message)
     }
 
-    if (response.status === 429) {
-        window.toastr.error('Too Many Attempts.');
-    }
-
-
     return response;
+}, error => {
+    console.log(error.response);
+    return Promise.reject(error.response);
 });
 
 window.axios = axios;

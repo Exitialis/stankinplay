@@ -22,7 +22,7 @@ Vue.component('forgot', {
             }).catch(response => {
                 this.loading = false;
                 if (response.status === 422) {
-                    this.errors = JSON.parse(response.body);
+                    this.errors = response.data;
                     window.toastr.error('При сбросе пароля произошла ошибка.')
                 } else if (response.status === 403) {
                     window.toastr.error('При сбросе пароля произошла ошибка.')

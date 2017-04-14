@@ -4,13 +4,15 @@ import teamApi from '../../api/team';
 const state = {
     team: null,
     invites: [],
-    userInvites: []
+    userInvites: [],
+    usersToInvite: []
 };
 
 const getters = {
     getTeam: state => state.team,
     getInvites: state => state.invites,
-    getUserInvites: state => state.userInvites
+    getUserInvites: state => state.userInvites,
+    getUsersToInvite: state => state.usersToInvite
 };
 
 const mutations = {
@@ -37,6 +39,10 @@ const mutations = {
     [types.DECLINE_INVITE](state, id) {
         state.userInvites.splice(id, 1);
     },
+
+    [types.RECEIVE_USERS_TO_INVITE](state, users) {
+        state.usersToInvite = users;
+    }
 };
 
 const actions = {
@@ -54,6 +60,11 @@ const actions = {
     loadTeam({ commit }) {
         teamApi.getTeam().then(response => {
             commit(types.RECEIVE_TEAM, response.data.team);
+        });
+    },
+    loadUsersToInvite({ commit }) {
+        teamApi.getUsersToInvite().then(users => {
+            commit(types.RECEIVE_USERS_TO_INVITE, users.data);
         });
     },
     loadUserInvites({ commit }) {

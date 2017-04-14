@@ -1,9 +1,11 @@
+import { mapGetters } from 'vuex';
+
 Vue.component('profile', {
 
     computed: {
-        user() {
-            return this.$store.state.user;
-        },
+        ...mapGetters({
+            user: 'getUser'
+        }),
         group() {
             if (this.universityProfile.group) {
                 return {
@@ -62,19 +64,15 @@ Vue.component('profile', {
             )
         },
         submit(url) {
-            this.$http.put(url, this.form).then(
-                response => {
-                    window.toastr.success('Сохранено.')
+            this.$http.put(url, this.form).then(response => {
+                window.toastr.success('Сохранено.')
+            }).catch(response => {
+                if (response.status === 422) {
+                    this.errors = response.data;
                 }
-            ).catch(
-                response => {
-                    if (response.status === 422) {
-                        this.errors = JSON.parse(response.body);
-                    }
 
-                    window.toastr.error('При сохранении произошла ошибка.')
-                }
-            )
+                window.toastr.error('При сохранении произошла ошибка.')
+            })
         }
     },
 

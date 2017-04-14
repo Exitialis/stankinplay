@@ -13,7 +13,7 @@ class StoreRequest extends FormRequest
      */
     public function authorize()
     {
-        $user = \Auth::user();
+        $user = auth('api')->user();
 
         if ( ! $user) {
             return false;

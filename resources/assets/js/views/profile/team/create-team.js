@@ -1,3 +1,5 @@
+import { mapGetters } from 'vuex';
+
 Vue.component('create-team', {
 
     data() {
@@ -12,9 +14,9 @@ Vue.component('create-team', {
     },
 
     computed: {
-        user() {
-            return this.$store.state.user;
-        }
+        ...mapGetters({
+            user: 'getUser'
+        })
     },
 
     methods: {
@@ -22,10 +24,10 @@ Vue.component('create-team', {
             this.$http.post(url, this.form).then(response => {
                 this.errors = {};
                 $('#createTeam').modal('hide');
-                this.$store.commit('setTeam', response.data.team);
+                this.$store.dispatch('loadTeamWithUsersToInvite');
             }).catch(response => {
                 if (response.status === 422) {
-                    this.errors = JSON.parse(response.body);
+                    this.errors = response.data;
                     window.toastr.error('При создании команды произошла ошибка.')
                 }
             })

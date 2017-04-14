@@ -2,6 +2,9 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Discipline;
+use App\Models\User;
+use DisciplineSeed;
 use Illuminate\Console\Command;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -40,41 +43,32 @@ class Deploy extends Command
      */
     public function handle()
     {
-        \DB::beginTransaction();
+        return \DB::transaction(function() {
+            Schema::table('disciplines', function(Blueprint $table) {
+                $table->integer('max_players')->unsigned()->after('name');
+            });
 
-        Schema::table('disciplines', function(Blueprint $table) {
-            $table->integer('max_players')->unsigned()->after('name');
+            $this->removeOldTables();
+
+            \Artisan::call('migrate');
+
+            $this->moveUserTeamFieldToAnotherTable();
+
+            $this->moveUserDisciplineFieldToAnotherTable();
+
+            $user = User::with(['universityProfile'])->first();
+
+            $user->universityProfile->studentID = 114231;
+            $user->universityProfile->save();
+
+            \DB::unprepared('ALTER TABLE `university_profiles` MODIFY `studentID` INT(10) unsigned NULL DEFAULT null');
+
+            $this->runDisciplineSeed();
+
+            $this->info('Деплой завершен');
+
+            return true;
         });
-
-        if ( ! $this->removeOldTables()) {
-            \DB::rollback();
-
-            return false;
-        }
-
-        \Artisan::call('migrate');
-
-        if ( ! $this->moveUserTeamFieldToAnotherTable()) {
-            \DB::rollBack();
-
-            return false;
-        }
-
-        if ( ! $this->moveUserDisciplineFieldToAnotherTable()) {
-            \DB::rollBack();
-
-            return false;
-        }
-
-        Schema::table('university_profiles', function(Blueprint $table) {
-            $table->integer('studentID')->unsigned()->nullable()->default(null)->change();
-        });
-
-        \DB::commit();
-
-        $this->info('Деплой завершен');
-
-        return true;
     }
 
     protected function removeOldTables()
@@ -112,6 +106,62 @@ class Deploy extends Command
         $this->info('База данных почищена');
 
         return true;
+    }
+
+    protected function runDisciplineSeed()
+    {
+        if ( ! Discipline::where('label', 'CS:GO')->first()) {
+            Discipline::create([
+                'label' => 'CS:GO',
+                'name' => 'CS:GO',
+                'max_players' => 16
+            ]);
+        }
+        if ( ! Discipline::where('label', 'DOTA 2')->first()) {
+            Discipline::create([
+                'label' => 'DOTA 2',
+                'name' => 'DOTA 2',
+                'max_players' => 12
+            ]);
+        }
+        if ( ! Discipline::where('label', 'LOL')->first()) {
+            Discipline::create([
+                'label' => 'LOL',
+                'name' => 'League of Legends',
+                'max_players' => 10
+            ]);
+        }
+        if ( ! Discipline::where('label', 'HS')->first()) {
+            Discipline::create([
+                'label' => 'HS',
+                'name' => 'Hearthstone',
+                'team' => false,
+                'max_players' => 2
+            ]);
+        }
+        if ( ! Discipline::where('label', 'FIFA')->first()) {
+            Discipline::create([
+                'label' => 'FIFA',
+                'name' => 'FIFA',
+                'team' => false,
+                'max_players' => 2
+            ]);
+        }
+        if ( ! Discipline::where('label', 'WOT')->first()) {
+            Discipline::create([
+                'label' => 'WOT',
+                'name' => 'World of Tanks',
+                'max_players' => 30
+            ]);
+        }
+
+        if ( ! Discipline::where('label', 'WT')->first()) {
+            Discipline::create([
+                'label' => 'WT',
+                'name' => 'WarThunder',
+                'max_players' => 15
+            ]);
+        }
     }
 
     protected function moveUserTeamFieldToAnotherTable()

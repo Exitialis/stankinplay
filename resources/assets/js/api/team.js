@@ -16,6 +16,12 @@ export default {
         return window.axios.get('/api/userInvites').catch(() => {
             window.toastr.error('Не удалось получить приглашения в команду');
         })
+    },
+
+    getUsersToInvite() {
+        return window.axios.get('/api/team/users').catch(() => {
+            window.toastr.error('Не удалось загрузить пользователей для приглашения в команду');
+        })
     }
 
 };

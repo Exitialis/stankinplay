@@ -4,13 +4,11 @@ Vue.component('profile-team', {
 
     computed: {
         ...mapGetters({
+            user: 'getUser',
             team: 'getTeam',
             invites: 'getInvites',
             userInvites: 'getUserInvites'
         }),
-        user() {
-            return this.$store.state.user;
-        }
     },
 
     data() {
@@ -24,7 +22,7 @@ Vue.component('profile-team', {
             this.$http.put('/api/invites', {
                 invite_id: this.userInvites[id].id,
                 action: 'accept'
-            }).then(response => {
+            }).then(() => {
                 this.$store.dispatch('acceptInvite', id);
             })
         },
@@ -39,17 +37,27 @@ Vue.component('profile-team', {
                 }
             })
         },
+        loadOptions() {
+            this.$store.dispatch('loadUsersToInvite');
+        }
     },
 
     mounted() {
-        this.$store.dispatch('loadTeamWithInvites');
         this.$store.dispatch('loadUserInvites');
 
-        this.user.can(['create-team', 'edit-team']).then(
-            response => {
-                this.manageTeam = response.data.can;
+        this.user.can(['create-team', 'edit-team']).then(response => {
+            this.manageTeam = response.data.can;
+
+            this.$store.commit('RECEIVE_USER_PERMISSION', 'manageTeam', response.data.can);
+
+            if (this.manageTeam) {
+                this.$store.dispatch('loadTeamWithInvites');
+            } else {
+                this.$store.dispatch('loadTeam');
             }
-        );
+        });
+
+
     }
 
 });

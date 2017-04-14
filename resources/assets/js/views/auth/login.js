@@ -21,7 +21,7 @@ Vue.component('login', {
         }).catch(response => {
                 this.loading = false;
             if (response.status === 422) {
-                this.errors = JSON.parse(response.body);
+                this.errors = response.data;
                 window.toastr.error('При авторизации произошла ошибка.')
             }
         });
