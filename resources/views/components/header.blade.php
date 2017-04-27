@@ -25,6 +25,9 @@
                     <li :class="{active: checkUrl('{{ route('team') }}')}">
                         <a href="{{ route('team') }}">Команды</a>
                     </li>
+                    <li :class="{active: checkUrl('{{ route('news') }}')}">
+                        <a href="{{ route('news') }}">Новости</a>
+                    </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
 
