@@ -14,7 +14,7 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
         'Illuminate\Database\Events\QueryExecuted' => [
-            //'App\Listeners\SqlDebug'
+            'App\Listeners\SqlDebug'
         ]
     ];
 

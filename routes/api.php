@@ -14,6 +14,8 @@ Route::group(['namespace' => 'Api'], function($router) {
 
     $router->group(['namespace' => 'News'], function($router) {
         $router->get('news/lists', 'NewsController@lists')->name('news.lists');
+        $router->get('news/{id}', 'NewsController@get')->name('news.get');
+        $router->post('news', 'NewsController@create')->name('news.create');
     });
 
     $router->group(['middleware' => 'auth:api'], function($router) {
