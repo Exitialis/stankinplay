@@ -27,5 +27,13 @@ class PermissionSeeder extends Seeder
             $perm->description = 'Возможность редакитровать команду';
             $perm->save();
         }
+
+        if ( ! Permission::where('name', 'create-news')->first()) {
+            $perm = new Permission();
+
+            $perm->name = 'create-news';
+            $perm->description = 'Возможность создавать новости';
+            $perm->save();
+        }
     }
 }

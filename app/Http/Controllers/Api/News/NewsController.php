@@ -28,7 +28,7 @@ class NewsController extends Controller
      */
     public function get($id, Request $request)
     {
-        $news = News::find($id);
+        $news = News::with('user')->find($id);
 
         if ( ! $news) {
             abort(404, 'Новость с данным идентификатором не найдена');
@@ -37,8 +37,22 @@ class NewsController extends Controller
         return response()->json($news);
     }
 
+    /**
+     * Создание новости.
+     *
+     * @param CreateRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function create(CreateRequest $request)
     {
-        dd($request);
+        $input = $request->all();
+
+        $input['user_id'] = auth('api')->user()->id;
+
+        $news = News::create($request->all());
+
+        $flash = flash('Новость успешно создана');
+
+        return response()->json(compact('flash'));
     }
 }

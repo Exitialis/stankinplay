@@ -32,7 +32,9 @@ class CreateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|string',
+            'content' => 'required|string',
+            'image' => 'required|mimes:jpeg,bpm,png,jpg',
         ];
     }
 }

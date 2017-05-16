@@ -40,7 +40,6 @@ Route::group(['namespace' => 'Api'], function($router) {
             $router->get('team', 'TeamController@get')->name('team.get');
             $router->post('team', 'TeamController@store')->name('team.store');
             $router->put('team', 'TeamController@update')->name('team.update');
-
             $router->get('team/users', 'TeamController@getUsers')->name('team.users.get');
         });
 

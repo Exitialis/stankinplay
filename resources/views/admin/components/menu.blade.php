@@ -7,6 +7,9 @@
                 <li class="{{ active_link('admin.users') }}">
                     <a href="{{ route('admin.users') }}">Пользователи</a>
                 </li>
+                <li class="{{ active_link('admin.news') }}">
+                    <a href="{{ route('admin.news') }}">Новости</a>
+                </li>
             </ul>
         </div>
     </div>

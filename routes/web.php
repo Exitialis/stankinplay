@@ -42,7 +42,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'role:admin|discipline_head',
     Route::get('/', 'MainController@index')->name('admin');
     Route::get('users', 'UsersController@index')->name('admin.users');
     Route::get('users/{user}', 'UsersController@show')->name('admin.users.user');
-    //Route::get('tournament', 'TournamentController@index')->name('admin.tournament');
+    Route::get('news', 'NewsController@index')->name('admin.news');
 });
 
 Route::post('permission-check', 'Permissions\PermissionController@can');
