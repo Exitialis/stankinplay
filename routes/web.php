@@ -31,6 +31,7 @@ Route::group(['prefix' => 'user', 'namespace' => 'Profile', 'middleware' => 'aut
 
 Route::group(['prefix' => 'news', 'namespace' => 'News'], function($router) {
     $router->get('/', 'NewsController@index')->name('news');
+    $router->get('/{id}', 'NewsController@show')->name('news.show');
 });
 
 //Страница с командами
@@ -43,6 +44,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'role:admin|discipline_head',
     Route::get('users', 'UsersController@index')->name('admin.users');
     Route::get('users/{user}', 'UsersController@show')->name('admin.users.user');
     Route::get('news', 'NewsController@index')->name('admin.news');
+    Route::get('news/create', 'NewsController@create')->name('admin.news.create');
+    Route::get('news/{id}', 'NewsController@show')->name('admin.news.show');
 });
 
 Route::post('permission-check', 'Permissions\PermissionController@can');

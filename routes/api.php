@@ -13,9 +13,10 @@ Route::group(['namespace' => 'Api'], function($router) {
     $router->get('team/lists', 'Team\TeamController@lists')->name('team.lists');
 
     $router->group(['namespace' => 'News'], function($router) {
-        $router->get('news/lists', 'NewsController@lists')->name('news.lists');
-        $router->get('news/{id}', 'NewsController@get')->name('news.get');
-        $router->post('news', 'NewsController@create')->name('news.create');
+        $router->get('news/lists', 'NewsController@lists')->name('api.news.lists');
+        $router->get('news/{id}', 'NewsController@get')->name('api.news.get');
+        $router->post('news', 'NewsController@create')->name('api.news.create');
+        $router->put('news/{id}', 'NewsController@update')->name('api.news.update');
     });
 
     $router->group(['middleware' => 'auth:api'], function($router) {

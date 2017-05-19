@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests\Api\News;
 
+use App\Models\News;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateRequest extends FormRequest
+class UpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,15 +14,25 @@ class CreateRequest extends FormRequest
      */
     public function authorize()
     {
-        if ( ! $user = auth('api')->user()) {
+        if (!$user = auth('api')->user()) {
             return false;
         }
 
-        if ($user->can('create-news')) {
-            return true;
+        if (!$user->can('create-news')) {
+            return false;
         }
 
-        return false;
+        if (!$id = $this->route('id')) {
+            return false;
+        }
+
+        $news = News::find($id);
+
+        if ($news->user_id !== $user->id && !$user->can('edit-news')) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -34,7 +45,7 @@ class CreateRequest extends FormRequest
         return [
             'name' => 'required|string',
             'content' => 'required|string',
-            'image' => 'required|mimes:jpeg,bpm,png,jpg',
+            'image' => 'file|mimes:jpeg,bpm,png,jpg'
         ];
     }
 }

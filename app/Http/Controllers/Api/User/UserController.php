@@ -197,7 +197,7 @@ class UserController extends Controller
             $temp = [];
             foreach ($userExportedAttributes as $attribute => $attributeTranslation) {
                 if ($attribute == 'discipline') {
-                    $temp[] = $user->discipline->name;
+                    $temp[] = $user->discipline->first()->name;
                 } else {
                     $temp[] = $user->{$attribute};
                 }
@@ -265,7 +265,7 @@ class UserController extends Controller
         //Даем доступ главам дисциплин только до пользователей из их дисциплины.
         if( !$user->hasRole('admin') && $user->hasRole('discipline_head')) {
             $users->whereHas('discipline', function ($query) use($user) {
-                $query->where('name', $user->discipline->name);
+                $query->where('name', $user->discipline->first()->name);
             });
         }
 

@@ -1,23 +1,15 @@
-require('./create')
-require('./show')
-
+import {markdown} from 'markdown';
 const urlParser = require('url');
 
-Vue.component('admin-news', {
-
+Vue.component('news', {
   props: {
-    ajaxUrl: {
-      type: String,
-      required: true
-    }
+    ajaxUrl: { required: true, type: String }
   },
 
-  data() {
+  data () {
     return {
-      url: this.ajaxUrl,
       news: [],
-      form: {},
-      errors: {},
+      url: this.ajaxUrl,
       loading: false,
       currentPage: 1,
       totalPages: 0,
@@ -26,7 +18,7 @@ Vue.component('admin-news', {
   },
 
   methods: {
-    fetchNews(page) {
+    fetchNews (page) {
       this.loading = true;
 
       if(page) {
@@ -46,10 +38,12 @@ Vue.component('admin-news', {
         console.log(error);
       })
     },
+    toHtml (content) {
+      return markdown.toHTML(content.substr(0, 128))
+    }
   },
 
-  created() {
+  created () {
     this.fetchNews()
   }
-
-});
+})

@@ -11,4 +11,14 @@ class NewsController extends Controller
     {
         return view('admin.news.index');
     }
+
+    public function create()
+    {
+        return view('admin.news.create');
+    }
+
+    public function show($id)
+    {
+        return view('admin.news.show', compact('id'));
+    }
 }

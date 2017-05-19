@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use cebe\markdown\Markdown;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
 class ComponentsServiceProvider extends ServiceProvider
@@ -18,6 +20,12 @@ class ComponentsServiceProvider extends ServiceProvider
         \Form::component('compInput', 'components.input', ['type' => 'text', 'model', 'label', 'required' => false, 'options' => []]);
         \Form::component('compSelect', 'components.select', ['model', 'prop', 'label', 'required' => false, 'options' => []]);
         \Form::component('compCheckbox', 'components.checkbox', ['model', 'label', 'options' => []]);
+
+        Blade::directive('markdown', function ($content) {
+            $markdown = new Markdown();
+            $content = $markdown->parse($content);
+            return "<?php echo ' ‘ . {$content}; ?>";
+        });
     }
 
     /**

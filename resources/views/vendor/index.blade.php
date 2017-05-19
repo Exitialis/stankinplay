@@ -32,5 +32,7 @@
             window.toastr['{{ $flash['level'] }}']('{{ $flash['message'] }}')
         </script>
     @endif
+
+@yield('js')
 </body>
 </html>
