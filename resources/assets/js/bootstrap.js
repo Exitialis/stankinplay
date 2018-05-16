@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 window.$ = window.jQuery = require('jquery');
-require('bootstrap-sass');
+//require('bootstrap-sass');
 
 axios.interceptors.request.use(function(config){
     config.headers['X-CSRF-TOKEN'] = $('meta[name=csrf-token]').attr('content');
