@@ -23,6 +23,8 @@ class CreateUniversityProfilesTable extends Migration
             $table->foreign('group_id')->references('id')->on('groups');
 
             $table->integer('studentID')->nullable();
+            $table->boolean('confirmed')->default(0);
+
             $table->boolean('module')->default(0);
             $table->boolean('budget')->default(0)->nullable();
             $table->boolean('grants')->default(0)->nullable();

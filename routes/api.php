@@ -32,6 +32,7 @@ Route::group(['namespace' => 'Api'], function($router) {
                 $router->get('university', 'UniversityProfileController@lists')->name('api.users.profiles.university.lists');
                 $router->get('university/{userId}', 'UniversityProfileController@get')->name('api.users.profiles.university.get');
                 $router->put('university/{profileId}', 'UniversityProfileController@update')->name('api.users.profile.university.update');
+                $router->get('game/{userId}', 'GameProfilesController@get')->name('api.users.profiles.game.get');
             });
 
             $router->get('{user_id}/permissions', 'PermissionController@get')->name('users.permissions.get');

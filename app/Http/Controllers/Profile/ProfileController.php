@@ -59,4 +59,9 @@ class ProfileController extends Controller
         return view('profile.team.index');
     }
 
+    public function game()
+    {
+        return view('profile.game.index');
+    }
+
 }

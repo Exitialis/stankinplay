@@ -36,10 +36,10 @@ use Illuminate\Database\Eloquent\Model;
  */
 class UniversityProfile extends Model
 {
-    
+
     protected $fillable = ['user_id', 'group_id', 'studentID', 'module', 'budget', 'grants', 'anotherSections', 'gto', 'socialActivity'];
 
-    protected $visible = ['group_id', 'group', 'group_id', 'studentID', 'module', 'budget', 'grants', 'anotherSections', 'gto', 'socialActivity'];
+    protected $visible = ['group_id', 'first_name', 'last_name', 'middle_name', 'group', 'group_id', 'studentID', 'module', 'budget', 'grants', 'anotherSections', 'gto', 'socialActivity'];
 
     public $exportedAttributes = [
         'group' => 'Группа',

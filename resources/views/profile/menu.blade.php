@@ -7,6 +7,9 @@
                 <li class="{{ active_link('profile.get', 'active') }}">
                     <a href="{{ route('profile.get') }}">Информация</a>
                 </li>
+                <li class="{{ active_link('profile.game', 'active') }}">
+                    <a href="{{ route('profile.game') }}" >Игровой профиль</a>
+                </li>
                 <li class="{{ active_link('profile.team', 'active') }}">
                     <a href="{{ route('profile.team') }}" >Команда</a>
                 </li>

@@ -5,6 +5,8 @@ namespace App\Console;
 use App\Console\Commands\BackupDatabase;
 use App\Console\Commands\CreateTournament;
 use App\Console\Commands\Deploy;
+use App\Console\Commands\ImportStats;
+use App\Console\Commands\LastBaseImporter;
 use App\Console\Commands\MakeRepositoryCommand;
 use App\Console\Commands\MakeRepositoryContractCommand;
 use App\Console\Commands\ParseCsv;
@@ -24,7 +26,9 @@ class Kernel extends ConsoleKernel
         BackupDatabase::class,
         CreateTournament::class,
         ParseCsv::class,
-        Deploy::class
+        Deploy::class,
+        LastBaseImporter::class,
+        ImportStats::class,
     ];
 
     /**

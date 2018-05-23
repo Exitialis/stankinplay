@@ -26,6 +26,7 @@ Route::post('export', 'Api\User\UserController@export')->name('api.users.export'
 Route::group(['prefix' => 'user', 'namespace' => 'Profile', 'middleware' => 'auth'], function (){
     Route::get('profile', 'ProfileController@index')->name('profile.get');
     Route::get('profile/team', 'ProfileController@team')->name('profile.team');
+    Route::get('profile/game', 'ProfileController@game')->name('profile.game');
     Route::get('logout', 'ProfileController@logout')->name('profile.logout');
 });
 

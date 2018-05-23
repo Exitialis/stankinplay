@@ -21,18 +21,19 @@
                     <div class="col-md-3 col-sm-3 col-xs-6">
                         <div class="form-group">
                             <label>Роль:</label>
-                            <p>
-                        <span v-for="(role, index) in user.roles">
-                            @{{ role.display_name }} <span
-                                    v-if="user.roles.length > 1 && index < (user.roles.length - 1)">,</span>
-                        </span>
-                            </p>
+                            <div>
+                                <span v-for="(role, index) in user.roles">
+                                    @{{ role.display_name }} <span
+                                            v-if="user.roles.length > 1 && index < (user.roles.length - 1)">,</span>
+                                </span>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-3 col-xs-6">
                         <div class="form-group">
                             <label>Дисциплина</label>
-                            <p>@{{ user.discipline[0].name }}</p>
+                            <p v-if="user.discipline[0]">@{{ user.discipline[0].name }}</p>
+                            <p v-else>Не задана</p>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-3 col-xs-6">
